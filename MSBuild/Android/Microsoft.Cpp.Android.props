@@ -1,0 +1,70 @@
+﻿<!--
+***********************************************************************************************
+Microsoft.Cpp.Android.props
+
+(c) 2011 Gavin Pugh - Released under the open-source zlib license
+***********************************************************************************************
+-->
+
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(VCTargetsPath)\Platforms\Android\ImportBefore\*.props" Condition="Exists('$(VCTargetsPath)\Platforms\Android\ImportBefore')" />
+  <Import Condition="(exists('$(VCTargetsPath)\Platforms\Android\PlatformToolsets\$(PlatformToolset)\Microsoft.Cpp.Android.$(PlatformToolset).props'))" Project="$(VCTargetsPath)\Platforms\Android\PlatformToolsets\$(PlatformToolset)\Microsoft.Cpp.Android.$(PlatformToolset).props"/>
+
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <EchoCommandLines       Condition="'%(ClCompile.EchoCommandLines)'  == ''">false</EchoCommandLines>
+      <GccOptimization        Condition="'%(ClCompile.GccOptimization)'   == ''">Debug</GccOptimization>
+      <GccDebugInfo           Condition="'%(ClCompile.GccDebugInfo)'      == ''">true</GccDebugInfo>
+    </ClCompile>
+    <Link>
+      <AntBuild               Condition="'%(Link.AntBuild)'               == ''">Disabled</AntBuild>
+      <AntBatchFile           Condition="'%(Link.AntBatchFile)'           == ''">ant.bat</AntBatchFile>
+      <AntBuildDirectory      Condition="'%(Link.AntBuildDirectory)'      == ''">$(SolutionDir)</AntBuildDirectory>
+      <EchoCommandLines       Condition="'%(Link.EchoCommandLines)'       == ''">false</EchoCommandLines>      
+    </Link>
+  </ItemDefinitionGroup>
+
+
+  <!-- No idea if the below is necessary. -->
+
+  <PropertyGroup>
+    <DebuggerFlavor Condition="'$(DebuggerFlavor)'==''">WindowsLocalDebugger</DebuggerFlavor>
+  </PropertyGroup>
+
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <EnablePREfast Condition="'%(ClCompile.EnablePREfast)' == ''">false</EnablePREfast>
+      <OmitFramePointers Condition="'%(ClCompile.OmitFramePointers)' == ''">false</OmitFramePointers>
+      <DebugInformationFormat  Condition="'$(UseDebugLibraries)' == 'true'">EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <TargetMachine Condition="'%(Link.TargetMachine)' == ''">MachineX86</TargetMachine>
+    </Link>
+    <ImpLib>
+      <TargetMachine Condition="'%(ImpLib.TargetMachine)' == ''">MachineX86</TargetMachine>
+    </ImpLib>
+  </ItemDefinitionGroup>
+
+
+  <!-- Whole Program Optimization -->
+  <PropertyGroup>
+    <WholeProgramOptimizationAvailabilityTrue Condition="(exists('$(VCTargetsPath)\microsoft.Cpp.WholeProgramOptimization.props'))">true</WholeProgramOptimizationAvailabilityTrue>
+    <WholeProgramOptimizationAvailabilityInstrument Condition="(exists('$(VCTargetsPath)\microsoft.Cpp.pginstrument.props'))">true</WholeProgramOptimizationAvailabilityInstrument>
+    <WholeProgramOptimizationAvailabilityOptimize Condition="(exists('$(VCTargetsPath)\microsoft.Cpp.pgoptimize.props'))">true</WholeProgramOptimizationAvailabilityOptimize>
+    <WholeProgramOptimizationAvailabilityUpdate Condition="(exists('$(VCTargetsPath)\microsoft.Cpp.pgupdate.props'))">true</WholeProgramOptimizationAvailabilityUpdate>
+  </PropertyGroup>
+
+  <ImportGroup Label="PropertySheets">
+    
+    <!-- Character Set -->
+    <Import Condition="'$(CharacterSet)' == 'Unicode'"    Project="$(VCTargetsPath)\microsoft.Cpp.unicodesupport.props"/>
+    <Import Condition="'$(CharacterSet)' == 'MultiByte'"  Project="$(VCTargetsPath)\microsoft.Cpp.MultiByteCharSupport.props"/>
+
+    <!-- Configuration Type -->
+    <Import Condition="'$(ConfigurationType)' == 'DynamicLibrary'"  Project="$(VCTargetsPath)\microsoft.Cpp.WinDLL.props"/>
+    <Import Condition="'$(ConfigurationType)' == 'Application'"     Project="$(VCTargetsPath)\microsoft.Cpp.Application.props"/>
+
+  </ImportGroup>
+  
+  <Import Project="$(VCTargetsPath)\Platforms\Android\ImportAfter\*.props" Condition="Exists('$(VCTargetsPath)\Platforms\Android\ImportAfter')" />
+</Project>

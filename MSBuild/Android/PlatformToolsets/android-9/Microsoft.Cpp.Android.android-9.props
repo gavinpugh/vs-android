@@ -1,0 +1,85 @@
+﻿<!--
+***********************************************************************************************
+Microsoft.Cpp.Android.android-9.props
+
+(c) 2011 Gavin Pugh - Released under the open-source zlib license
+***********************************************************************************************
+-->
+
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(VCTargetsPath)\Platforms\Android\PlatformToolsets\android-9\ImportBefore\*.props" Condition="Exists('$(VCTargetsPath)\Platforms\Android\PlatformToolsets\android-9\ImportBefore')" />
+
+
+  
+  <PropertyGroup>
+    
+    <PlatformToolsetVersion>android-9</PlatformToolsetVersion>
+
+    <!-- Default path for the NDK -->
+    <ANDROID_NDK_ROOT Condition="'$(ANDROID_NDK_ROOT)' == ''">INVALID</ANDROID_NDK_ROOT>
+
+    <!-- Path to the GCC compilation tools -->
+    <GccToolsPath>$(ANDROID_NDK_ROOT)/toolchains/arm-eabi-4.4.0/prebuilt/windows/bin</GccToolsPath>
+      
+    <!-- Path to the include and libs -->
+    <AndroidNDKUsr>$(ANDROID_NDK_ROOT)/platforms/$(PlatformToolsetVersion)/arch-arm/usr</AndroidNDKUsr>
+
+    <!-- libgcc library, required for some floating point operations. http://gcc.gnu.org/onlinedocs/gccint/Libgcc.html -->
+    <LibGccLibrary>$(ANDROID_NDK_ROOT)/toolchains/arm-eabi-4.4.0/prebuilt/windows/lib/gcc/arm-eabi/4.4.0/libgcc.a</LibGccLibrary>
+
+    <!-- Cxx Stl Include directory -->
+    <GccCxxStlDir>$(ANDROID_NDK_ROOT)/sources/cxx-stl/system/include</GccCxxStlDir>
+    
+
+    <!-- GCC executables -->
+    <GccCppCompiler>arm-eabi-g++.exe</GccCppCompiler>
+    <GccCCompiler>arm-eabi-gcc.exe</GccCCompiler>
+    <GccLinker>arm-eabi-g++.exe</GccLinker>
+    <GccLibrarian>arm-eabi-ar.exe</GccLibrarian>
+
+
+
+    <VCInstallDir>$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VisualStudio\10.0\Setup\VC@ProductDir)</VCInstallDir>
+    <VCInstallDir Condition="'$(VCInstallDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\10.0\Setup\VC@ProductDir)</VCInstallDir>
+    <VCInstallDir Condition="'$(VCInstallDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VCExpress\10.0\Setup\VC@ProductDir)</VCInstallDir>
+    <VCInstallDir Condition="'$(VCInstallDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\VCExpress\10.0\Setup\VC@ProductDir)</VCInstallDir>
+
+    <VSInstallDir>$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VisualStudio\10.0\Setup\VS@ProductDir)</VSInstallDir>
+    <VSInstallDir Condition="'$(VSInstallDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\10.0\Setup\VS@ProductDir)</VSInstallDir>
+    <VSInstallDir Condition="'$(VSInstallDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VCExpress\10.0\Setup\VS@ProductDir)</VSInstallDir>
+    <VSInstallDir Condition="'$(VSInstallDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\VCExpress\10.0\Setup\VS@ProductDir)</VSInstallDir>
+
+    <WindowsSdkDir Condition="'$(UseEnv)' != 'true'">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Microsoft SDKs\Windows\v7.0A@InstallationFolder)</WindowsSdkDir>
+    <WindowsSdkDir Condition="'$(WindowsSdkDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Microsoft SDKs\Windows\v7.0A@InstallationFolder)</WindowsSdkDir>
+    
+
+    <ExecutablePath Condition="'$(ExecutablePath)' == ''">$(WindowsSdkDir)bin;$(GccToolsPath);$(PATH)</ExecutablePath>
+    <IncludePath Condition="'$(IncludePath)' == ''">$(AndroidNDKUsr)/include;$(GccCxxStlDir)</IncludePath>
+    <ReferencePath Condition="'$(ReferencePath)' == ''"></ReferencePath>
+    <LibraryPath Condition="'$(LibraryPath)' == ''">$(AndroidNDKUsr)/lib</LibraryPath>
+    <SourcePath Condition="'$(SourcePath)' == ''"></SourcePath>
+    <ExcludePath Condition="'$(ExcludePath)' == ''"></ExcludePath>
+    <NativeExecutablePath Condition="'$(NativeExecutablePath)' == ''">$(ExecutablePath)</NativeExecutablePath>
+
+    <!-- Override settings -->
+    <GenerateManifest>false</GenerateManifest>
+    <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(ConfigurationType)' == 'StaticLibrary'">
+    <TargetExt>.a</TargetExt>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(ConfigurationType)' == 'DynamicLibrary'">
+    <TargetExt>.so</TargetExt>
+    <TargetName>lib$(ProjectName)</TargetName>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(ConfigurationType)' == 'Application'">
+    <TargetExt>.so</TargetExt>
+    <TargetName>lib$(ProjectName)</TargetName>
+  </PropertyGroup>
+
+  <Import Project="$(VCTargetsPath)\Platforms\Android\PlatformToolsets\android-9\ImportAfter\*.props" Condition="Exists('$(VCTargetsPath)\Platforms\Android\PlatformToolsets\android-9\ImportAfter')" />
+</Project>
