@@ -1,0 +1,301 @@
+﻿<!--
+***********************************************************************************************
+Microsoft.Cpp.Android.targets
+
+(c) 2011 Gavin Pugh - Released under the open-source zlib license
+***********************************************************************************************
+-->
+
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(VCTargetsPath)\Platforms\Android\ImportBefore\*.targets" Condition="Exists('$(VCTargetsPath)\Platforms\Android\ImportBefore')" />
+  <Import Project="$(VCTargetsPath)\Microsoft.CppCommon.targets" />
+
+  <UsingTask AssemblyFile="Microsoft.Build.CPPTasks.Android.dll" TaskName="GetGCCPreproFlags"/>
+  <UsingTask AssemblyFile="Microsoft.Build.CPPTasks.Android.dll" TaskName="GetGCCFileFlags"/>
+  <UsingTask AssemblyFile="Microsoft.Build.CPPTasks.Android.dll" TaskName="GetGCCFileList"/>
+  <UsingTask AssemblyFile="Microsoft.Build.CPPTasks.Android.dll" TaskName="GetGCCFilePath"/>
+  
+  <!-- Extra custom properties in the CL and Linker pages -->
+  <ItemGroup>
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)\gcc-compiler.xml" />
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)\gcc-linker.xml" />
+  </ItemGroup>
+  
+
+  <PropertyGroup>    
+    <!-- Enable incremental build by enable file tracking in tasks-->
+    <TrackFileAccess Condition="'$(TrackFileAccess)' == ''">true</TrackFileAccess>
+  </PropertyGroup>
+
+  <!--=================================================================================================================================================-->
+
+  <!-- GCC Arm Compiler -->
+  <Target Name="ClCompile"
+         Condition="'@(ClCompile)' != ''"
+         DependsOnTargets="SelectClCompile" Inputs="@(ClCompile)" Outputs="%(ClCompile.ObjectFileName)%(ClCompile.Filename).obj">
+
+    <ItemGroup>
+      <ClCompile>
+        <PrecompiledHeaderOutputFile  Condition="'%(ClCompile.PrecompiledHeader)' == 'NotUsing' or '%(ClCompile.PrecompiledHeader)' == ''"></PrecompiledHeaderOutputFile>
+        <PrecompiledHeaderOutputFile  Condition="'%(ClCompile.PrecompiledHeader)' != 'NotUsing' and '$(RunCodeAnalysisOnce)'=='true' and '%(ClCompile.PrecompiledHeader)' != ''">%(ClCompile.PrecompiledHeaderOutputFile).codeanalysis</PrecompiledHeaderOutputFile>
+        <PrecompiledHeaderFile        Condition="'%(ClCompile.PrecompiledHeader)' == 'NotUsing' or '%(ClCompile.PrecompiledHeader)' == ''"></PrecompiledHeaderFile>
+        <AssemblerListingLocation     Condition="'%(ClCompile.AssemblerOutput)' == 'NoListing' or '%(ClCompile.AssemblerOutput)' == ''"></AssemblerListingLocation>
+        <CompileAs                    Condition="'%(ClCompile.CompileAs)' == 'Default' and '%(ClCompile.Extension)' == '.c'">CompileAsC</CompileAs>
+        <CompileAs                    Condition="'%(ClCompile.CompileAs)' == 'Default' and '%(ClCompile.Extension)' != '.c'">CompileAsCpp</CompileAs>
+        <MinimalRebuildFromTracking   Condition="'$(BuildType)' != 'Build' or '$(ForceRebuild)' == 'true'">false</MinimalRebuildFromTracking>
+      </ClCompile>
+    </ItemGroup>
+
+    <PropertyGroup>
+      <CLToolArchitecture Condition="'$(CLToolArchitecture)' == ''">$(DefaultToolArchitecture)</CLToolArchitecture>
+    </PropertyGroup>
+    
+    <Delete Condition="'%(ClCompile.DebugInformationFormat)' != '' and '%(ClCompile.DebugInformationFormat)' != 'OldStyle' and '%(ClCompile.ProgramDataBaseFileName)' != '' and !Exists(%(ClCompile.ProgramDataBaseFileName))"
+            Files="%(ClCompile.PrecompiledHeaderOutputFile)" />
+
+    
+    <!-- Deal with the simple flags -->
+    <PropertyGroup>
+
+      <!-- In/out files -->
+      <SourceFile>%(CLCompile.Identity)</SourceFile>
+      <ObjectFile>%(ClCompile.ObjectFileName)%(ClCompile.Filename).obj</ObjectFile>
+
+      <!-- Choose correct compiler -->
+      <GccExecutable Condition="'%(ClCompile.CompileAs)' == 'CompileAsCpp'">$(GccCppCompiler)</GccExecutable>
+      <GccExecutable Condition="'%(ClCompile.CompileAs)' == 'CompileAsC'">$(GccCCompiler)</GccExecutable>
+
+      <!-- Optimization Flag -->
+      <OptimizationFlag Condition="'%(ClCompile.GccOptimization)' == 'Debug'">-O0</OptimizationFlag>
+      <OptimizationFlag Condition="'%(ClCompile.GccOptimization)' == 'O1'">-O1</OptimizationFlag>
+      <OptimizationFlag Condition="'%(ClCompile.GccOptimization)' == 'O2'">-O2</OptimizationFlag>
+      <OptimizationFlag Condition="'%(ClCompile.GccOptimization)' == 'O3'">-O3</OptimizationFlag>
+      <OptimizationFlag Condition="'%(ClCompile.GccOptimization)' == 'Os'">-Os</OptimizationFlag>
+
+      <!-- Optimization Flag -->
+      <GenDebugInfoFlag Condition="'%(ClCompile.GccDebugInfo)' == 'true'">-g</GenDebugInfoFlag>
+      <GenDebugInfoFlag Condition="'%(ClCompile.GccDebugInfo)' == 'false'"></GenDebugInfoFlag>
+      
+      <!-- Extra Cmdline params, specified in the big box -->
+      <AdditionalParams>%(ClCompile.AdditionalOptions)</AdditionalParams>
+
+      <!-- TODO: Use these -->
+      <!--"%(ClCompile.WarningLevel)"-->
+      <!--"%(ClCompile.TreatWarningAsError)"-->
+
+      <!-- Default preprocessor flags -->
+      <DefaultPreproFlags>-D__ARM_ARCH_5__ -D__ARM_ARCH_5T__ -D__ARM_ARCH_5E__ -D__ARM_ARCH_5TE__ -DANDROID_NDK -DANDROID -D__ANDROID__</DefaultPreproFlags>
+
+      <!-- 'f' prefixed flags -->
+      <DefaultFFlags>-fno-short-enums -fpic -ffunction-sections -funwind-tables -fstack-protector -fomit-frame-pointer -fstrict-aliasing -funswitch-loops -finline-limit=300 -fno-exceptions -fno-rtti</DefaultFFlags>
+
+      <!-- Misc flags -->
+      <DefaultMiscFlags>-Wno-psabi -march=armv5te -mtune=xscale -msoft-float -Wa,--noexecstack</DefaultMiscFlags>
+
+      <GccCompileFlags>$(GenDebugInfoFlag) $(OptimizationFlag) $(DefaultPreproFlags) $(DefaultFFlags) $(DefaultMiscFlags)</GccCompileFlags>
+      
+    </PropertyGroup>
+
+    
+    <!-- Now the more complex ones. Uses an external DLL with some tasks in it. -->
+
+    <GetGCCFileFlags Paths="$(IncludePath)" Flag="-I">
+      <Output PropertyName="IncludeFlags" TaskParameter="ReturnFlags" />
+    </GetGCCFileFlags>
+    
+    <GetGCCFileFlags Paths="%(ClCompile.AdditionalIncludeDirectories)" Flag="-I">
+      <Output PropertyName="AddIncludeFlags" TaskParameter="ReturnFlags" />
+    </GetGCCFileFlags>
+    
+    <GetGCCPreproFlags Symbols="%(ClCompile.PreprocessorDefinitions)">
+      <Output PropertyName="PreproFlags" TaskParameter="PreproFlags" />
+    </GetGCCPreproFlags>
+
+    <!-- GCC doesn't seem fussy about backslashes for the most part. But it did in this one case, where
+         I want the path to the cpp file to be an include directory. Possibly it's the trailing backslash? -->
+    <GetGCCFilePath Path="%(CLCompile.rootdir)%(CLCompile.directory)">
+      <Output PropertyName="SourceFilePath" TaskParameter="Path" />
+    </GetGCCFilePath>
+    
+
+    <!-- Put together the command line -->
+    <PropertyGroup>
+      <CompileCmdLine>"$(GccToolsPath)\$(GccLinker)" $(GccCompileFlags) $(PreproFlags) -I"$(SourceFilePath)" $(IncludeFlags) $(AddIncludeFlags) -c "$(SourceFile)" -o "$(ObjectFile)" $(AdditionalParams)</CompileCmdLine>
+    </PropertyGroup>
+
+    <!-- Some error catches to ensure $(ANDROID_NDK_ROOT) isn't bullshit -->
+    <Error
+      Condition="'$(ANDROID_NDK_ROOT)'=='INVALID'"
+      Text="Please read the instructions that come with vs-android, and set up your 'ANDROID_NDK_ROOT' environment variable correctly.%0D%0APlease note that you will need to restart Visual Studio if you set this variable while it is still running.">
+    </Error>
+    <Error
+      Condition="!Exists('$(GccToolsPath)\$(GccLinker)')"
+      Text="Could not find $(GccToolsPath)\$(GccLinker)%0D%0AYour 'ANDROID_NDK_ROOT' env var of '$(ANDROID_NDK_ROOT)' is likely incorrect.%0D%0ASet it correctly in your system environment variables, and restart Visual Studio.">
+    </Error>
+    
+    <!-- Do your stuff GCC! -->
+    <Message
+      Condition="'%(ClCompile.ExcludedFromBuild)'!='true'"
+      Text="$(SourceFile) -> $(ObjectFile)">
+    </Message>
+    <Message
+      Condition="'%(ClCompile.ExcludedFromBuild)'!='true' and '%(ClCompile.EchoCommandLines)' != 'false'"
+      Text="$(CompileCmdLine)">
+    </Message>
+    <Exec 
+      Condition="'%(ClCompile.ExcludedFromBuild)'!='true'"
+      Command="$(CompileCmdLine)">
+    </Exec>
+
+  
+</Target>
+
+  <!--=================================================================================================================================================-->
+
+  <!-- GCC Arm Linker -->
+  <Target Name="Link" Condition="'@(Link)' != ''">
+
+    <!-- In ItemGroup, so I can do path manipulation easier -->
+    <ItemGroup>
+      <OutputSoFile Include="$(TargetPath)"></OutputSoFile>
+    </ItemGroup>
+
+    <!-- Deal with the simple flags -->
+    <PropertyGroup>
+      
+      <AntBuild>%(Link.AntBuild)</AntBuild>
+      <EchoCommandLines>%(Link.EchoCommandLines)</EchoCommandLines>
+
+      <!-- Extra Cmdline params, specified in the big box -->
+      <AdditionalParams>%(Link.AdditionalOptions)</AdditionalParams>
+      
+      <!-- 'soname' linker flagging. The default filename for output exe's has 'lib' prepended, as the jni-system seems to want -->
+      <SoNameFlag>-Wl,-soname,%(OutputSoFile.Filename).so</SoNameFlag>
+
+      <!-- Some default libs. Need to allow changing of these via prop pages -->
+      <DefaultLibFlags>"$(AndroidNDKUsr)/lib/libc.so" "$(AndroidNDKUsr)/lib/libstdc++.so" "$(AndroidNDKUsr)/lib/libm.so" -ldl -llog -nostdlib</DefaultLibFlags>
+
+      <!-- Some misc flags -->
+      <DefaultMiscFlags>-shared --sysroot="$(AndroidNDKUsr)/.." -Wl,-rpath-link="$(AndroidNDKUsr)/lib" -Wl,--no-undefined -Wl,-z,noexecstack</DefaultMiscFlags>
+
+      <GccLinkerFlags>$(SoNameFlag) $(DefaultMiscFlags) $(DefaultLibFlags)</GccLinkerFlags>
+      
+    </PropertyGroup>
+
+    <!-- Now the more complex ones. Uses an external DLL with some tasks in it. -->
+
+    <GetGCCFileFlags Paths="$(LibraryPath)" Flag="-L">
+      <Output PropertyName="LibPathFlags" TaskParameter="ReturnFlags" />
+    </GetGCCFileFlags>
+    
+    <GetGCCFileFlags Paths="%(Link.AdditionalLibraryDirectories)" Flag="-L">
+      <Output PropertyName="AddLibPathFlags" TaskParameter="ReturnFlags" />
+    </GetGCCFileFlags>
+
+    <GetGCCFileList Paths="@(Link)" StripLeadingObjPaths="true">
+      <Output PropertyName="InputFiles" TaskParameter="OutFileList" />
+      <Output PropertyName="ObjPath" TaskParameter="ObjPath" />
+    </GetGCCFileList>
+    
+    <!-- Put together the command line -->
+    <PropertyGroup>
+      <LinkerCmdLine>"$(GccToolsPath)\$(GccLinker)" $(LibPathFlags) $(ObjPathFlags) $(AddLibPathFlags) $(GccLinkerFlags) -o "$(TargetPath)" $(InputFiles) "$(LibGccLibrary)" $(AdditionalParams)</LinkerCmdLine>
+    </PropertyGroup>
+
+
+    <!-- Call linker -->
+    <Message Text="Linking $(TargetPath)..."></Message>
+    <Message Text="$(LinkerCmdLine)" Condition="'$(EchoCommandLines)' != 'false'"></Message>
+    <Exec WorkingDirectory="$(ObjPath)" Command="$(LinkerCmdLine)"></Exec>    
+
+    <!-- Fire off the ant build, if it's not disabled -->
+    <CallTarget Condition="'$(AntBuild)' != 'Disabled'" Targets="AndroidAntBuild"></CallTarget>
+    
+  </Target>
+
+  
+  <!-- Invocation of the ant build, to produce a final apk -->
+  <Target Name="AndroidAntBuild">
+
+    <!-- In ItemGroup, so I can do path manipulation easier -->
+    <ItemGroup>
+      <AntBuildDirectory Include="%(Link.AntBuildDirectory)"></AntBuildDirectory>
+      <AntBatchFile Include="%(Link.AntBatchFile)"></AntBatchFile>
+    </ItemGroup>
+
+    <!-- Do some basic checks-->
+    <Error 
+      Condition="'%(AntBuildDirectory.FullPath)' == ''" 
+      Text="Ant Build Directory not specified!">      
+    </Error>
+    <Error 
+      Condition="!Exists('%(AntBuildDirectory.FullPath)\build.xml')" 
+      Text="build.xml file not found in %(AntBuildDirectory.FullPath)">
+    </Error>
+    
+    <!-- Figure out commandline -->
+    <PropertyGroup>
+      <AntBuildArgument Condition="'%(Link.AntBuild)' == 'Debug'">debug</AntBuildArgument>
+      <AntBuildArgument Condition="'%(Link.AntBuild)' == 'Release'">release</AntBuildArgument>
+
+      <AntBuildCmdLine>"%(AntBatchFile.Identity)" $(AntBuildArgument)</AntBuildCmdLine>
+    </PropertyGroup>
+
+    <!-- All done, so just call ant -->
+    <Message Text="$(AntBuildCmdLine)"></Message>
+    <Exec WorkingDirectory="%(AntBuildDirectory.FullPath)" Command="$(AntBuildCmdLine)"></Exec>
+          
+  </Target>
+
+  <!--=================================================================================================================================================-->
+
+  <!-- GCC Arm Library Creation -->
+  <Target Name="Lib"
+          Condition="'@(Lib)' != ''">
+    <ItemGroup>
+      <Lib>
+        <MinimalRebuildFromTracking Condition="'$(BuildType)' != 'Build' or '$(ForceRebuild)' == 'true'">false</MinimalRebuildFromTracking>
+      </Lib>
+    </ItemGroup>
+
+    <PropertyGroup>
+      <LibToolArchitecture Condition="'$(LibToolArchitecture)' == ''">$(DefaultToolArchitecture)</LibToolArchitecture>
+    </PropertyGroup>
+
+    <GetGCCFileList Paths="@(Lib)">
+      <Output PropertyName="InputFiles" TaskParameter="OutFileList" />
+    </GetGCCFileList>
+
+    <PropertyGroup>
+      <LibCmdLine>"$(GccToolsPath)\$(GccLibrarian)" rcs "%(Lib.OutputFile)" $(InputFiles)</LibCmdLine>
+    </PropertyGroup>
+
+
+    <Message Text="Creating library %(Lib.OutputFile)..."></Message>
+    <Exec Command="$(LibCmdLine)"></Exec>
+
+  </Target>
+
+  <!--=================================================================================================================================================-->
+
+
+  <Target Name="Manifest>"></Target>
+
+
+  <PropertyGroup>
+    <PrepareForBuildDependsOn>PlatformPrepareForBuild;$(PrepareForBuildDependsOn)</PrepareForBuildDependsOn>
+  </PropertyGroup>
+
+  <Target Name="PlatformPrepareForBuild" DependsOnTargets="$(PlatformPrepareForBuildDependsOn)">
+
+    <!-- Error out if the project references a missing platform toolset -->
+    <VCMessage Code="MSB8008" Type="Error" Arguments="$(PlatformToolset)" Condition="!(exists('$(VCTargetsPath)\Platforms\Android\PlatformToolsets\$(PlatformToolset)\Microsoft.Cpp.Android.$(PlatformToolset).targets'))"/>
+  </Target>
+    
+  <Import Project="$(VCTargetsPath)\Platforms\Android\PlatformToolsets\$(PlatformToolset)\Microsoft.Cpp.Android.$(PlatformToolset).targets" Condition="(exists('$(VCTargetsPath)\Platforms\Android\PlatformToolsets\$(PlatformToolset)\Microsoft.Cpp.Android.$(PlatformToolset).targets'))" />
+  <Import Project="$(VCTargetsPath)\Platforms\Android\ImportAfter\*.targets" Condition="Exists('$(VCTargetsPath)\Platforms\Android\ImportAfter')" />
+  
+</Project>
+
+
+
