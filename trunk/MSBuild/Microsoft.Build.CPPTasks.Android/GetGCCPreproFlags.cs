@@ -1,4 +1,10 @@
-﻿using System;
+﻿/************************************************************************************************
+GetGCCPreproFlags.cs
+
+(c) 2011 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
+*************************************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,24 +19,21 @@ namespace Microsoft.Build.CPPTasks.Android
 {
     public class GetGCCPreproFlags : Task
     {
-        private string symbols = "";
-        public string Symbols
-        {
-            get { return symbols; }
-            set { symbols = value; }
-        }
+        [Required]
+        public string Symbols { get; set; }
 
-        private string preproFlags = "";
-        [Description("Gets or sets the result."), Output]
-        public string PreproFlags
+        [Output]
+        public string PreproFlags { get; set; }
+
+        public GetGCCPreproFlags()
         {
-            get { return preproFlags; }
-            set { preproFlags = value; }
+            Symbols = "";
+            PreproFlags = "";
         }
 
         public override bool Execute()
         {
-            String[] ppsymbols = symbols.Split(';');
+            String[] ppsymbols = Symbols.Split(';');
 
             StringBuilder flags = new StringBuilder(1024);
 
@@ -45,7 +48,7 @@ namespace Microsoft.Build.CPPTasks.Android
                 }
             }
 
-            preproFlags = flags.ToString();
+            PreproFlags = flags.ToString();
 
             return true;
         }

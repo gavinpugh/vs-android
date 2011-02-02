@@ -1,5 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!--Copyright, Microsoft Corporation, All rights reserved.-->
+<!--
+***********************************************************************************************
+gcc-compiler.xml
+
+(c) 2011 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
+***********************************************************************************************
+-->
 <Rule Name="ArmGCCCompiler" PageTemplate="tool" DisplayName="C/C++" SwitchPrefix="-" Order="10" xmlns="http://schemas.microsoft.com/build/2009/properties" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib">
   <Rule.Categories>
     <Category Name="gcc-compiler" DisplayName="GCC arm Compiler" />
@@ -24,7 +30,7 @@
     </EnumValue>
   </EnumProperty>
 
-  <BoolProperty Name="GccDebugInfo" Switch="g" DisplayName="Generate Debugging Information " Description="Produce debugging information in the operating system's native format (stabs, COFF, XCOFF, or DWARF 2). GDB can work with this debugging information." Category="gcc-compiler">
+  <BoolProperty Name="GccDebugInfo" Switch="g" DisplayName="Generate Debugging Information" Description="Produce debugging information in the operating system's native format (stabs, COFF, XCOFF, or DWARF 2). GDB can work with this debugging information." Category="gcc-compiler">
   </BoolProperty>
 
 </Rule>

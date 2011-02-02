@@ -1,4 +1,10 @@
-﻿using System;
+﻿/************************************************************************************************
+GetGCCFileFlags.cs
+
+(c) 2011 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
+*************************************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,31 +19,24 @@ namespace Microsoft.Build.CPPTasks.Android
 {
     public class GetGCCFileFlags : Task
     {
-        private string paths = "";
-        public string Paths
-        {
-            get { return paths; }
-            set { paths = value; }
-        }
+        public string Paths { get; set; }
 
-        private string flag = "";
-        public string Flag
-        {
-            get { return flag; }
-            set { flag = value; }
-        }
+        [Required]
+        public string Flag { get; set; }
 
-        private string returnFlags = "";
-        [Description("Gets or sets the result."), Output]
-        public string ReturnFlags
+        [Output]
+        public string ReturnFlags { get; set; }
+
+        public GetGCCFileFlags()
         {
-            get { return returnFlags; }
-            set { returnFlags = value; }
+            Paths = "";
+            Flag = "";
+            ReturnFlags = "";
         }
 
         public override bool Execute()
         {
-            String[] paths = this.paths.Split(';');
+            String[] paths = this.Paths.Split(';');
 
             StringBuilder flags = new StringBuilder(1024);
 
@@ -46,14 +45,14 @@ namespace Microsoft.Build.CPPTasks.Android
                 string mutpath = path.Trim();
                 if (mutpath != "")
                 {
-                    flags.Append(flag);
+                    flags.Append(Flag);
                     flags.Append("\"");
-                    flags.Append(Utils.FixSlashes(mutpath));
+                    flags.Append(Utils.FixSlashesForUnix(mutpath));
                     flags.Append("\" ");
                 }
             }
 
-            returnFlags = flags.ToString();
+            ReturnFlags = flags.ToString();
 
             return true;
         }

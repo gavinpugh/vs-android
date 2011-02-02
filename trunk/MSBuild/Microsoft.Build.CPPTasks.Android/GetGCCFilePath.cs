@@ -1,4 +1,10 @@
-﻿using System;
+﻿/************************************************************************************************
+GetGCCFilePath.cs
+
+(c) 2011 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
+*************************************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,17 +19,17 @@ namespace Microsoft.Build.CPPTasks.Android
 {
     public class GetGCCFilePath : Task
     {
-        private string path = "";
-        [Description("Gets or sets the result."), Output]
-        public string Path
+        [Required, Output]
+        public string Path { get; set; }
+
+        public GetGCCFilePath()
         {
-            get { return path; }
-            set { path = value; }
+            Path = "";
         }
 
         public override bool Execute()
         {
-            path = Utils.FixSlashes(path);
+            Path = Utils.FixSlashesForUnix(Path);
 
             return true;
         }
