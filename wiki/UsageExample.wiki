@@ -1,19 +1,18 @@
 #summary Compiling a simple Android app with vs-android
 #labels Phase-Deploy
 
+http://www.gavpugh.com/img/vs-android/NewProj.png
 
-http://www.gavpugh.com/vs-android/NewProj.png
+http://www.gavpugh.com/img/vs-android/DragFiles.png
 
-http://www.gavpugh.com/vs-android/DragFiles.png
+http://www.gavpugh.com/img/vs-android/NewPlat.png
 
-http://www.gavpugh.com/vs-android/NewPlat.png
+http://www.gavpugh.com/img/vs-android/PickAndroid.png
 
-http://www.gavpugh.com/vs-android/PickAndroid.png
+http://www.gavpugh.com/img/vs-android/prepro.png
 
-http://www.gavpugh.com/vs-android/prepro.png
+http://www.gavpugh.com/img/vs-android/AddOpts.png
 
-http://www.gavpugh.com/vs-android/AddOpts.png
+http://www.gavpugh.com/img/vs-android/AntDebug.png
 
-http://www.gavpugh.com/vs-android/AntDebug.png
-
-http://www.gavpugh.com/vs-android/Finished.png
+http://www.gavpugh.com/img/vs-android/Finished.png
