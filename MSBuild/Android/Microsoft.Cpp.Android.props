@@ -2,7 +2,7 @@
 ***********************************************************************************************
 Microsoft.Cpp.Android.props
 
-(c) 2011 Gavin Pugh - Released under the open-source zlib license
+(c) 2011 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
 ***********************************************************************************************
 -->
 
@@ -15,6 +15,7 @@ Microsoft.Cpp.Android.props
       <EchoCommandLines       Condition="'%(ClCompile.EchoCommandLines)'  == ''">false</EchoCommandLines>
       <GccOptimization        Condition="'%(ClCompile.GccOptimization)'   == ''">Debug</GccOptimization>
       <GccDebugInfo           Condition="'%(ClCompile.GccDebugInfo)'      == ''">true</GccDebugInfo>
+      <GccCheckAndroidHeaders Condition="'%(ClCompile.GccCheckAndroidHeaders)'  == ''">false</GccCheckAndroidHeaders>
     </ClCompile>
     <Link>
       <AntBuild               Condition="'%(Link.AntBuild)'               == ''">Disabled</AntBuild>
@@ -56,15 +57,13 @@ Microsoft.Cpp.Android.props
 
   <ImportGroup Label="PropertySheets">
     
-    <!-- Character Set -->
-    <Import Condition="'$(CharacterSet)' == 'Unicode'"    Project="$(VCTargetsPath)\microsoft.Cpp.unicodesupport.props"/>
-    <Import Condition="'$(CharacterSet)' == 'MultiByte'"  Project="$(VCTargetsPath)\microsoft.Cpp.MultiByteCharSupport.props"/>
-
     <!-- Configuration Type -->
     <Import Condition="'$(ConfigurationType)' == 'DynamicLibrary'"  Project="$(VCTargetsPath)\microsoft.Cpp.WinDLL.props"/>
     <Import Condition="'$(ConfigurationType)' == 'Application'"     Project="$(VCTargetsPath)\microsoft.Cpp.Application.props"/>
 
   </ImportGroup>
+
+
   
   <Import Project="$(VCTargetsPath)\Platforms\Android\ImportAfter\*.props" Condition="Exists('$(VCTargetsPath)\Platforms\Android\ImportAfter')" />
 </Project>

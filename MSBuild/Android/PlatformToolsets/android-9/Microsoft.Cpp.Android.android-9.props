@@ -2,7 +2,7 @@
 ***********************************************************************************************
 Microsoft.Cpp.Android.android-9.props
 
-(c) 2011 Gavin Pugh - Released under the open-source zlib license
+(c) 2011 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
 ***********************************************************************************************
 -->
 
@@ -67,6 +67,7 @@ Microsoft.Cpp.Android.android-9.props
     
   </PropertyGroup>
 
+  <!-- Override output filenames and extensions -->
   <PropertyGroup Condition="'$(ConfigurationType)' == 'StaticLibrary'">
     <TargetExt>.a</TargetExt>
   </PropertyGroup>
@@ -81,5 +82,12 @@ Microsoft.Cpp.Android.android-9.props
     <TargetName>lib$(ProjectName)</TargetName>
   </PropertyGroup>
 
+  <!-- Push in default preprocessor symbols for Android builds -->
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PreprocessorDefinitions>__ARM_ARCH_5__;__ARM_ARCH_5T__;__ARM_ARCH_5E__;__ARM_ARCH_5TE__;ANDROID_NDK;ANDROID;__ANDROID__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  
   <Import Project="$(VCTargetsPath)\Platforms\Android\PlatformToolsets\android-9\ImportAfter\*.props" Condition="Exists('$(VCTargetsPath)\Platforms\Android\PlatformToolsets\android-9\ImportAfter')" />
 </Project>

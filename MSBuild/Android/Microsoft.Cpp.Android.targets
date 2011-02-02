@@ -2,7 +2,7 @@
 ***********************************************************************************************
 Microsoft.Cpp.Android.targets
 
-(c) 2011 Gavin Pugh - Released under the open-source zlib license
+(c) 2011 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
 ***********************************************************************************************
 -->
 
@@ -14,6 +14,8 @@ Microsoft.Cpp.Android.targets
   <UsingTask AssemblyFile="Microsoft.Build.CPPTasks.Android.dll" TaskName="GetGCCFileFlags"/>
   <UsingTask AssemblyFile="Microsoft.Build.CPPTasks.Android.dll" TaskName="GetGCCFileList"/>
   <UsingTask AssemblyFile="Microsoft.Build.CPPTasks.Android.dll" TaskName="GetGCCFilePath"/>
+  <UsingTask AssemblyFile="Microsoft.Build.CPPTasks.Android.dll" TaskName="GetGCCHeaders"/>
+  
   
   <!-- Extra custom properties in the CL and Linker pages -->
   <ItemGroup>
@@ -27,21 +29,108 @@ Microsoft.Cpp.Android.targets
     <TrackFileAccess Condition="'$(TrackFileAccess)' == ''">true</TrackFileAccess>
   </PropertyGroup>
 
+  
+  
   <!--=================================================================================================================================================-->
+  
+  <!-- Runs GCC with some specific params so it can tell us any header dependencies -->
+  <Target Name="GccGetHeaderDeps"
+          Inputs="@(ClCompile)"
+          Outputs="%(ClCompile.ObjectFileName)%(ClCompile.Filename).dummy"
+          Returns="@(ClCompile)">
+    
+    <!-- This runs on every cpp/h file. I run a number of tasks here which store metadata in the @(ClCompile) item group -->
+    <!-- Since this target is intended to grab headers, it has to run a subset of the gcc params. To save doing this twice -->
+    <!-- is why these things are pushed into metadata for use by the actual compilation target later -->
 
+    <!-- Pick c or cpp compiler. Same method as cl. -->
+    <ItemGroup>
+      <ClCompile>
+        <CompileAs                Condition="'%(ClCompile.CompileAs)' == 'Default' and '%(ClCompile.Extension)' == '.c'">CompileAsC</CompileAs>
+        <CompileAs                Condition="'%(ClCompile.CompileAs)' == 'Default' and '%(ClCompile.Extension)' != '.c'">CompileAsCpp</CompileAs>
+      </ClCompile>
+    </ItemGroup>
+
+    <!-- Get system includes -->
+    <GetGCCFileFlags Paths="$(IncludePath)" Flag="-I">
+      <Output PropertyName="IncludeFlags" TaskParameter="ReturnFlags" />
+    </GetGCCFileFlags>
+
+    <!-- Get additional includes -->
+    <GetGCCFileFlags Paths="%(ClCompile.AdditionalIncludeDirectories)" Flag="-I">
+      <Output PropertyName="AddIncludeFlags" TaskParameter="ReturnFlags" />
+    </GetGCCFileFlags>
+
+    <!-- Get preprocessor symbols -->
+    <GetGCCPreproFlags Symbols="%(ClCompile.PreprocessorDefinitions)">
+      <Output PropertyName="PreproFlags" TaskParameter="PreproFlags" />
+    </GetGCCPreproFlags>
+
+    <!-- GCC doesn't seem fussy about backslashes for the most part. But it did in this one case, where
+         I want the path to the cpp file to be an include directory. Possibly it's the trailing backslash? -->
+    <GetGCCFilePath Path="%(CLCompile.rootdir)%(CLCompile.directory)">
+      <Output PropertyName="SourceFilePath" TaskParameter="Path" />
+    </GetGCCFilePath>
+    
+    <!-- Pick executable, and record the stuff we just found out -->
+    <ItemGroup>
+      <ClCompile>
+        <GccExecutable Condition="'%(ClCompile.CompileAs)' == 'CompileAsCpp'">$(GccCppCompiler)</GccExecutable>
+        <GccExecutable Condition="'%(ClCompile.CompileAs)' == 'CompileAsC'">$(GccCCompiler)</GccExecutable>
+        <IncludeAndPrePro>-I"$(SourceFilePath)" $(IncludeFlags) $(AddIncludeFlags) $(PreproFlags)</IncludeAndPrePro>
+      </ClCompile>
+    </ItemGroup>
+ 
+    <!-- Put together args for the prepro run -->
+    <PropertyGroup>
+      <PreProArgs>-E -M %(ClCompile.Identity) %(ClCompile.IncludeAndPrePro) %(ClCompile.AdditionalOptions)</PreProArgs>
+      <PreProExe>"$(GccToolsPath)\%(CLCompile.GccExecutable)"</PreProExe>
+    </PropertyGroup>
+
+    <!-- Call a custom task to run gcc and pull out the header dependencies -->
+    <GetGCCHeaders 
+        GCCPath="$(PreProExe)" 
+        Params="$(PreProArgs)" 
+        CPPFile="%(ClCompile.Filename)%(ClCompile.Extension)"
+        CurrentPath="$(MSBuildProjectDirectory)">
+      <Output ItemName="HeaderList" TaskParameter="HeaderList" />
+    </GetGCCHeaders>
+    
+    <!-- Push the headers returned into the metadata -->
+    <ItemGroup>
+      <ClCompile>
+        <Headers>@(HeaderList)</Headers>
+      </ClCompile>
+    </ItemGroup>
+
+    
+    <!-- Uncomment this to debug the header stuff -->
+    <!--
+    <Message Text="SourceFile: @(ClCompile)" />
+    <Message Text="Headers: %(ClCompile.Headers)" />
+    <Message Text="PreprocessorDefinitions: %(ClCompile.PreprocessorDefinitions)" />
+    <Message Text="GccExecutable: %(ClCompile.GccExecutable)" />
+    -->
+    
+  </Target>
+
+  
+  <!--=================================================================================================================================================-->
+  
   <!-- GCC Arm Compiler -->
-  <Target Name="ClCompile"
-         Condition="'@(ClCompile)' != ''"
-         DependsOnTargets="SelectClCompile" Inputs="@(ClCompile)" Outputs="%(ClCompile.ObjectFileName)%(ClCompile.Filename).obj">
-
+  <Target 
+    Name="ClCompile"
+    Condition="'@(ClCompile)' != ''"
+    DependsOnTargets="SelectClCompile;GccGetHeaderDeps" 
+    Inputs="%(ClCompile.FullPath);%(ClCompile.Headers)" 
+    Outputs="%(ClCompile.ObjectFileName)%(ClCompile.Filename).obj">
+     
     <ItemGroup>
       <ClCompile>
         <PrecompiledHeaderOutputFile  Condition="'%(ClCompile.PrecompiledHeader)' == 'NotUsing' or '%(ClCompile.PrecompiledHeader)' == ''"></PrecompiledHeaderOutputFile>
         <PrecompiledHeaderOutputFile  Condition="'%(ClCompile.PrecompiledHeader)' != 'NotUsing' and '$(RunCodeAnalysisOnce)'=='true' and '%(ClCompile.PrecompiledHeader)' != ''">%(ClCompile.PrecompiledHeaderOutputFile).codeanalysis</PrecompiledHeaderOutputFile>
         <PrecompiledHeaderFile        Condition="'%(ClCompile.PrecompiledHeader)' == 'NotUsing' or '%(ClCompile.PrecompiledHeader)' == ''"></PrecompiledHeaderFile>
         <AssemblerListingLocation     Condition="'%(ClCompile.AssemblerOutput)' == 'NoListing' or '%(ClCompile.AssemblerOutput)' == ''"></AssemblerListingLocation>
-        <CompileAs                    Condition="'%(ClCompile.CompileAs)' == 'Default' and '%(ClCompile.Extension)' == '.c'">CompileAsC</CompileAs>
-        <CompileAs                    Condition="'%(ClCompile.CompileAs)' == 'Default' and '%(ClCompile.Extension)' != '.c'">CompileAsCpp</CompileAs>
         <MinimalRebuildFromTracking   Condition="'$(BuildType)' != 'Build' or '$(ForceRebuild)' == 'true'">false</MinimalRebuildFromTracking>
       </ClCompile>
     </ItemGroup>
@@ -61,10 +150,6 @@ Microsoft.Cpp.Android.targets
       <SourceFile>%(CLCompile.Identity)</SourceFile>
       <ObjectFile>%(ClCompile.ObjectFileName)%(ClCompile.Filename).obj</ObjectFile>
 
-      <!-- Choose correct compiler -->
-      <GccExecutable Condition="'%(ClCompile.CompileAs)' == 'CompileAsCpp'">$(GccCppCompiler)</GccExecutable>
-      <GccExecutable Condition="'%(ClCompile.CompileAs)' == 'CompileAsC'">$(GccCCompiler)</GccExecutable>
-
       <!-- Optimization Flag -->
       <OptimizationFlag Condition="'%(ClCompile.GccOptimization)' == 'Debug'">-O0</OptimizationFlag>
       <OptimizationFlag Condition="'%(ClCompile.GccOptimization)' == 'O1'">-O1</OptimizationFlag>
@@ -75,16 +160,10 @@ Microsoft.Cpp.Android.targets
       <!-- Optimization Flag -->
       <GenDebugInfoFlag Condition="'%(ClCompile.GccDebugInfo)' == 'true'">-g</GenDebugInfoFlag>
       <GenDebugInfoFlag Condition="'%(ClCompile.GccDebugInfo)' == 'false'"></GenDebugInfoFlag>
-      
-      <!-- Extra Cmdline params, specified in the big box -->
-      <AdditionalParams>%(ClCompile.AdditionalOptions)</AdditionalParams>
 
       <!-- TODO: Use these -->
       <!--"%(ClCompile.WarningLevel)"-->
       <!--"%(ClCompile.TreatWarningAsError)"-->
-
-      <!-- Default preprocessor flags -->
-      <DefaultPreproFlags>-D__ARM_ARCH_5__ -D__ARM_ARCH_5T__ -D__ARM_ARCH_5E__ -D__ARM_ARCH_5TE__ -DANDROID_NDK -DANDROID -D__ANDROID__</DefaultPreproFlags>
 
       <!-- 'f' prefixed flags -->
       <DefaultFFlags>-fno-short-enums -fpic -ffunction-sections -funwind-tables -fstack-protector -fomit-frame-pointer -fstrict-aliasing -funswitch-loops -finline-limit=300 -fno-exceptions -fno-rtti</DefaultFFlags>
@@ -92,46 +171,27 @@ Microsoft.Cpp.Android.targets
       <!-- Misc flags -->
       <DefaultMiscFlags>-Wno-psabi -march=armv5te -mtune=xscale -msoft-float -Wa,--noexecstack</DefaultMiscFlags>
 
-      <GccCompileFlags>$(GenDebugInfoFlag) $(OptimizationFlag) $(DefaultPreproFlags) $(DefaultFFlags) $(DefaultMiscFlags)</GccCompileFlags>
+      <GccCompileFlags>$(GenDebugInfoFlag) $(OptimizationFlag) $(DefaultFFlags) $(DefaultMiscFlags)</GccCompileFlags>
       
     </PropertyGroup>
-
     
-    <!-- Now the more complex ones. Uses an external DLL with some tasks in it. -->
-
-    <GetGCCFileFlags Paths="$(IncludePath)" Flag="-I">
-      <Output PropertyName="IncludeFlags" TaskParameter="ReturnFlags" />
-    </GetGCCFileFlags>
     
-    <GetGCCFileFlags Paths="%(ClCompile.AdditionalIncludeDirectories)" Flag="-I">
-      <Output PropertyName="AddIncludeFlags" TaskParameter="ReturnFlags" />
-    </GetGCCFileFlags>
-    
-    <GetGCCPreproFlags Symbols="%(ClCompile.PreprocessorDefinitions)">
-      <Output PropertyName="PreproFlags" TaskParameter="PreproFlags" />
-    </GetGCCPreproFlags>
-
-    <!-- GCC doesn't seem fussy about backslashes for the most part. But it did in this one case, where
-         I want the path to the cpp file to be an include directory. Possibly it's the trailing backslash? -->
-    <GetGCCFilePath Path="%(CLCompile.rootdir)%(CLCompile.directory)">
-      <Output PropertyName="SourceFilePath" TaskParameter="Path" />
-    </GetGCCFilePath>
-    
-
     <!-- Put together the command line -->
     <PropertyGroup>
-      <CompileCmdLine>"$(GccToolsPath)\$(GccLinker)" $(GccCompileFlags) $(PreproFlags) -I"$(SourceFilePath)" $(IncludeFlags) $(AddIncludeFlags) -c "$(SourceFile)" -o "$(ObjectFile)" $(AdditionalParams)</CompileCmdLine>
+      <CompileCmdLine>"$(GccToolsPath)\%(CLCompile.GccExecutable)" $(GccCompileFlags) %(ClCompile.IncludeAndPrePro) -c "$(SourceFile)" -o "$(ObjectFile)" %(ClCompile.AdditionalOptions)</CompileCmdLine>
     </PropertyGroup>
 
+    
     <!-- Some error catches to ensure $(ANDROID_NDK_ROOT) isn't bullshit -->
     <Error
       Condition="'$(ANDROID_NDK_ROOT)'=='INVALID'"
       Text="Please read the instructions that come with vs-android, and set up your 'ANDROID_NDK_ROOT' environment variable correctly.%0D%0APlease note that you will need to restart Visual Studio if you set this variable while it is still running.">
     </Error>
     <Error
-      Condition="!Exists('$(GccToolsPath)\$(GccLinker)')"
-      Text="Could not find $(GccToolsPath)\$(GccLinker)%0D%0AYour 'ANDROID_NDK_ROOT' env var of '$(ANDROID_NDK_ROOT)' is likely incorrect.%0D%0ASet it correctly in your system environment variables, and restart Visual Studio.">
+      Condition="!Exists('$(GccToolsPath)\%(CLCompile.GccExecutable)')"
+      Text="Could not find $(GccToolsPath)\%(CLCompile.GccExecutable)%0D%0AYour 'ANDROID_NDK_ROOT' env var of '$(ANDROID_NDK_ROOT)' is likely incorrect.%0D%0ASet it correctly in your system environment variables, and restart Visual Studio.">
     </Error>
+    
     
     <!-- Do your stuff GCC! -->
     <Message
@@ -153,7 +213,10 @@ Microsoft.Cpp.Android.targets
   <!--=================================================================================================================================================-->
 
   <!-- GCC Arm Linker -->
-  <Target Name="Link" Condition="'@(Link)' != ''">
+  <Target Name="Link" 
+          Condition="'@(Link)' != ''" 
+          Inputs="@(Link)"
+          Outputs="$(TargetPath)">
 
     <!-- In ItemGroup, so I can do path manipulation easier -->
     <ItemGroup>
@@ -251,7 +314,10 @@ Microsoft.Cpp.Android.targets
 
   <!-- GCC Arm Library Creation -->
   <Target Name="Lib"
-          Condition="'@(Lib)' != ''">
+          Condition="'@(Lib)' != ''" 
+          Inputs="@(Lib)" 
+          Outputs="%(Lib.OutputFile)">
+    
     <ItemGroup>
       <Lib>
         <MinimalRebuildFromTracking Condition="'$(BuildType)' != 'Build' or '$(ForceRebuild)' == 'true'">false</MinimalRebuildFromTracking>

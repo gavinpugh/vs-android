@@ -1,4 +1,10 @@
-﻿using System;
+﻿/************************************************************************************************
+GetGCCFileList.cs
+
+(c) 2011 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
+*************************************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,34 +19,22 @@ namespace Microsoft.Build.CPPTasks.Android
 {
     public class GetGCCFileList : Task
     {
-        private string[] paths = new string[0];
-        public string[] Paths
-        {
-            get { return paths; }
-            set { paths = value; }
-        }
+        public string[] Paths { get; set; }
 
-        private bool stripLeadingObjPaths = false;
-        public bool StripLeadingObjPaths
-        {
-            get { return stripLeadingObjPaths; }
-            set { stripLeadingObjPaths = value; }
-        }
+        public bool StripLeadingObjPaths { get; set; }
 
-        private string objPath = "";
-        [Description("Gets or sets the result."), Output]
-        public string ObjPath
-        {
-            get { return objPath; }
-            set { objPath = value; }
-        }
+        [Output]
+        public string ObjPath { get; set; }
 
-        private string outFileList = "";
-        [Description("Gets or sets the result."), Output]
-        public string OutFileList
+        [Output]
+        public string OutFileList { get; set; }
+
+        public GetGCCFileList()
         {
-            get { return outFileList; }
-            set { outFileList = value; }
+            Paths = new string[0];
+            StripLeadingObjPaths = false;
+            ObjPath = "";
+            OutFileList = "";
         }
 
         public override bool Execute()
@@ -52,11 +46,11 @@ namespace Microsoft.Build.CPPTasks.Android
 
             bool first = true;
 
-            foreach (string path in paths)
+            foreach (string path in this.Paths)
             {
-                string mutPath = Utils.FixSlashes(path);
+                string mutPath = Utils.FixSlashesForUnix(path);
 
-                if ( stripLeadingObjPaths )
+                if (StripLeadingObjPaths)
                 {
                     if (Path.GetExtension(mutPath) == ".obj")
                     {
@@ -89,7 +83,7 @@ namespace Microsoft.Build.CPPTasks.Android
                                 // Log filename to show in error message if we ever have more than one obj path
                                 firstCandidate = mutPath;
 
-                                objPath = leadingPath;
+                                ObjPath = leadingPath;
                             }
                         }
 
@@ -112,7 +106,7 @@ namespace Microsoft.Build.CPPTasks.Android
                 first = false;
             }
 
-            outFileList = outList.ToString();
+            OutFileList = outList.ToString();
 
             return true;
         }
