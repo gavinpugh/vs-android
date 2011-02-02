@@ -1,14 +1,19 @@
 #summary Compiling a simple Android app with vs-android
 #labels Phase-Deploy
 
-= Introduction =
 
-Add your content here.
+http://www.gavpugh.com/vs-android/NewProj.png
 
+http://www.gavpugh.com/vs-android/DragFiles.png
 
-= Details =
+http://www.gavpugh.com/vs-android/NewPlat.png
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+http://www.gavpugh.com/vs-android/PickAndroid.png
+
+http://www.gavpugh.com/vs-android/prepro.png
+
+http://www.gavpugh.com/vs-android/AddOpts.png
+
+http://www.gavpugh.com/vs-android/AntDebug.png
+
+http://www.gavpugh.com/vs-android/Finished.png
