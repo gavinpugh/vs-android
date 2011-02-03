@@ -69,8 +69,23 @@
 
   * Type *-lGLESv1_CM* into the lower box. The letter after the initial dash is a lower case 'L'. This tells the linker to link in that OpenGL library.
 
-===Ant===
+===Ant Build===
+
+  * In the same 'Linker' section of this properties dialog, click on 'Android Ant Build' on the left-hand side.
+
+  * Change the top option 'Ant Build' to *ant debug*. You can just double click on the entry to cycle through the options.
 
 <img src="http://www.gavpugh.com/img/vs-android/AntDebug.png" align="center">
+
+==Building==
+
+  * Click 'OK' to exit the properties dialog.
+
+  * Go to the 'Build' menu. Choose 'Build Solution'.
+
+  * It'll:
+    # Compile the .c files
+    # Link the finished .so native executable
+    # Run ant to build the final apk file
 
 <img src="http://www.gavpugh.com/img/vs-android/Finished.png" align="center">
