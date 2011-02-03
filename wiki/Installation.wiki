@@ -1,14 +1,78 @@
 #summary A guide to installing vs-android
 #labels Phase-Deploy
 
-= Introduction =
+=Installing vs-android=
 
-Add your content here.
+  * Download the latest release of vs-android from [http://code.google.com/p/vs-android/downloads/list here].
+
+  * Unzip it anywhere you want. The install process copies files out of it, so you can safely delete it when you're done.
+
+  * Go into the 'MsBuild' directory of what you just unzipped.
+
+  * For Windows 2000 or XP, just double click on 'install.cmd'.
+
+  * For Vista or Windows 7 you will need to right click 'install.cmd', and choose to 'Run as Administrator". Don't worry, you can view the install batch file in notepad if you wish. All it does is copy files to the correct place in your Visual Studio install.
+
+  * That's it. The command box that pops up should show a number of files as successfully copied. It will prompt you to press any key, and then close itself.
+
+  * Feel free to delete the files you unzipped earlier. They are no longer required. 
+
+==Manual Install==
+
+If you don't want to run the 'install.cmd' file, you can copy the files manually. Obviously skip these steps if you already installed it.
+
+  * In the 'MSBuild' directory contained in the zip file is a directory named 'Android'.
+
+  * Navigate to one of these directories, depending on whether you are running 32-bit or 64-bit windows:
+
+`C:\Program Files\MSBuild\Microsoft.Cpp\v4.0\Platforms`
+
+`C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Platforms`
+
+  * In this directory will already be a 'Win32' subdirectory. Possibly an 'Itanium' and 'x64' directories too. You want that 'Android' directory to sit alongside them.
+
+  * That's it. You can check inside the 'Win32' and 'Android' directories to ensure that they look similar. The Android one has a couple of extra xml files though.
 
 
-= Details =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+=NDK Setup=
+
+  * Download the NDK from here: [http://developer.android.com/sdk/ndk/index.html]
+
+  * I unzipped mine to the root directory. I'd recommend staying away from paths with spaces in them. 'Program Files' for example would be a no-no. (there's every chance it works fine, but you may run into problems later).
+
+  * So within C:\android-ndk-r5b, I have 'build' and 'docs' subdirectories. Just pointing that out in case you unzipped a couple of levels deep.
+
+==Environment Variable==
+
+  * You need to set one system environment variable so that the NDK can be found in Visual Studio.
+
+  * The variable is *ANDROID_NDK_ROOT*. This should be set to the directory you installed to. In my example this is "C:\android-ndk-r5b". Without the quotes.
+
+  * Search Google if you don't know how to set system environment variables.
+
+=Finished=
+
+  * At this point you can build NDK executables in Visual Studio! 
+
+  * If you already had any Visual Studio sessions open, you will need to close and reopen them to make use of the new 'Android' platform.
+
+<br>
+
+---- 
+
+<br>
+
+=Installing ant=
+
+This is optional. I'd recommend using ant though. Your only other option if you don't, is to use Eclipse. Using ant means that you'll be able to work exclusively in Visual Studio.
+
+  * Download ant here: [http://ant.apache.org/bindownload.cgi]
+
+  * Download the zip file just under the heading "Current Release of Ant"
+
+  * Unzip this such that the subdirectories contained: 'bin', 'docs', etc... sit in c:\ant. I recommend just going with c:\ant. The vs-android dialogs will default to using ant with this path.
+
+  * _I hate putting everything at the root directory too. Feel free to experiment with paths that have spaces. Or possibly just put all these tidily under one main c:\android directory?_
+
+  * Oh, you need to have Java installed too. Ant is written in Java.
