@@ -9,7 +9,7 @@
 
   * Uncheck 'Create directory for solution'. This puts the sln file and the vcxproj in the same directory. It will still create one directory off the base path you give. So in my case below, it'll end up in "C:\projects\san-angeles"
 
-<img src="http://www.gavpugh.com/img/vs-android/NewProj.png align="center">
+<img src="http://www.gavpugh.com/img/vs-android/NewProj.png" align="center">
 
   * Download [http://vs-android.googlecode.com/files/san-angeles.zip san-angeles.zip].
 
@@ -17,18 +17,18 @@
 
   * Go into the 'jni' directory and drag over the following files into your project as shown:
 
-<img src="http://www.gavpugh.com/img/vs-android/DragFiles.png align="center">
+<img src="http://www.gavpugh.com/img/vs-android/DragFiles.png" align="center">
 
   * Be sure to leave out the win32 and linux files. Delete them from the Visual Studio project if you accidentally brought them in.
 
-<img src="http://www.gavpugh.com/img/vs-android/NewPlat.png align="center">
+<img src="http://www.gavpugh.com/img/vs-android/NewPlat.png" align="center">
 
-<img src="http://www.gavpugh.com/img/vs-android/PickAndroid.png align="center">
+<img src="http://www.gavpugh.com/img/vs-android/PickAndroid.png" align="center">
 
-<img src="http://www.gavpugh.com/img/vs-android/prepro.png align="center">
+<img src="http://www.gavpugh.com/img/vs-android/prepro.png" align="center">
 
-<img src="http://www.gavpugh.com/img/vs-android/AddOpts.png align="center">
+<img src="http://www.gavpugh.com/img/vs-android/AddOpts.png" align="center">
 
-<img src="http://www.gavpugh.com/img/vs-android/AntDebug.png align="center">
+<img src="http://www.gavpugh.com/img/vs-android/AntDebug.png" align="center">
 
-<img src="http://www.gavpugh.com/img/vs-android/Finished.png align="center">
+<img src="http://www.gavpugh.com/img/vs-android/Finished.png" align="center">
