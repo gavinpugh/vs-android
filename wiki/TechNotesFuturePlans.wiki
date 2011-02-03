@@ -1,13 +1,30 @@
-#summary One-sentence summary of this page.
+#summary Technical notes, and future plans for vs-android
 
 = Introduction =
 
-Add your content here.
+vs-android was a natural evolution to using the 'makefile project' method of working with Android apps in Visual Studio.
+
+I started working on it largely in an experimental fashion, taking the Microsoft cl compiler MSBuild scripts and modifying them. This was the first time I have worked with MSBuild, so this project in itself has been a learning experience.
+
+In light of this, the MSBuild scripts which make up vs-android may not be the 'correct' way of doing things. For some aspects I may well be going 'round the houses' instead of a more succinct and efficient route.
+
+Anyhow, the culmination of the work was an environment I felt matched the native Microsoft Cl compiler pretty decently. I could compile single files; I have Intellisense working completely; I could have static library sub-projects. 
 
 
-= Details =
+= Why bother with this, why not use Eclipse? =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+Well, when someone has used an IDE for well over a decade every day for their day job, they get a little attached to it! :) Ask a devout emacs user, I'm sure you'd pry that editor out of their cold dead hands.
+
+All in all though, there are a few very positive points over using the ndk-build scripts that Google provide. 
+  * Close to half the time to do a full rebuild on large projects, and half the time for incremental (one file) changes.
+  * Ability to compile single files very quickly, without dependency checking the whole project.
+  * It's a very good cross-platform solution if you wish to maintain a Win32 port of your software. These can be maintained as well within the same project file.
+
+So having those, and using the fully-featured text editor I've been used to for years is a pretty easy sell to me. I'm sure Eclipse is great, I've tried using it a few times now but I just can't get on with it to the same degree.
+
+
+= Script Guts =
+
+
+
+= Future Plans =
