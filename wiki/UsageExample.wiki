@@ -1,6 +1,14 @@
 #summary Compiling a simple Android app with vs-android
 #labels Phase-Deploy
 
+<wiki:toc max_depth="3" />
+
+==Installation==
+
+  * Follow the [Installation] instructions to install vs-android. 
+
+  * This guide also makes use of 'ant' to build a deployable .apk file. You can skip the ant-related steps if you so wish.
+
 ==Startup==
 
   * After you have installed vs-android, start up Visual Studio 2010.
@@ -39,7 +47,7 @@
 
   * In the next dialog choose 'Android' from the dropdown list. If it is not present, then there was a problem with installing vs-android.
 
-  * Copy settings from '<empty>', and ensure 'Create new project platforms' is checked.
+  * Copy settings from 'empty', and ensure 'Create new project platforms' is checked.
 
 <img src="http://www.gavpugh.com/img/vs-android/PickAndroid.png" align="center">
 
@@ -71,6 +79,8 @@
 
 ===Ant Build===
 
+_(skip these steps if you do not have ant installed)_
+
   * In the same 'Linker' section of this properties dialog, click on 'Android Ant Build' on the left-hand side.
 
   * Change the top option 'Ant Build' to *ant debug*. You can just double click on the entry to cycle through the options.
@@ -84,8 +94,8 @@
   * Go to the 'Build' menu. Choose 'Build Solution'.
 
   * It'll:
-    # Compile the .c files
-    # Link the finished .so native executable
-    # Run ant to build the final apk file
+    # Compile the .c files.
+    # Link the finished .so native executable.
+    # Run ant to build the final deployable apk file. _(or not, if you chose to skip this)_
 
 <img src="http://www.gavpugh.com/img/vs-android/Finished.png" align="center">
