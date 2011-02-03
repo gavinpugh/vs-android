@@ -7,7 +7,7 @@
 
   * Unzip it anywhere you want. The install process copies files out of it, so you can safely delete it when you're done.
 
-  * Go into the 'MsBuild' directory of what you just unzipped.
+  * Go into the `MsBuild` directory of what you just unzipped.
 
   * For Windows 2000 or XP, just double click on 'install.cmd'.
 
@@ -47,7 +47,7 @@ If you don't want to run the 'install.cmd' file, you can copy the files manually
 
   * You need to set one system environment variable so that the NDK can be found in Visual Studio.
 
-  * The variable is *ANDROID_NDK_ROOT*. This should be set to the directory you installed to. In my example this is "C:\android-ndk-r5b". Without the quotes.
+  * The variable is *ANDROID_NDK_ROOT*. This should be set to the directory you installed to. In my example this is `C:\android-ndk-r5b`. Without the quotes.
 
   * Search Google if you don't know how to set system environment variables.
 
