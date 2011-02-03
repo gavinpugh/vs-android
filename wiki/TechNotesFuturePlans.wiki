@@ -1,6 +1,8 @@
 #summary Technical notes, and future plans for vs-android
 #labels Phase-Design,Phase-Requirements
 
+<wiki:toc max_depth="4" />
+
 = Introduction =
 
 vs-android was a natural evolution to using the 'makefile project' method of working with Android apps in Visual Studio.
@@ -12,7 +14,7 @@ In light of this, the MSBuild scripts which make up vs-android may not be the 'c
 Anyhow, the culmination of the work was an environment I felt matched the native Microsoft Cl compiler pretty decently. I could compile single files; I have Intellisense working completely; I could have static library sub-projects. All the stuff I wanted.
 
 
-= Why bother with this, why not just use Eclipse? =
+= Why bother with this, why not just use Eclipse and ndk-build? =
 
 Well, when someone has used an IDE for well over a decade every day for their day job, they get a little attached to it! :) Ask a devout emacs user, I'm sure you'd pry that editor out of their cold dead hands.
 
@@ -40,8 +42,11 @@ The ant target is chained off the link one, if the link is successful then it wi
 
 Header dependency checking is an odd one, I for the life of me couldn't figure out Microsoft's Cl compiler did it. My assumption is that the task for invoking Cl does this behind the scenes in the .DLL code. It would make sense given that this is perhaps the most time sensitive part of the build scripts.
 
-For vs-android
+For vs-android I execute the GCC arm compiler with certain switches such that it will scan all chained header files. It takes into account preprocessor symbols too, and the ordering of the include search paths. These are the same arguments I pass onto the 'real' compilation scripts.
 
+Anyway, running the compiler with these switches gives me a list of all the header files that get pulled in by compiling a particular c/cpp file. I have a C# DLL task to parse these and send them back to the MSBuild script.
+
+When you start to get a file count in your project in the hundreds, you'll notice that the build output hangs at the beginning. This is the header dependency scan. It's faster than the ndk-build equivalent by around 2x, but I think it can be made even faster. Possibly with some kind of caching system. Better yet, I'd love to just leverage the same system that Microsoft's Cl uses.
 
 
 == Compiler and Linker flags ==
@@ -83,9 +88,9 @@ In future I'd like to make all these data-driven. For now if you need to modify 
 Fortunately edits to these files do not need a restart of Visual Studio.
 
 
-=== Static libraries ===
+== Static libraries ==
 
-Set these up the same way as with Win32 projects. In the properties pane, under "General" there's a "Configuration Type" which would be "Static Library (.lib).
+Set these up the same way as with Win32 projects. In the properties pane, under "General" there's a "Configuration Type" which would be "Static Library (.lib)".
 
 Static lib dependencies though work differently to previous versions of Visual Studio. I was a little caught out on this one! Take a look at this post on StackOverflow for how to set them up:
 
