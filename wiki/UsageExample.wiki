@@ -89,7 +89,7 @@ _(skip these steps if you do not have ant installed)_
 
 <img src="http://www.gavpugh.com/img/vs-android/AntDebug.png" align="center">
 
-  * Finally, you'll need to edit the file named 'local.properties' which is in the root directory of your san-angeles project. It contains a path to the full Android SDK. The install package is set to my SDK directory, you'll need to change it to yours.
+  * Finally, you'll also need to edit the 'local.properties' file that's at the root of the san-angeles project. There's a line denoting the path to your Android SDK. This will almost certainly be different from mine, modify it to path to your install.
 
 ==Building==
 
