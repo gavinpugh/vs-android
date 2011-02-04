@@ -71,7 +71,7 @@ This is optional. I'd recommend using ant though. Your only other option if you 
 
   * Download the zip file just under the heading "Current Release of Ant"
 
-  * Unzip this such that the subdirectories contained: 'bin', 'docs', etc... sit in c:\ant. I recommend just going with c:\ant. The vs-android dialogs will default to using ant with this path.
+  * Unzip this such that the subdirectories contained: 'bin', 'docs', etc... sit in c:\ant. I recommend just going with c:\ant.
 
   * _I hate putting everything at the root directory too. Feel free to experiment with paths that have spaces. Or possibly just put all these tidily under one main c:\android directory?_
 
