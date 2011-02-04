@@ -103,3 +103,22 @@ _(skip these steps if you do not have ant installed)_
     # Run ant to build the final deployable apk file. _(or not, if you chose to skip this)_
 
 <img src="http://www.gavpugh.com/img/vs-android/Finished.png" align="center">
+
+==Deploy==
+
+If you built the apk file with ant, here are some instructions on how to deploy it.
+
+  * Ensure you have an emulated device set up, or a real Android phone connected via debug-USB.
+
+  * The final apk file will be placed here, from your ant build:
+`san-angeles\bin\san-angeles-debug.apk`
+
+  * Note the path to the Android SDK that you needed to enter in the 'properties.local' file earlier. These are the two command lines to run to deploy and run the app. They assume you're in the root directory of the project.
+
+`$(SDK_PATH)\platform-tools\adb install -r bin\san-angeles-debug.apk`
+
+`$(SDK_PATH)\platform-tools\adb shell am start -n com.example.SanAngeles/.DemoActivity`
+
+  * You'll then see the demo app running on your phone!
+
+  * You may want to put these command lines into a batch file, and set up a post-build step in Visual Studio.
