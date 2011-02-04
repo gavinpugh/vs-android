@@ -85,7 +85,11 @@ _(skip these steps if you do not have ant installed)_
 
   * Change the top option 'Ant Build' to *ant debug*. You can just double click on the entry to cycle through the options.
 
+  * For the 'Path To Ant Batch File', change this to the correct path of your ant.bat. If you installed ant to 'c:\ant'. It'll be 'c:\ant\bin\ant.bat'. In my example below, I have the ant\bin directory in my PATH environment variable. So I don't need to explicitly path it.
+
 <img src="http://www.gavpugh.com/img/vs-android/AntDebug.png" align="center">
+
+  * Finally, you'll need to edit the file named 'local.properties' which is in the root directory of your san-angeles project. It contains a path to the full Android SDK. The install package is set to my SDK directory, you'll need to change it to yours.
 
 ==Building==
 
