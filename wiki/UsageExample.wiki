@@ -21,21 +21,19 @@
 
   * The location you place the project isn't important. I suggest using a path that doesn't have spaces, since I haven't tested paths which contain spaces.
 
-  * Uncheck 'Create directory for solution'. This puts the sln file and the vcxproj in the same directory. It will still create one directory off the base path you give. So in my case below, it'll end up in "C:\projects\san-angeles"
+  * Uncheck 'Create directory for solution'. This puts the sln file and the vcxproj in the same directory. It will still create one directory off the base path you give. So in my case below, it'll end up in "C:\projects\sanangeles"
 
 <img src="http://www.gavpugh.com/img/vs-android/NewProj.png" align="center">
 
 ==Adding Files==
 
-  * Download [http://vs-android.googlecode.com/files/san-angeles.zip san-angeles.zip].
+  * Download [http://vs-android.googlecode.com/files/sanangeles.zip sanangeles.zip].
 
   * You'll want to unzip this so that the directory containing '''AndroidManifest.xml''' sits alongside the sln and vcxproj files that were just created. So that same directory would have the 'jni', 'res', and 'src' sub-directories too.
 
   * Go into the 'jni' directory and drag over the following files into your project as shown:
 
 <img src="http://www.gavpugh.com/img/vs-android/DragFiles.png" align="center">
-
-  * Be sure to leave out the win32 and linux files. Delete them from the Visual Studio project if you accidentally brought them in.
 
 ==Adding The Android Platform==
 
@@ -55,9 +53,9 @@
 
 ===Preprocessor Symbol===
 
-  * Out of the box, the default setup doesn't hook in OpenGL support. You have to modify project settings to link in the library, and in the case of this san-angeles demo define a preprocessor symbol.
+  * Out of the box, the default setup doesn't hook in OpenGL support. You have to modify project settings to link in the library, and in the case of this sanangeles demo define a preprocessor symbol.
 
-  * Right click on the 'san-angeles' project in the 'Solution Explorer' pane. This is the one that will be shown in bold, right above 'External Dependencies'. Choose 'Properties' from this menu.
+  * Right click on the 'sanangeles' project in the 'Solution Explorer' pane. This is the one that will be shown in bold, right above 'External Dependencies'. Choose 'Properties' from this menu.
 
   * In this dialog, navigate into the 'C++' part of the tree. Click on 'Preprocessor'.
 
@@ -85,11 +83,13 @@ _(skip these steps if you do not have ant installed)_
 
   * Change the top option 'Ant Build' to *ant debug*. You can just double click on the entry to cycle through the options.
 
-  * For the 'Path To Ant Batch File', change this to the correct path of your ant.bat. If you installed ant to 'c:\ant'. It'll be 'c:\ant\bin\ant.bat'. In my example below, I have the ant\bin directory in my PATH environment variable. So I don't need to explicitly path it.
+  * For the 'Path To Ant Batch File', change this to the correct path of your ant.bat. If you installed ant to 'c:\ant'. It'll be 'c:\ant\bin\ant.bat'.
 
 <img src="http://www.gavpugh.com/img/vs-android/AntDebug.png" align="center">
 
-  * Finally, you'll also need to edit the 'local.properties' file that's at the root of the san-angeles project. There's a line denoting the path to your Android SDK. This will almost certainly be different from mine, modify it to path to your install.
+  * Finally, you'll also need to edit the 'local.properties' file that's at the root of the sanangeles project. There's a line denoting the path to your Android SDK. This will almost certainly be different from mine, modify it to path to your install.
+
+<img src="http://www.gavpugh.com/img/vs-android/localprops.png" align="center">
 
 ==Building==
 
@@ -111,11 +111,11 @@ If you built the apk file with ant, here are some instructions on how to deploy 
   * Ensure you have an emulated device set up, or a real Android phone connected via debug-USB.
 
   * The final apk file will be placed here, from your ant build:
-`san-angeles\bin\san-angeles-debug.apk`
+`sanangeles\bin\DemoActivity-debug.apk`
 
   * Note the path to the Android SDK that you needed to enter in the 'properties.local' file earlier. These are the two command lines to run to deploy and run the app. They assume you're in the root directory of the project.
 
-`$(SDK_PATH)\platform-tools\adb install -r bin\san-angeles-debug.apk`
+`$(SDK_PATH)\platform-tools\adb install -r bin\DemoActivity-debug.apk`
 
 `$(SDK_PATH)\platform-tools\adb shell am start -n com.example.SanAngeles/.DemoActivity`
 
