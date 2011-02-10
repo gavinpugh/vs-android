@@ -87,6 +87,16 @@ Microsoft.Cpp.Android.targets
       <PreProExe>"$(GccToolsPath)\%(CLCompile.GccExecutable)"</PreProExe>
     </PropertyGroup>
 
+    <!-- Some error catches to ensure $(ANDROID_NDK_ROOT) isn't bullshit -->
+    <Error
+      Condition="'$(ANDROID_NDK_ROOT)'=='INVALID'"
+      Text="Please read the instructions that come with vs-android, and set up your 'ANDROID_NDK_ROOT' environment variable correctly.%0D%0APlease note that you will need to restart Visual Studio if you set this variable while it is still running.">
+    </Error>
+    <Error
+      Condition="!Exists('$(GccToolsPath)\%(CLCompile.GccExecutable)')"
+      Text="Could not find $(GccToolsPath)\%(CLCompile.GccExecutable)%0D%0AYour 'ANDROID_NDK_ROOT' env var of '$(ANDROID_NDK_ROOT)' is likely incorrect.%0D%0ASet it correctly in your system environment variables, and restart Visual Studio.">
+    </Error>
+    
     <!-- Call a custom task to run gcc and pull out the header dependencies -->
     <GetGCCHeaders 
         GCCPath="$(PreProExe)" 
@@ -180,17 +190,6 @@ Microsoft.Cpp.Android.targets
     <PropertyGroup>
       <CompileCmdLine>"$(GccToolsPath)\%(CLCompile.GccExecutable)" $(GccCompileFlags) %(ClCompile.IncludeAndPrePro) -c "$(SourceFile)" -o "$(ObjectFile)" %(ClCompile.AdditionalOptions)</CompileCmdLine>
     </PropertyGroup>
-
-    
-    <!-- Some error catches to ensure $(ANDROID_NDK_ROOT) isn't bullshit -->
-    <Error
-      Condition="'$(ANDROID_NDK_ROOT)'=='INVALID'"
-      Text="Please read the instructions that come with vs-android, and set up your 'ANDROID_NDK_ROOT' environment variable correctly.%0D%0APlease note that you will need to restart Visual Studio if you set this variable while it is still running.">
-    </Error>
-    <Error
-      Condition="!Exists('$(GccToolsPath)\%(CLCompile.GccExecutable)')"
-      Text="Could not find $(GccToolsPath)\%(CLCompile.GccExecutable)%0D%0AYour 'ANDROID_NDK_ROOT' env var of '$(ANDROID_NDK_ROOT)' is likely incorrect.%0D%0ASet it correctly in your system environment variables, and restart Visual Studio.">
-    </Error>
     
     
     <!-- Do your stuff GCC! -->
@@ -269,21 +268,24 @@ Microsoft.Cpp.Android.targets
     <!-- Call linker -->
     <Message Text="Linking $(TargetPath)..."></Message>
     <Message Text="$(LinkerCmdLine)" Condition="'$(EchoCommandLines)' != 'false'"></Message>
-    <Exec WorkingDirectory="$(ObjPath)" Command="$(LinkerCmdLine)"></Exec>    
+    <Exec WorkingDirectory="$(ObjPath)" Command="$(LinkerCmdLine)"></Exec>
 
     <!-- Fire off the ant build, if it's not disabled -->
     <CallTarget Condition="'$(AntBuild)' != 'Disabled'" Targets="AndroidAntBuild"></CallTarget>
-    
+
   </Target>
 
   
   <!-- Invocation of the ant build, to produce a final apk -->
-  <Target Name="AndroidAntBuild">
-
+  <Target Name="AndroidAntBuild"
+          Inputs="$(TargetPath)"
+          Outputs="$(SolutionDir)\libs\armeabi\lib%(Link.AntLibraryName).so">
+    
     <!-- In ItemGroup, so I can do path manipulation easier -->
     <ItemGroup>
       <AntBuildDirectory Include="%(Link.AntBuildDirectory)"></AntBuildDirectory>
       <AntBatchFile Include="%(Link.AntBatchFile)"></AntBatchFile>
+      <OutLibName Include="$(SolutionDir)\libs\armeabi\lib%(Link.AntLibraryName).so"></OutLibName>
     </ItemGroup>
 
     <!-- Do some basic checks-->
@@ -295,6 +297,10 @@ Microsoft.Cpp.Android.targets
       Condition="!Exists('%(AntBuildDirectory.FullPath)\build.xml')" 
       Text="build.xml file not found in %(AntBuildDirectory.FullPath)">
     </Error>
+    <Error
+      Condition="'%(Link.AntLibraryName)' == ''"
+      Text="Ant Library Name not specified!">
+    </Error>
     
     <!-- Figure out commandline -->
     <PropertyGroup>
@@ -303,6 +309,9 @@ Microsoft.Cpp.Android.targets
 
       <AntBuildCmdLine>"%(AntBatchFile.Identity)" $(AntBuildArgument)</AntBuildCmdLine>
     </PropertyGroup>
+
+    <MakeDir Directories="$(SolutionDir)\libs\armeabi"></MakeDir>
+    <Copy SourceFiles="$(TargetPath)" DestinationFiles="%(OutLibName.FullPath)"></Copy>
 
     <!-- All done, so just call ant -->
     <Message Text="$(AntBuildCmdLine)"></Message>

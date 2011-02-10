@@ -34,5 +34,8 @@ gcc-linker.xml
 
   <StringProperty Subtype="folder" Name="AntBuildDirectory" DisplayName="Ant build.xml Directory" Description="Directory to invoke ant build from. Should contain a build.xml file." Category="antbuild" IncludeInCommandLine="false">
   </StringProperty>
+
+  <StringProperty Name="AntLibraryName" DisplayName="Output Library Name" Description="Library name as called from java: System.loadLibrary();" Category="antbuild" IncludeInCommandLine="false">
+  </StringProperty>
   
 </Rule>

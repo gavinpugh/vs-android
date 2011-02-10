@@ -21,6 +21,7 @@ Microsoft.Cpp.Android.props
       <AntBuild               Condition="'%(Link.AntBuild)'               == ''">Disabled</AntBuild>
       <AntBatchFile           Condition="'%(Link.AntBatchFile)'           == ''">ant.bat</AntBatchFile>
       <AntBuildDirectory      Condition="'%(Link.AntBuildDirectory)'      == ''">$(SolutionDir)</AntBuildDirectory>
+      <AntLibraryName         Condition="'%(Link.AntLibraryName)'         == ''">$(ProjectName)</AntLibraryName>
       <EchoCommandLines       Condition="'%(Link.EchoCommandLines)'       == ''">false</EchoCommandLines>      
     </Link>
   </ItemDefinitionGroup>
