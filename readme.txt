@@ -1,5 +1,5 @@
-vs-android v0.2 - 1st Feb 2011
-==============================
+vs-android v0.21 - 10th Feb 2011
+================================
 
 vs-android is intended to provide a collection of scripts and utilities to support integrated development of
 Android NDK C/C++ software under Microsoft Visual Studio.
@@ -22,6 +22,12 @@ Documentation for vs-android can be found here:
 
 Version History
 ===============
+
+v0.21 - 10th Feb 2011
+
+  * Fixed issues with the 'ant build' step.
+  * Added a sensible error message if the NDK envvar isn't set, or is set incorrectly.
+
 
 v0.2 - 1st Feb 2011
 
