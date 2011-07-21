@@ -39,40 +39,38 @@ If you don't want to run the 'install.cmd' file, you can copy the files manually
 
   * Download the NDK from here: [http://developer.android.com/sdk/ndk/index.html]
 
-  * I unzipped mine to the root directory. I'd recommend staying away from paths with spaces in them. 'Program Files' for example would be a no-no. (there's every chance it works fine, but you may run into problems later).
+  * Unzip it somewhere, and note the root directory.
 
-  * So within C:\android-ndk-r5b, I have 'build' and 'docs' subdirectories. Just pointing that out in case you unzipped a couple of levels deep.
+  * You need to set an environment variable named *ANDROID_NDK_ROOT* which points to this directory. This can be done from the command line:
+<pre>
+setx ANDROID_NDK_ROOT c:\android-ndk-r6
+</pre>
 
-==Environment Variable==
 
-  * You need to set one system environment variable so that the NDK can be found in Visual Studio.
 
-  * The variable is *ANDROID_NDK_ROOT*. This should be set to the directory you installed to. In my example this is `C:\android-ndk-r5b`. Without the quotes.
+=SDK Setup=
 
-  * Search Google if you don't know how to set system environment variables.
+  * Java is a prerequisite for the Android SDK. Install the JDK from here:
+[http://www.oracle.com/technetwork/java/javase/downloads/index.html]
+
+  * You'll also need the Android SDK itself, download it from here:[http://developer.android.com/sdk/index.html]
+
+  * Use the installer version. It's the easiest way. Be sure to run the 'SDK Manager' it installs afterwards, so it can download the latest packages.
+
+
+
+=Ant Setup=
+
+  * Download Ant from here:
+[http://ant.apache.org/]
+
+  * Unzip it somewhere, just like you did for the NDK.
+
+  * Set an environment variable named *ANT_HOME* to point to where you unzipped it.
+
 
 =Finished=
 
   * At this point you can build NDK executables in Visual Studio! 
 
   * If you already had any Visual Studio sessions open, you will need to close and reopen them to make use of the new 'Android' platform.
-
-<br>
-
----- 
-
-<br>
-
-=Installing ant=
-
-This is optional. I'd recommend using ant though. Your only other option if you don't, is to use Eclipse. Using ant means that you'll be able to work exclusively in Visual Studio.
-
-  * Download ant here: [http://ant.apache.org/bindownload.cgi]
-
-  * Download the zip file just under the heading "Current Release of Ant"
-
-  * Unzip this such that the subdirectories contained: 'bin', 'docs', etc... sit in c:\ant. I recommend just going with c:\ant.
-
-  * _I hate putting everything at the root directory too. Feel free to experiment with paths that have spaces. Or possibly just put all these tidily under one main c:\android directory?_
-
-  * Oh, you need to have Java installed too. Ant is written in Java.
