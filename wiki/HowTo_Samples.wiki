@@ -1,1 +1,33 @@
-#summary One-sentence summary of this page.
+#summary Compiling a simple Android app with vs-android
+
+<wiki:toc max_depth="3" />
+
+==Installation==
+
+  * Follow the [Installation] instructions to install vs-android. 
+
+  * Close down any instances of Visual Studio you may have had open before or during installation. You need to start with fresh after you install.
+
+==Samples==
+
+  * Go here and download the sample projects:
+[http://vs-android.googlecode.com/files/vs-android_samples.zip vs-android_samples.zip]
+
+  * Unzip them so they live in a path that doesn't contain spaces. Unfortunately the .apk building step requires a path without spaces.
+<pre>
+c:\Projects\samples\        < GOOD! :)
+c:\My Projects\samples\     < BAD :(
+</pre>
+
+  * Let's start with san-angeles. Go into that directory and open up the .sln file inside it.
+
+
+==San Angeles==
+
+  * San Angeles is a simple OpenGL ES 1.0 graphical demo
+
+  * With the solution opened in Visual Studio, go into the 'Build' menu, and click 'Build Solution'.
+
+  * Observe the build process. You'll likely have an error if the installation failed. The errors should be pretty verbose and describe measures of how to fix them.
+
+  * The projects are setup to auto-deploy and run onto a connected device. You can start a virtual device through the 'SDK Manager' if you wish. San Angeles works fine on the virtual device.
