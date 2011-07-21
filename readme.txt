@@ -1,4 +1,4 @@
-vs-android v0.21 - 10th Feb 2011
+vs-android v0.9 - 20th July 2011
 ================================
 
 vs-android is intended to provide a collection of scripts and utilities to support integrated development of
@@ -7,8 +7,26 @@ Android NDK C/C++ software under Microsoft Visual Studio.
 Currently vs-android only works under Visual Studio 2010. Earlier versions lack the MSBuild integration with 
 the C/C++ compilation systems.
 
-The only required component is the Android NDK. Neither Cygwin, Java, nor the full Android SDK are needed to 
-compile and link C/C++ code. 
+
+Required Support SDKs
+=====================
+
+Cygwin is not required at all to use vs-android, thankfully!
+
+At a bare minimum the Android NDK needs to be installed. This will allow compilation of C/C++ code:
+* http://developer.android.com/sdk/ndk/index.html
+
+
+In order to build an apk package to run on an Android device, you'll also require:
+
+The Android SDK:
+* http://developer.android.com/sdk/index.html
+
+The Java JDK:
+* http://www.oracle.com/technetwork/java/javase/downloads/index.html
+
+Apache Ant:
+* http://ant.apache.org/
 
 
 
@@ -16,12 +34,34 @@ Documentation
 =============
 
 Documentation for vs-android can be found here:
-   * http://code.google.com/p/vs-android/
+  * http://code.google.com/p/vs-android/
 
 
 
 Version History
 ===============
+
+v0.9 - 20th July 2011
+
+  * Major update, hence the skip in numbers. Closing in on a v1.0 release.
+  * Verified working with Android NDK r5b, r5c, and r6.
+  * Much of vs-android functionality moved from MSBuild script to C# tasks. Similar approach now to Microsoft's
+    existing Win32 setup.
+  * Dependency checking rewritten to use tracking log files.
+  * Dependency issues fixed, dependency checking also now far quicker.
+  * Android Property sheets now completely replace the Microsoft ones, no more rafts of unused sheets.
+  * Property sheets populated with many options. Switches are no longer hard-coded within vs-android script.
+  * STL support added. Choice between 'None', 'Minimal', 'libstdc++', and 'stlport'.
+  * Support for x86 compilation with r6 NDK.
+  * Full support for v7-a arm architecture, as well as the existing v5.
+  * Support for Android API directories other than just 'android-9'.
+  * Separated support for 'dynamic libraries' and 'applications'. Applications build to apk files.
+  * Response files used in build, no more command-line length limitations.
+  * Deploy and run within Visual Studio, adb is now invoked by vs-android.
+  * 'Echo command lines' feature fixed.
+  * All support SDK/libs (NDK, SDK, Ant, JDK) are okay living in directories with spaces in them now.
+  * All bugs logged within Google Code are addressed.
+
 
 v0.21 - 10th Feb 2011
 
@@ -45,8 +85,12 @@ v0.1 - 30th Jan 2011
 
 References
 ==========
+
 "Inside the Microsoft Build Engine: Using MSBuild and Team Foundation Build"
 Authors: Sayed Ibrahim Hashimi, William Bartholomew
+
+"Microsoft C/C++ Visual Studio 2010 Build Implementation"
+Located here: %ProgramFiles(x86)%\MSBuild\Microsoft.Cpp
 
 
 
