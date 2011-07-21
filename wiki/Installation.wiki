@@ -84,3 +84,5 @@ If you don't want to run the 'install.cmd' file, you can copy the files manually
   * At this point you can build NDK executables in Visual Studio! 
 
   * If you already had any Visual Studio sessions open, you will need to close and reopen them to make use of the new 'Android' platform.
+
+  * Go ahead and download the Sample Projects: [HowTo_Samples Compiling a simple Android app with vs-android]. It's an easy way to get started.
