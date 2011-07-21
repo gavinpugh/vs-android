@@ -43,7 +43,7 @@ If you don't want to run the 'install.cmd' file, you can copy the files manually
 
   * You need to set an environment variable named *ANDROID_NDK_ROOT* which points to this directory. This can be done from the command line:
 <pre>
-setx ANDROID_NDK_ROOT c:\android-ndk-r6
+`setx ANDROID_NDK_ROOT c:\android-ndk-r6`
 </pre>
 
 
@@ -53,7 +53,8 @@ setx ANDROID_NDK_ROOT c:\android-ndk-r6
   * Java is a prerequisite for the Android SDK. Install the JDK from here:
 [http://www.oracle.com/technetwork/java/javase/downloads/index.html]
 
-  * You'll also need the Android SDK itself, download it from here:[http://developer.android.com/sdk/index.html]
+  * You'll also need the Android SDK itself, download it from here:
+[http://developer.android.com/sdk/index.html]
 
   * Use the installer version. It's the easiest way. Be sure to run the 'SDK Manager' it installs afterwards, so it can download the latest packages.
 
