@@ -21,6 +21,8 @@ c:\My Projects\samples\     < BAD :(
 
   * Let's start with san-angeles. Go into that directory and open up the .sln file inside it.
 
+<img src="http://www.gavpugh.com/img/vs-android/san_angeles_devenv.png" align="center">
+
 
 ==San Angeles==
 
@@ -29,6 +31,8 @@ c:\My Projects\samples\     < BAD :(
   * With the solution opened in Visual Studio, go into the 'Build' menu, and click 'Build Solution'.
 
   * Observe the build process. You'll likely have an error if the installation failed. The errors should be pretty verbose and describe measures of how to fix them.
+
+<img src="http://www.gavpugh.com/img/vs-android/san_angeles_success.png" align="center">
 
   * The projects are setup to auto-deploy and run onto a connected device. You can start a virtual device through the 'SDK Manager' if you wish. San Angeles works fine on the virtual device.
 
@@ -44,5 +48,6 @@ c:\My Projects\samples\     < BAD :(
 
   * For those familiar with editing project properties in Visual Studio, vs-android completely overrides the Win32 ones you're used to:
 
+<img src="http://www.gavpugh.com/img/vs-android/prop_page.png" align="center">
 
   * Take a look around. I'd suggest taking one of the samples to start a new project you may want to work on. In a future release of vs-android there will be a 'New Project' wizard, but not just yet.
