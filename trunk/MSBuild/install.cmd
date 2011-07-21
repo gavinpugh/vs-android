@@ -40,6 +40,7 @@ IF ERRORLEVEL 1 (
 		Echo.Continuing will delete the version already installed to this directory:
 
 		rd "%MsBuildCppDir%\Android" /s
+		pause
 		if exist "%MsBuildCppDir%\Android" (
 			goto cleanup
 		)
