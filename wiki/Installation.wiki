@@ -31,8 +31,6 @@ If you don't want to run the 'install.cmd' file, you can copy the files manually
 
   * In this directory will already be a 'Win32' subdirectory. Possibly an 'Itanium' and 'x64' directories too. You want that 'Android' directory to sit alongside them.
 
-  * That's it. You can check inside the 'Win32' and 'Android' directories to ensure that they look similar. The Android one has a couple of extra xml files though.
-
 
 
 =NDK Setup=
