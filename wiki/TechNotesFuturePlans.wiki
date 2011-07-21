@@ -19,73 +19,12 @@ Anyhow, the culmination of the work was an environment I felt matched the native
 Well, when someone has used an IDE for well over a decade every day for their day job, they get a little attached to it! :) Ask a devout emacs user, I'm sure you'd pry that editor out of their cold dead hands.
 
 All in all though, there are a few very positive points over using the ndk-build scripts that Google provide. 
-  * Close to half the time to do a full rebuild on large projects, and half the time for incremental (one file) changes.
+  * Less than half the time to do a full rebuild on large projects, and also half the time for incremental (one file) changes.
   * Ability to compile single files very quickly, without dependency checking the whole project.
   * It's a very good cross-platform solution if you wish to maintain a Win32 port of your software. These can be maintained as well within the same project file.
 
 So having those, and using the fully-featured text editor I've been used to for years is a pretty easy sell to me. I'm sure Eclipse is great, I've tried using it a few times now but I just can't get on with it to the same degree.
 
-
-= Script Guts =
-
-There's five main 'targets' (MSBuild terminology) within the vs-android build scripts:
-
-  * Header dependency checking.
-  * Compiling.
-  * Linking.
-  * Building a library.
-  * Building with ant.
-
-The ant target is chained off the link one, if the link is successful then it will run. All the others are invoked by the 'Cpp' scripts Microsoft already provide.
-
-== Header Dependencies ==
-
-Header dependency checking is an odd one, I for the life of me couldn't figure out Microsoft's Cl compiler did it. My assumption is that the task for invoking Cl does this behind the scenes in the .DLL code. It would make sense given that this is perhaps the most time sensitive part of the build scripts.
-
-For vs-android I execute the GCC arm compiler with certain switches such that it will scan all chained header files. It takes into account preprocessor symbols too, and the ordering of the include search paths. These are the same arguments I pass onto the 'real' compilation scripts.
-
-Anyway, running the compiler with these switches gives me a list of all the header files that get pulled in by compiling a particular c/cpp file. I have a C# DLL task to parse these and send them back to the MSBuild script.
-
-When you start to get a file count in your project in the hundreds, you'll notice that the build output hangs at the beginning. This is the header dependency scan. It's faster than the ndk-build equivalent by around 2x, but I think it can be made even faster. Possibly with some kind of caching system. Better yet, I'd love to just leverage the same system that Microsoft's Cl uses.
-
-
-== Compiler and Linker flags ==
-
-Due to the way the property pages work, it's not possible to remove the pages for the Microsoft Cl compiler. When working with Android projects a number of the fields will be completely ignored.
-
-Here's a list of the Cl ones that vs-android *does* take into account:
-
-  * *C++*
-    * *"General->Additional Include Directories"* Always keep inherited includes checked, this pulls in the Android headers.
-    * *"Preprocessor->Preprocessor Definitions"* Again, keep the inherited box checked here.
-    * *"Advanced->Compile As"*
-    * *"Command Line->Additional Options"* The upper box showing the command line is incorrect, I wasn't able to override this. The lower box will have everything appended onto the compiler command line.
-
-  * *Linker* 
-    * *"General->Additional Library Directories"* Again, inherit needs to stay checked.
-    * *"Command Line->Additional Options"* Like the compiler, the top box is incorrect.
-
-
-And of course the entire contents of these function correctly:
-
-  * *"C++ -> GCC arm compiler"* - Includes optimization settings
-  * *"Linker -> GCC arm linker"*
-  * *"Linker -> Android Ant Build"*
-
-Unfortunately (as of v0.2 anyhow) there isn't complete coverage of all the GCC switches. Some I simply left hard-coded within the MSBuild scripts.
-
-
-=== Hard-coded switches ===
-
-You can open up this file:
-
-  * *Android\Microsoft.Cpp.Android.targets*
-
-If you scroll down to the compiler and linker target scripts, they have a number of hard coded switches in them.
-
-In future I'd like to make all these data-driven. For now if you need to modify any of these, just dive into that file and change them to what you need.
-
-Fortunately edits to these files do not need a restart of Visual Studio.
 
 
 == Static libraries ==
@@ -101,8 +40,7 @@ Static lib dependencies though work differently to previous versions of Visual S
 
 Some things I have in mind to work on:
 
-  * Improve speed of dependency checking. Possibly the results of the checks can be cached, and only regenerated if anything the previous chain of dependencies was modified.
-  * Adding the full complement of GCC compiler and linker switches to the property page.
+  * Adding the full complement of GCC compiler and linker switches to the property page. Many are there now in v0.9+, but there's lots more that could be added.
   * adb logging capture to a Visual Studio output window.
   * "New project" templates for quick-start usage.
   * Facility to *create* ant build projects within Visual Studio.
