@@ -31,3 +31,18 @@ c:\My Projects\samples\     < BAD :(
   * Observe the build process. You'll likely have an error if the installation failed. The errors should be pretty verbose and describe measures of how to fix them.
 
   * The projects are setup to auto-deploy and run onto a connected device. You can start a virtual device through the 'SDK Manager' if you wish. San Angeles works fine on the virtual device.
+
+
+==Other Samples==
+
+  * Go nuts with the other samples too. They're all ready to go as well.
+
+  * 'hello-gl2' requires OpenGL ES 2.0 compatible hardware. It will not work on a virtual Android device.
+
+
+==Property Sheets==
+
+  * For those familiar with editing project properties in Visual Studio, vs-android completely overrides the Win32 ones you're used to:
+
+
+  * Take a look around. I'd suggest taking one of the samples to start a new project you may want to work on. In a future release of vs-android there will be a 'New Project' wizard, but not just yet.
