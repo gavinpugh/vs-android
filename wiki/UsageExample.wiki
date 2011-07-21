@@ -1,5 +1,5 @@
 #summary Compiling a simple Android app with vs-android
-#labels Phase-Deploy
+#labels Phase-Deploy,Deprecated
 
 <wiki:toc max_depth="3" />
 
