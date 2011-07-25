@@ -24,6 +24,10 @@
   * Project 'Output Directory' setting does nothing? Check this is so, consider deleting it. 
   * Ability to override environment variables for SDK/NDK/Ant/JDK on a per-project basis in property sheets.
   * Look at using the TrackingFiles stuff in C# with the Compile task. Have had one aborted attempt, but should try again. It'll simplify the code a lot.
+  * Add a full complement of GCC compiler and linker switches to the property pages. 
+  * adb/ddms logging capture to a Visual Studio output window.
+  * Facility to create ant build projects (AndroidManifest/build.xml) from within Visual Studio, driven by property pages.
+  * A "Build Customization" for .java files, so they can be added to the project and individually compiled. Possibly with a view for removing the dependency on using ant to build apk's.
 
 
 *May not be issues, but I'd like to check out:*
