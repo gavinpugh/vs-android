@@ -14,6 +14,7 @@ In light of this, the MSBuild scripts which make up vs-android may not be the 'c
 Anyhow, the culmination of the work was an environment I felt matched the native Microsoft Cl compiler pretty decently. I could compile single files; I have Intellisense working completely; I could have static library sub-projects. All the stuff I wanted.
 
 
+
 = Why bother with this, why not just use Eclipse and ndk-build? =
 
 Well, when someone has used an IDE for well over a decade every day for their day job, they get a little attached to it! :) Ask a devout emacs user, I'm sure you'd pry that editor out of their cold dead hands.
@@ -24,6 +25,9 @@ All in all though, there are a few very positive points over using the ndk-build
   * It's a very good cross-platform solution if you wish to maintain a Win32 port of your software. These can be maintained as well within the same project file.
 
 So having those, and using the fully-featured text editor I've been used to for years is a pretty easy sell to me. I'm sure Eclipse is great, I've tried using it a few times now but I just can't get on with it to the same degree.
+
+For more background on my motivations, see here:
+  * [http://www.gavpugh.com/2011/02/04/vs-android-developing-for-android-in-visual-studio/]
 
 
 
@@ -38,13 +42,9 @@ Static lib dependencies though work differently to previous versions of Visual S
 
 = Future Plans =
 
-Some things I have in mind to work on:
+My TODO list:
 
-  * Adding the full complement of GCC compiler and linker switches to the property page. Many are there now in v0.9+, but there's lots more that could be added.
-  * adb logging capture to a Visual Studio output window.
-  * "New project" templates for quick-start usage.
-  * Facility to *create* ant build projects within Visual Studio.
-  * A "Build Customization" for .java files, so they can be added to the project and individually compiled. Possibly with a view for removing the dependency on using ant to build apk's.
+  * [TODO_List]
 
 
 = Useful Links =
