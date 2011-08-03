@@ -11,7 +11,7 @@
 
 adb.exe is prone to locking up.
 
-This is a known issue, and something that affects it use both stand-alone and with vs-android. 
+This is a known issue, and something that affects its use both stand-alone and with vs-android. 
 
 Interestingly it also affects the Mac version too:
 [ http://code.google.com/p/android/issues/detail?id=10255 ]
