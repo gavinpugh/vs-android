@@ -48,8 +48,10 @@ If you don't want to run the 'install.cmd' file, you can copy the files manually
 
 =SDK Setup=
 
-  * Java is a prerequisite for the Android SDK. Install the JDK from here:
+  * Java is a prerequisite for the Android SDK. Install the x86 JDK from here:
 [http://www.oracle.com/technetwork/java/javase/downloads/index.html]
+
+  * Be sure to use the x86 version of the JDK, *not* the x64 one. Google only officially support the x86 version. There are hacks to get the x64 one running, but they don't seem to play nice with vs-android.
 
   * You'll also need the Android SDK itself, download it from here:
 [http://developer.android.com/sdk/index.html]
