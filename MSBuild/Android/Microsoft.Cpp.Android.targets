@@ -198,7 +198,7 @@
       <AntBuild_MinimalRebuildFromTracking Condition="'$(BuildType)' != 'Build' or '$(ForceRebuild)' == 'true'">false</AntBuild_MinimalRebuildFromTracking>
       <AntBuild_MinimalRebuildFromTracking Condition="'$(AntBuild_MinimalRebuildFromTracking)' == ''">true</AntBuild_MinimalRebuildFromTracking>
     </PropertyGroup>
-
+    
     <AntBuild
         BuildingInIDE                  ="$(BuildingInsideVisualStudio)"
         Sources                        ="@(AntBuild)"
@@ -208,7 +208,9 @@
         AntJavaHomePath                ="$(JavaHomeDir)"
         AntBuildType                   ="%(AntBuild.AntBuildType)"
         AntLibraryName                 ="%(AntBuild.AntLibraryName)"
-
+        JVMHeapInitial                 ="%(AntBuild.JVMHeapInitial)"
+        JVMHeapMaximum                 ="%(AntBuild.JVMHeapMaximum)"
+        
         TrackerLogDirectory            ="%(AntBuild.TrackerLogDirectory)"
 
         TLogReadFiles                  ="@(AntBuildTLogReadFiles)"
@@ -316,7 +318,7 @@
       <SDKMissing>Could not find the Android SDK. Have you run the SDK Manager? Try setting the ANDROID_HOME environment variable to the SDK root.</SDKMissing>
       <SDKDownload>The Android SDK can be downloaded at this URL:$(CRLF)http://developer.android.com/sdk/index.html</SDKDownload>
       <JavaMissing>Could not find the Java installation, check that your JAVA_HOME path is correct!$(CRLF)It's currently: '$(JavaHomeDir)'</JavaMissing>
-      <JavaDownload>The Java JDK can be downloaded at this URL:$(CRLF)http://www.oracle.com/technetwork/java/javase/downloads/index.html</JavaDownload>
+      <JavaDownload>The Java JDK can be downloaded at this URL:$(CRLF)http://www.oracle.com/technetwork/java/javase/downloads/index.html$(CRLF)Be sure to download the 32-bit version (x86) of the JDK, even if you're running 64-bit Windows.</JavaDownload>
       <AntMissing>Could not find the Apache Ant installation, check that your ANT_HOME path is correct!$(CRLF)It's currently: '$(AntDir)'</AntMissing>
       <AntDownload>Apache Ant can be downloaded at this URL:$(CRLF)http://ant.apache.org/</AntDownload>
     </PropertyGroup>

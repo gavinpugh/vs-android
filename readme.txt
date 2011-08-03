@@ -1,5 +1,5 @@
-vs-android v0.9 - 20th July 2011
-================================
+vs-android v0.91 - 2nd August 2011
+==================================
 
 vs-android is intended to provide a collection of scripts and utilities to support integrated development of
 Android NDK C/C++ software under Microsoft Visual Studio.
@@ -22,7 +22,7 @@ In order to build an apk package to run on an Android device, you'll also requir
 The Android SDK:
 * http://developer.android.com/sdk/index.html
 
-The Java JDK:
+The Java JDK (the x86 version, *not* the x64 one!):
 * http://www.oracle.com/technetwork/java/javase/downloads/index.html
 
 Apache Ant:
@@ -40,6 +40,16 @@ Documentation for vs-android can be found here:
 
 Version History
 ===============
+
+v0.91 - 2nd August 2011
+
+  * Windows debugger is now usable. Fixed 'CLRSupport' error.
+  * Error checking to ensure the 32-bit JDK is used.
+  * Added JVM Heap options to Ant Build step. Initial and Maximum sizes are able to be set there now.
+  * Added asafhel...@gmail's 'clickable errors from compiler' C# code.
+  * Modified clickable errors code to also work with #include errors, which specify the column number too.
+  * Added clickable error support to linker too.
+
 
 v0.9 - 20th July 2011
 
@@ -81,6 +91,12 @@ v0.1 - 30th Jan 2011
   * Initial version.
   * All major functionality present, barring header dependency checking. 
 
+
+
+Contributors
+============
+
+asafhel...@gmail.com - Initial 'clickable errors from compiler' C# code.
 
 
 References

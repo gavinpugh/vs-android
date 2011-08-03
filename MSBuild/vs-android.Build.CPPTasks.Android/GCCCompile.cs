@@ -369,7 +369,49 @@ namespace vs_android.Build.CPPTasks.Android
 			}
 			WriteSourcesToCommandLinesTable( sourcesToCommandLines );
 		}
-        		
+
+        private string CheckLineForWarningOrError(string[] parts, int errorIndex)
+        {
+            if (parts.Length > errorIndex)
+            {
+                // Assumes the following GCC output format for errors and warnings:
+                // <relative file name>:<line number>: [error|warning]:<message>
+                if (parts[errorIndex - 1].Equals(" error") || parts[errorIndex - 1].Equals(" warning"))
+                {
+                    string fullSourceFile = m_currentSourceItem.GetMetadata("FullPath");
+
+                    // Reformat in a way VS know how to handle
+                    return String.Format("{0}({1}): {2}: {3}", fullSourceFile, parts[1], parts[errorIndex - 1],
+                        string.Join(":", parts, errorIndex, parts.Length - errorIndex));
+                }
+            }
+
+            return null;
+        }
+
+        // Called when compiler outputs a line
+        protected override void LogEventsFromTextOutput(string singleLine, MessageImportance messageImportance)
+        {
+            // Code contributed by 'asafhel...@gmail.com'. 
+            // I've modified it a little to support errors which have column numbers. #include errors seem to make that happen. 
+            {
+                string[] parts = singleLine.Split(':');
+                
+                string outputLine = CheckLineForWarningOrError(parts, 3);
+                if ( outputLine == null )
+                {
+                    outputLine = CheckLineForWarningOrError(parts, 4);
+
+                    if ( outputLine == null )
+                    {
+                        outputLine = singleLine;
+                    }
+                }
+
+                base.LogEventsFromTextOutput(outputLine, messageImportance);
+            }
+        }
+
         protected override string ToolName
         {
             get

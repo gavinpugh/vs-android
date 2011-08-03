@@ -30,8 +30,11 @@ namespace vs_android.Build.CPPTasks.Android
         private string m_toolFileName;
         private string m_inputSoPath;
         private string m_armEabiSoPath;
+        private string m_antOpts;
 
         public bool BuildingInIDE { get; set; }
+        public string JVMHeapInitial { get; set; }
+        public string JVMHeapMaximum { get; set; }
 
         [Required]
         public string AntBuildPath { get; set; }
@@ -47,10 +50,10 @@ namespace vs_android.Build.CPPTasks.Android
         
         [Required]
         public string AntLibraryName { get; set; }
-
+        
         [Required]
         public string GCCToolPath { get; set; }
-
+        
         [Required]
         public virtual ITaskItem[] Sources { get; set; }
         
@@ -136,7 +139,21 @@ namespace vs_android.Build.CPPTasks.Android
 
             // Copy the .so file into the correct place
             m_armEabiSoPath = Path.GetFullPath(AntBuildPath + "\\" + BUILD_LIB_PATH + "\\" + AntLibraryName + ".so");
-                        
+
+            m_antOpts = string.Empty;
+            if (JVMHeapInitial != null && JVMHeapInitial.Length > 0)
+            {
+                m_antOpts += "-Xms" + JVMHeapInitial + "m";
+            }
+            if (JVMHeapMaximum != null && JVMHeapMaximum.Length > 0)
+            {
+                if ( m_antOpts.Length > 0 )
+                {
+                    m_antOpts += " ";
+                }
+                m_antOpts += "-Xmx" + JVMHeapMaximum + "m";
+            }
+
             return base.ValidateParameters();
         }
 
@@ -151,6 +168,13 @@ namespace vs_android.Build.CPPTasks.Android
 
             // Set JAVA_HOME for the ant build
             System.Environment.SetEnvironmentVariable("JAVA_HOME", AntJavaHomePath, EnvironmentVariableTarget.Process);
+            Log.LogMessage( MessageImportance.High, "Building using the JDK located here: '{0}'...", AntJavaHomePath );
+
+            if ( m_antOpts.Length > 0 )
+            {
+                Log.LogMessage( MessageImportance.High, "Building using ANT_OPTS: '{0}'...", m_antOpts );
+                System.Environment.SetEnvironmentVariable("ANT_OPTS", m_antOpts, EnvironmentVariableTarget.Process);
+            }
 
             return base.ExecuteTool(pathToTool, responseFileCommands, commandLineCommands);
         }
