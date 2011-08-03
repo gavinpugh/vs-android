@@ -1,0 +1,41 @@
+#summary Troubleshooting vs-android
+
+<wiki:toc />
+
+= AntBuild =
+
+  * TODO
+
+
+== adb.exe ==
+
+adb.exe is prone to locking up.
+
+This is a known issue, and something that affects it use both stand-alone and with vs-android. 
+
+Interestingly it also affects the Mac version too:
+[ http://code.google.com/p/android/issues/detail?id=10255 ]
+
+If you notice the build output hang due to adb.exe, it'll be after the 'BUILD SUCCESSFUL' message from Ant:
+
+<pre>
+1>  BUILD SUCCESSFUL
+1>  Total time: 3 seconds
+1>  Deploying C:\Projects\vs-android\vs-android_samples\san-angeles\AndroidApk\bin\DemoActivity-debug.apk...
+</pre>
+
+If the build hangs here for a long time, here's some things to try:
+
+  * At a command prompt, type:
+<pre>adb usb</pre>
+This will reboot the USB driver, which is a common problem. 
+
+adb.exe should live in the \platform-tools directory of the Android SDK.
+
+  * Kill 'adb.exe' in Task Manager.
+
+Ctrl-Shift-Esc will bring up Task Manager. 
+
+After it's dead, cancel the build within Visual Studio, if it's still running.
+
+  * Try building again.
