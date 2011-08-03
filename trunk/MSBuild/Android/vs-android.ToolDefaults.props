@@ -109,8 +109,11 @@
       <AntBuildType         Condition="'%(AntBuild.AntBuildType)'         == '' and '$(Configuration)' == 'Debug'">Debug</AntBuildType>
       <AntBuildType         Condition="'%(AntBuild.AntBuildType)'         == '' and '$(Configuration)' != 'Debug'">Release</AntBuildType>
       <AntDeploy            Condition="'%(AntBuild.AntDeploy)'            == ''">DeployAndRun</AntDeploy>
+      <JVMHeapInitial       Condition="'%(AntBuild.JVMHeapInitial)'       == ''"></JVMHeapInitial>
+      <JVMHeapMaximum       Condition="'%(AntBuild.JVMHeapMaximum)'       == ''"></JVMHeapMaximum>
+
       <TrackerLogDirectory  Condition="'%(AntBuild.TrackerLogDirectory)'  == ''">$(IntDir)</TrackerLogDirectory>
-      
+
     </AntBuild>
   </ItemDefinitionGroup>
 

@@ -8,6 +8,8 @@ using System;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Diagnostics;
+using System.Management;
 
 namespace vs_android.Build.CPPTasks.Android
 {
@@ -49,6 +51,28 @@ namespace vs_android.Build.CPPTasks.Android
 
             return path;
         }
+        
+        // Based on code from : http://social.msdn.microsoft.com/Forums/en-US/csharpgeneral/thread/d60f0793-cc92-48fb-b867-dd113dabcd5c
+        public static void KillSpecificSubProcess(string exeName)
+        {
+            // UNTESTED!
 
-	}
+            ManagementObjectSearcher searcher = new ManagementObjectSearcher("Select " + exeName + " From Win32_Process Where ParentProcessID=" + Process.GetCurrentProcess().Id);
+            ManagementObjectCollection moc = searcher.Get();
+            foreach (ManagementObject mo in moc)
+            {
+                int thisPid = Convert.ToInt32(mo["ProcessID"]);
+                try
+                {
+                    Process proc = Process.GetProcessById(thisPid);
+                    proc.Kill();
+                }
+                catch (ArgumentException)
+                {
+
+                }
+            }
+        }
+
+    }
 }

@@ -103,6 +103,57 @@ namespace vs_android.Build.CPPTasks.Android
             return base.ExecuteTool(pathToTool, responseFileCommands, commandLineCommands);
         }
 
+        // Called when linker outputs a line
+        protected override void LogEventsFromTextOutput(string singleLine, MessageImportance messageImportance)
+        {
+            // Format in linker is a little odd:
+            // C:\Projects\vs-android\vs-android_samples\san-angeles/CppSource/demo.c:48: undefined reference to `jjjjj'
+
+            string[] parts = singleLine.Split(':');
+            string outputLine = singleLine;
+
+            for ( int i = 0;i < parts.Length;i++ )
+            {
+                string str = parts[i];
+                bool isAllDigits = false;
+
+                // Does this part consist of all numeric digits?
+                foreach ( char c in str )
+                {
+                    if ( Char.IsDigit( c ) )
+                    {
+                        isAllDigits = true;
+                    }
+                    else
+                    {
+                        isAllDigits = false;
+                        break;
+                    }
+                }
+
+                // Good bet it's the line number, so lets go with it...
+                if (isAllDigits)
+                {
+                    try
+                    {
+                        string filename = Path.GetFullPath( string.Join(":", parts, 0, i) );
+                        string lineNum = str;
+                        string errorBit = string.Join(":", parts, i + 1, parts.Length - (i + 1));
+
+                        outputLine = String.Format("{0}({1}): {2}", filename, lineNum, errorBit);
+                    }
+                    catch
+                    {
+
+                    }
+
+                    break;
+                }
+            }
+            
+            base.LogEventsFromTextOutput(outputLine, messageImportance);   
+        }
+
 		protected override void PostProcessSwitchList()
 		{
 
