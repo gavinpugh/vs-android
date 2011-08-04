@@ -246,6 +246,14 @@ namespace vs_android.Build.CPPTasks.Android
 				templateStr.Append( m_propXmlParse.ProcessProperties( m_currentSourceItem ) );
 				templateStr.Append( " -c -MD " );
 				templateStr.Append( sourcePath );
+
+                // Remove rtti stuff from plain C builds. -Wall generates warnings otherwise.
+                string compileAs = m_currentSourceItem.GetMetadata( "CompileAs" );
+                if (( compileAs != null ) && ( compileAs == "CompileAsC" ))
+                {
+                    templateStr.Replace("-fno-rtti", "");
+                    templateStr.Replace("-frtti", "");
+                }
 			}
 
 			return templateStr.ToString();
@@ -392,26 +400,9 @@ namespace vs_android.Build.CPPTasks.Android
         // Called when compiler outputs a line
         protected override void LogEventsFromTextOutput(string singleLine, MessageImportance messageImportance)
         {
-            // Code contributed by 'asafhel...@gmail.com'. 
-            // I've modified it a little to support errors which have column numbers. #include errors seem to make that happen. 
-            {
-                string[] parts = singleLine.Split(':');
-                
-                string outputLine = CheckLineForWarningOrError(parts, 3);
-                if ( outputLine == null )
-                {
-                    outputLine = CheckLineForWarningOrError(parts, 4);
-
-                    if ( outputLine == null )
-                    {
-                        outputLine = singleLine;
-                    }
-                }
-
-                base.LogEventsFromTextOutput(outputLine, messageImportance);
-            }
+            base.LogEventsFromTextOutput(Utils.GCCOutputReplace(singleLine), messageImportance);
         }
-
+        
         protected override string ToolName
         {
             get

@@ -1,4 +1,4 @@
-vs-android v0.91 - 2nd August 2011
+vs-android v0.92 - 3rd August 2011
 ==================================
 
 vs-android is intended to provide a collection of scripts and utilities to support integrated development of
@@ -40,6 +40,14 @@ Documentation for vs-android can be found here:
 
 Version History
 ===============
+
+v0.92 - 3rd August 2011
+
+  * Fixed jump-to-line clickable errors. Reworked code to use regular expressions instead. Tried a number 
+    of different compiler/linker warnings and errors and all seems to be good
+  * Default warning level is now 'Normal Warnings', instead of 'Disable All Warnings'. Whoops!
+  * Fixed rtti-related warnings when compiling .c files with 'Enable All Warnings (-Wall)', turned on.
+
 
 v0.91 - 2nd August 2011
 
