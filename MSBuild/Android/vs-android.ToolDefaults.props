@@ -15,7 +15,7 @@
       <ObjectFileName>$(IntDir)%(FileName).o</ObjectFileName>
 
       <PreprocessorDefinitions  Condition="'%(ClCompile.PreprocessorDefinitions)'   == ''"></PreprocessorDefinitions>
-      <Warnings                 Condition="'%(ClCompile.Warnings)'                  == ''">DisableAllWarnings</Warnings>
+      <Warnings                 Condition="'%(ClCompile.Warnings)'                  == ''">NormalWarnings</Warnings>
       <WarningsAsErrors         Condition="'%(ClCompile.WarningsAsErrors)'          == ''">false</WarningsAsErrors>
       <EchoCommandLines         Condition="'%(ClCompile.EchoCommandLines)'          == ''">false</EchoCommandLines>
 
