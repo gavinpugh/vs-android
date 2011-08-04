@@ -4,7 +4,34 @@
 
 = Ant Build =
 
-  * TODO
+----
+
+== `[apply]` Could not create the Java virtual machine. ==
+
+vs-android issue:
+
+  * [ http://code.google.com/p/vs-android/issues/detail?id=15 ]
+
+The full error:
+<code>
+1>      [apply] Could not create the Java virtual machine.
+1>      [apply] Error occurred during initialization of VM
+1>      [apply] Could not reserve enough space for object heap
+</code>
+
+You likely need to change the Java VM size.
+
+As of vs-android v0.91 or later, it's possible to do this from within the Visual Studio IDE.
+
+Go to the Project 'Properties', and look under 'Ant Build'->'General'. There's two settings:
+
+  * Ant JVM Heap Initial Size (MB)
+  * Ant JVM Heap Maximum Size (MB)
+
+Those that have these problems have been setting both values to '512'. (no quotes)
+
+Your mileage may vary, potentially you need some different values depending on your machine setup and the amount of Java code you're working with.
+
 
 ----
 
