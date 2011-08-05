@@ -51,3 +51,9 @@ c:\My Projects\samples\     < BAD :(
 <img src="http://www.gavpugh.com/img/vs-android/prop_page.png" align="center">
 
   * Take a look around. I'd suggest taking one of the samples to start a new project you may want to work on. In a future release of vs-android there will be a 'New Project' wizard, but not just yet.
+
+==Troubleshooting==
+
+If you run into problems, issues, errors, whatever. Take a look here:
+
+  * [ Troubleshooting ]
