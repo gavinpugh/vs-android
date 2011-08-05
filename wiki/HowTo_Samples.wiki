@@ -56,4 +56,4 @@ c:\My Projects\samples\     < BAD :(
 
 If you run into problems, issues, errors, whatever. Take a look here:
 
-  * [ Troubleshooting ]
+  * [Troubleshooting]
