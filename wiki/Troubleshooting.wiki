@@ -2,6 +2,21 @@
 
 <wiki:toc />
 
+=*READ FIRST*=
+This project is supported by just one guy. I don't get paid for this, I'm just doing this project in my spare time.
+
+By all means post in the 'Issues' section on this Google Code page. Please keep in mind though that many issues I receive through this page, email, or otherwise are not specific to 'vs-android' at all. Which is a shame. I'm not here to provide general Android programming support.
+
+Two things I recommend:
+
+  * Google Search! It's awesome. Paste your error in there, you likely will get a solution to your problem.
+
+  * Using the Google-approved Eclipse, Cygwin and ndk-build setup. If you're inexperienced with Android programming, this is the place to start. When you're comfortable, switch to vs-android to get your IDE of choice back!
+
+
+
+
+
 = Ant Build =
 
 ----
@@ -90,3 +105,30 @@ Ctrl-Shift-Esc will bring up Task Manager.
 After it's dead, cancel the build within Visual Studio, if it's still running.
 
   * Try building again.
+
+
+=Deploy=
+
+----
+
+== EXEC : error : device not found ==
+
+vs-android issue:
+
+  * [ http://code.google.com/p/vs-android/issues/detail?id=19 ]
+
+Deploy step fails with a 'EXEC : error : device not found' error:
+
+<code>
+1>  BUILD SUCCESSFUL
+1>  Total time: 4 seconds
+1>  Deploying C:\Projects\Sample\san-angeles\AndroidApk\bin\DemoActivity-debug.apk...
+1>EXEC : error : device not found
+1>C:\Program Files\MSBuild\Microsoft.Cpp\v4.0\Platforms\Android\Microsoft.Cpp.Android.Targets(239,5): error MSB3073: The command ""C:\Android\android-sdk\platform-tools\adb.exe" install -r C:\Projects\Sample\san-angeles\AndroidApk\bin\DemoActivity-debug.apk" exited with code 1.
+</code>
+
+You have to either:
+  * Attach an Android device, with USB debugging enabled on it
+  * Start a virtual Android device from the Android SDK's 'SDK Manager'.
+
+Please use Google if you need help with this. There's plenty of information out there about attaching Android devices to deploy to them under Windows.
