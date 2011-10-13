@@ -1,5 +1,5 @@
 #summary A guide to installing vs-android
-#labels Phase-Deploy
+#labels Phase-Deploy,Featured
 
 =Installing vs-android=
 
