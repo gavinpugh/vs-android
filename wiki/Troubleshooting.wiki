@@ -26,7 +26,7 @@ Two things I recommend:
 
 vs-android issue:
 
-  * [ http://code.google.com/p/vs-android/issues/detail?id=15 ]
+  * http://code.google.com/p/vs-android/issues/detail?id=15
 
 The full error:
 <code>
@@ -55,7 +55,7 @@ Your mileage may vary, potentially you need some different values depending on y
 
 vs-android issue:
 
-  * [ http://code.google.com/p/vs-android/issues/detail?id=19 ]
+  * http://code.google.com/p/vs-android/issues/detail?id=19
 
 As mentioned in the HowTo_Samples section, your projects unfortunately need to live in a path that doesn't contain spaces:
 
@@ -66,7 +66,7 @@ As mentioned in the HowTo_Samples section, your projects unfortunately need to l
 
 See this link for more info about the problem:
 
-  * [ http://www.monkeycoder.co.nz/Community/posts.php?topic=1238 ]
+  * http://www.monkeycoder.co.nz/Community/posts.php?topic=1238
 
 
 ----
@@ -75,7 +75,7 @@ See this link for more info about the problem:
 
 See this link:
 
-  * [ http://sagistech.blogspot.com/2010/05/android-sdk-error-unable-to-resolve.html ]
+  * http://sagistech.blogspot.com/2010/05/android-sdk-error-unable-to-resolve.html
 
 
 ----
@@ -83,14 +83,14 @@ See this link:
 == adb.exe ==
 
 vs-android issue:
-  * [ http://code.google.com/p/vs-android/issues/detail?id=17 ]
+  * http://code.google.com/p/vs-android/issues/detail?id=17
 
 adb.exe is prone to locking up.
 
 This is a known issue, and something that affects its use both stand-alone and with vs-android. 
 
 Interestingly it also affects the Mac version too:
-[ http://code.google.com/p/android/issues/detail?id=10255 ]
+  * http://code.google.com/p/android/issues/detail?id=10255
 
 If you notice the build output hang due to adb.exe, it'll be after the 'BUILD SUCCESSFUL' message from Ant:
 
@@ -125,7 +125,7 @@ After it's dead, cancel the build within Visual Studio, if it's still running.
 
 vs-android issue:
 
-  * [ http://code.google.com/p/vs-android/issues/detail?id=19 ]
+  * http://code.google.com/p/vs-android/issues/detail?id=19
 
 Deploy step fails with a 'EXEC : error : device not found' error:
 
