@@ -30,6 +30,8 @@
 
     <!-- Agh, unable to use $() vars within registry query. Hence the hard-coding to version numbers -->
     <JavaHomeDir Condition="'$(JavaHomeDir)' == ''">$(JAVA_HOME)</JavaHomeDir>
+    <JavaHomeDir Condition="'$(JavaVersion)' == '1.8' and '$(JavaHomeDir)' == '' and '$(SixtyFourBit)' == 'false'">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\JavaSoft\Java Development Kit\1.8@JavaHome)</JavaHomeDir>
+    <JavaHomeDir Condition="'$(JavaVersion)' == '1.8' and '$(JavaHomeDir)' == '' and '$(SixtyFourBit)' == 'true'">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\JavaSoft\Java Development Kit\1.8@JavaHome)</JavaHomeDir>
     <JavaHomeDir Condition="'$(JavaVersion)' == '1.7' and '$(JavaHomeDir)' == '' and '$(SixtyFourBit)' == 'false'">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\JavaSoft\Java Development Kit\1.7@JavaHome)</JavaHomeDir>
     <JavaHomeDir Condition="'$(JavaVersion)' == '1.7' and '$(JavaHomeDir)' == '' and '$(SixtyFourBit)' == 'true'">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\JavaSoft\Java Development Kit\1.7@JavaHome)</JavaHomeDir>
     <JavaHomeDir Condition="'$(JavaVersion)' == '1.6' and '$(JavaHomeDir)' == '' and '$(SixtyFourBit)' == 'false'">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\JavaSoft\Java Development Kit\1.6@JavaHome)</JavaHomeDir>

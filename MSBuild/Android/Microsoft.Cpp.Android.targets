@@ -35,7 +35,9 @@
     <ItemGroup>
       <ClCompile>
         <CompileAs                    Condition="('%(ClCompile.CompileAs)' == 'Default' and '%(ClCompile.Extension)' == '.c')">CompileAsC</CompileAs>
-        <CompileAs                    Condition="('%(ClCompile.CompileAs)' == 'Default' and '%(ClCompile.Extension)' != '.c')">CompileAsCpp</CompileAs>
+        <CompileAs                    Condition="('%(ClCompile.CompileAs)' == 'Default' and '%(ClCompile.Extension)' == '.s')">CompileAsAsm</CompileAs>
+        <CompileAs                    Condition="('%(ClCompile.CompileAs)' == 'Default' and '%(ClCompile.Extension)' == '.asm')">CompileAsAsm</CompileAs>
+        <CompileAs                    Condition="('%(ClCompile.CompileAs)' == 'Default' and ('%(ClCompile.Extension)' != '.c' and '%(ClCompile.Extension)' != '.s' and '%(ClCompile.Extension)' != '.asm'))">CompileAsCpp</CompileAs>
         <MinimalRebuildFromTracking   Condition="'$(BuildType)' != 'Build' or '$(ForceRebuild)' == 'true'">false</MinimalRebuildFromTracking>
       </ClCompile>
     </ItemGroup>
@@ -134,6 +136,9 @@
       <Link>
         <SystemLibraryDirectories Condition="'%(Link.LinkGccLibThumb)' == 'true'">%(Link.SystemLibraryDirectories);$(GccLibPath_Thumb)</SystemLibraryDirectories>
         <SystemLibraryDirectories Condition="'%(Link.LinkGccLibThumb)' != 'true'">%(Link.SystemLibraryDirectories);$(GccLibPath)</SystemLibraryDirectories>
+
+        <StlLibs Condition="'%(Link.LinkGccLibThumb)' == 'true'">$(GccLibPath_Thumb)\crtbegin.o;%(Link.StlLibs)</StlLibs>
+        <StlLibs Condition="'%(Link.LinkGccLibThumb)' != 'true'">$(GccLibPath)\crtbegin.o;%(Link.StlLibs)</StlLibs>        
       </Link>
     </ItemGroup>
     
@@ -238,7 +243,7 @@
 
     <Exec Condition="'$(AntBuildSkippedExecution)' == 'false' and '%(AntBuild.AntDeploy)' != 'None'" 
       WorkingDirectory="%(AntBuild.AntBuildPath)" 
-		  Command="&quot;$(AndroidAdbPath)&quot; install -r $(ApkPath)">      
+		  Command="&quot;$(AndroidAdbPath)&quot; %(AntBuild.AdbDeployAddCmdLine) install -r $(ApkPath)">      
     </Exec>
 
     <!-- Run on device -->
@@ -249,7 +254,7 @@
 
     <Exec Condition="'$(AntBuildSkippedExecution)' == 'false' and '%(AntBuild.AntDeploy)' == 'DeployAndRun'"
       WorkingDirectory="%(AntBuild.AntBuildPath)"
-		  Command="&quot;$(AndroidAdbPath)&quot; shell am start -n $(PackageName)/$(ActivityName)">
+		  Command="&quot;$(AndroidAdbPath)&quot; %(AntBuild.AdbRunAddCmdLine) shell am start -n $(PackageName)/$(ActivityName)">
     </Exec>
     
   </Target>
@@ -300,11 +305,9 @@
     <Error Condition="'$(PlatformShortName)' == 'arm' and '$(AndroidArch)' == 'x86'" 
            Text="Architecture must be set to arm for the arm toolchain!"></Error>
 
-    <!-- STL Checks -->
-    <Error Condition="'$(AndroidStlType)' == 'stlport_static' and !exists('$(AndroidNdkDir)\sources\cxx-stl\stlport\libs\$(ArchStlDirName)')" 
-           Text="The r6 release of the NDK removed the prebuilt stlport libraries. Choose another STL type, build stlport yourself, or switch back to r5c."></Error>
-    <Error Condition="'$(AndroidStlType)' == 'stlport_dynamic' and !exists('$(AndroidNdkDir)\sources\cxx-stl\stlport\libs\$(ArchStlDirName)')"
-           Text="The r6 release of the NDK removed the prebuilt stlport libraries. Choose another STL type, build stlport yourself, or switch back to r5c."></Error>
+    <!-- NDK r7 check -->
+    <Error Condition="!exists('$(AndroidNdkDir)\sources\cxx-stl\gnu-libstdc++\libs\$(ArchStlDirName)\libgnustl_static.a')"
+           Text="vs-android requires at least the r7 version of the NDK installed."></Error>
 
     <Warning Condition="'$(AndroidStlType)' != 'none' and '$(AndroidArch)' == 'x86'"
            Text="The x86 toolchain doesn't seem to play nice with the STL, or C++ features. Use at your own risk."></Warning>

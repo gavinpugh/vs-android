@@ -21,13 +21,20 @@
 
     <AndroidStlIncludeDir Condition="'$(AndroidStlType)' == 'system'">$(AndroidNdkDir)\sources\cxx-stl\system\include</AndroidStlIncludeDir>
     <AndroidStlIncludeDir Condition="'$(AndroidStlType)' == 'gnustl_static'">$(AndroidNdkDir)\sources\cxx-stl\gnu-libstdc++\include;$(AndroidNdkDir)\sources\cxx-stl\gnu-libstdc++\libs\$(ArchStlDirName)\include</AndroidStlIncludeDir>
+    <AndroidStlIncludeDir Condition="'$(AndroidStlType)' == 'gnustl_dynamic'">$(AndroidNdkDir)\sources\cxx-stl\gnu-libstdc++\include;$(AndroidNdkDir)\sources\cxx-stl\gnu-libstdc++\libs\$(ArchStlDirName)\include</AndroidStlIncludeDir>
     <AndroidStlIncludeDir Condition="'$(AndroidStlType)' == 'stlport_static'">$(AndroidNdkDir)\sources\cxx-stl\stlport\stlport</AndroidStlIncludeDir>
     <AndroidStlIncludeDir Condition="'$(AndroidStlType)' == 'stlport_dynamic'">$(AndroidNdkDir)\sources\cxx-stl\stlport\stlport</AndroidStlIncludeDir>
 
-    <AndroidStlLibs Condition="'$(AndroidStlType)' == 'system'">$(AndroidLibDir)\libstdc++.a</AndroidStlLibs>
-    <AndroidStlLibs Condition="'$(AndroidStlType)' == 'gnustl_static'">$(AndroidNdkDir)\sources\cxx-stl\gnu-libstdc++\libs\$(ArchStlDirName)\libstdc++.a</AndroidStlLibs>
-    <AndroidStlLibs Condition="'$(AndroidStlType)' == 'stlport_static'">$(AndroidNdkDir)\sources\cxx-stl\stlport\libs\$(ArchStlDirName)\libstlport_static.a;$(AndroidLibDir)\libstdc++.a</AndroidStlLibs>
-    <AndroidStlLibs Condition="'$(AndroidStlType)' == 'stlport_dynamic'">$(AndroidNdkDir)\sources\cxx-stl\stlport\libs\$(ArchStlDirName)\libstlport_shared.so;$(AndroidLibDir)\libstdc++.a</AndroidStlLibs>
+    <AndroidStlLibPath Condition="'$(AndroidStlType)' == 'gnustl_static'">$(AndroidNdkDir)\sources\cxx-stl\gnu-libstdc++\libs\$(ArchStlDirName)</AndroidStlLibPath>
+    <AndroidStlLibPath Condition="'$(AndroidStlType)' == 'gnustl_dynamic'">$(AndroidNdkDir)\sources\cxx-stl\gnu-libstdc++\libs\$(ArchStlDirName)</AndroidStlLibPath>
+    <AndroidStlLibPath Condition="'$(AndroidStlType)' == 'stlport_static'">$(AndroidNdkDir)\sources\cxx-stl\stlport\libs\$(ArchStlDirName)</AndroidStlLibPath>
+    <AndroidStlLibPath Condition="'$(AndroidStlType)' == 'stlport_dynamic'">$(AndroidNdkDir)\sources\cxx-stl\stlport\libs\$(ArchStlDirName)</AndroidStlLibPath>
+    
+    <AndroidStlLibs Condition="'$(AndroidStlType)' == 'system'">-lstdc++</AndroidStlLibs>
+    <AndroidStlLibs Condition="'$(AndroidStlType)' == 'gnustl_static'">-lstdc++;-lsupc++;-lgnustl_static;-lgcc</AndroidStlLibs>
+    <AndroidStlLibs Condition="'$(AndroidStlType)' == 'gnustl_dynamic'">-lstdc++;-lsupc++;$(AndroidStlLibPath)\libgnustl_shared.so;-lgcc</AndroidStlLibs>
+    <AndroidStlLibs Condition="'$(AndroidStlType)' == 'stlport_static'">-lstdc++;-lstlport_static;-lgcc</AndroidStlLibs>
+    <AndroidStlLibs Condition="'$(AndroidStlType)' == 'stlport_dynamic'">-lstdc++;$(AndroidStlLibPath)\libstlport_shared.so;-lgcc</AndroidStlLibs>
 
     <GccLibPath       Condition="'$(AndroidArch)' == 'armv5te'" >$(GccLibPath)</GccLibPath>
     <GccLibPath_Thumb Condition="'$(AndroidArch)' == 'armv5te'" >$(GccLibPath_Thumb)</GccLibPath_Thumb>
@@ -63,7 +70,7 @@
     <!-- Default system pathing -->
     <ExecutablePath Condition="'$(ExecutablePath)' == ''">$(GccToolsPath);$(PATH);</ExecutablePath>
     <IncludePath Condition="'$(IncludePath)' == ''">$(AndroidIncludeDir);$(AndroidStlIncludeDir);</IncludePath>
-    <LibraryPath Condition="'$(LibraryPath)' == ''">$(AndroidLibDir);</LibraryPath>
+    <LibraryPath Condition="'$(LibraryPath)' == ''">$(AndroidLibDir);$(AndroidStlLibPath);</LibraryPath>
 
   </PropertyGroup>
   

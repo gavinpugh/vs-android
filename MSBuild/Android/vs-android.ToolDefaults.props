@@ -111,6 +111,8 @@
       <AntDeploy            Condition="'%(AntBuild.AntDeploy)'            == ''">DeployAndRun</AntDeploy>
       <JVMHeapInitial       Condition="'%(AntBuild.JVMHeapInitial)'       == ''"></JVMHeapInitial>
       <JVMHeapMaximum       Condition="'%(AntBuild.JVMHeapMaximum)'       == ''"></JVMHeapMaximum>
+      <AdbDeployAddCmdLine  Condition="'%(AntBuild.AdbDeployAddCmdLine)'  == ''"></AdbDeployAddCmdLine>
+      <AdbRunAddCmdLine     Condition="'%(AntBuild.AdbRunAddCmdLine)'     == ''"></AdbRunAddCmdLine>
 
       <TrackerLogDirectory  Condition="'%(AntBuild.TrackerLogDirectory)'  == ''">$(IntDir)</TrackerLogDirectory>
 

@@ -94,6 +94,8 @@
     </EnumValue>
     <EnumValue Name="CompileAsCpp" DisplayName="Compile as C++ Code" Switch="x c++">
     </EnumValue>
+    <EnumValue Name="CompileAsAsm" DisplayName="Compile as Assembly Code" Switch="x assembler">
+    </EnumValue>
   </EnumProperty>
 
   <!-- Hidden -->

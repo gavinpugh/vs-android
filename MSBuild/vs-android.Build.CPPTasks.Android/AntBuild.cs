@@ -111,7 +111,7 @@ namespace vs_android.Build.CPPTasks.Android
                 }
                 else
                 {
-                    OutputFile = Path.GetFullPath(AntBuildPath + "\\" + BUILD_BIN_PATH + "\\" + ApkName + ".apk");
+                    OutputFile = Path.GetFullPath(AntBuildPath + "\\" + BUILD_BIN_PATH + "\\" + ApkName + "-release.apk");
                 }
             }
             else
@@ -166,15 +166,26 @@ namespace vs_android.Build.CPPTasks.Android
             // Create local properties file from Android SDK Path
             WriteLocalProperties();
 
-            // Set JAVA_HOME for the ant build
-            System.Environment.SetEnvironmentVariable("JAVA_HOME", AntJavaHomePath, EnvironmentVariableTarget.Process);
-            Log.LogMessage( MessageImportance.High, "Building using the JDK located here: '{0}'...", AntJavaHomePath );
+            // List of environment variables
+            List<String> envList = new List<String>();
 
-            if ( m_antOpts.Length > 0 )
+            // Set JAVA_HOME for the ant build
+			// NOTE: 'envList' code is from 'mark.bozeman', see http://code.google.com/p/vs-android/issues/detail?id=15
+			// NOTE: I kept the original env setting code, since for me, JAVA_HOME was no longer being set correctly, causing
+			// NOTE: the ant build to fail.
+            envList.Add("JAVA_HOME=" + AntJavaHomePath);
+            System.Environment.SetEnvironmentVariable("JAVA_HOME", AntJavaHomePath, EnvironmentVariableTarget.Process);
+            Log.LogMessage(MessageImportance.High, "Building using the JDK located here: '{0}'...", AntJavaHomePath);
+
+            if (m_antOpts.Length > 0)
             {
-                Log.LogMessage( MessageImportance.High, "Building using ANT_OPTS: '{0}'...", m_antOpts );
+                Log.LogMessage(MessageImportance.High, "Building using ANT_OPTS: '{0}'...", m_antOpts);
+                envList.Add("ANT_OPTS=" + m_antOpts);
                 System.Environment.SetEnvironmentVariable("ANT_OPTS", m_antOpts, EnvironmentVariableTarget.Process);
             }
+
+            // Set environment variables
+            this.EnvironmentVariables = envList.ToArray();
 
             return base.ExecuteTool(pathToTool, responseFileCommands, commandLineCommands);
         }

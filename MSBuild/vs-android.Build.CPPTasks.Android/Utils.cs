@@ -28,7 +28,7 @@ namespace vs_android.Build.CPPTasks.Android
             {
                 if ( path.StartsWith( "\"" ) && path.EndsWith( "\"" ) )
                 {
-                    path = path.Substring( 0, path.Length - 2 );
+                    path = path.Substring( 1, path.Length - 2 );
                 }
             }
 
