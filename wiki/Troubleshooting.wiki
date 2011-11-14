@@ -73,10 +73,17 @@ See this link for more info about the problem:
 
 == Unable to resolve target 'android-x' ==
 
+Within the 'Android SDK Manager' application, you need to install the API which is missing.
+
+It'll be listed under 'Android x.x ( API x )'. Enable the checkbox on the line "SDK Platform", 
+
 See this link:
 
   * http://sagistech.blogspot.com/2010/05/android-sdk-error-unable-to-resolve.html
 
+An alternative is to edit the 'project.properties' file. Change the target to match the latest API version of the installed SDK.
+
+e.g. "android-14"
 
 ----
 
