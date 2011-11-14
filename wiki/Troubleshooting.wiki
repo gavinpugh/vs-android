@@ -71,6 +71,15 @@ See this link for more info about the problem:
 
 ----
 
+== Unable to resolve target 'android-x' ==
+
+See this link:
+
+  * [ http://sagistech.blogspot.com/2010/05/android-sdk-error-unable-to-resolve.html ]
+
+
+----
+
 == adb.exe ==
 
 vs-android issue:
