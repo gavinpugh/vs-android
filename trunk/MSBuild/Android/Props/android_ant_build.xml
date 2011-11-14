@@ -31,5 +31,9 @@
   </IntProperty>
   <IntProperty Name="JVMHeapMaximum" DisplayName="Ant JVM Heap Maximum Size (MB)" Category="General">
   </IntProperty>
+  <StringProperty Name="AdbDeployAddCmdLine" DisplayName="Add To adb Deploy Command Line" Category="General">
+  </StringProperty>
+  <StringProperty Name="AdbRunAddCmdLine" DisplayName="Add To adb Run Command Line" Category="General">
+  </StringProperty>
     
 </Rule>

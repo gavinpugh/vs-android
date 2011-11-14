@@ -28,7 +28,7 @@
     <ArchDefines Condition="'$(AndroidArch)' == 'armv7-a'">__ARM_EABI__;__ARM_ARCH_7__;__ARM_ARCH_7A__;__ARM_ARCH_5__;__ARM_ARCH_5T__;__ARM_ARCH_5E__;__ARM_ARCH_5TE__;</ArchDefines>
     <ArchDefines Condition="'$(AndroidArch)' == 'x86'">;</ArchDefines>
 
-    <AndroidDefines>ANDROID_NDK;ANDROID;__ANDROID__;$(ArmArchDefines);</AndroidDefines>
+    <AndroidDefines>ANDROID_NDK;ANDROID;__ANDROID__;$(ArchDefines);</AndroidDefines>
   </PropertyGroup>
   
   <!-- Couple of things to disable that we don't need for Android -->

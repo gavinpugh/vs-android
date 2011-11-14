@@ -24,7 +24,7 @@
   <ItemGroup>
     <!-- Property pages that always apply -->
     <PropertyPageSchema Include="
-        $(VCTargetsPath)$(LangID)\ProjectItemsSchema.xml;
+        $(VCTargetsPath)\Platforms\Android\Props\android_project_items_schema.xml;
         $(VCTargetsPath)$(LangID)\debugger_*.xml;
         $(VCTargetsPath)$(LangID)\midl.xml;
         $(VCTargetsPath)$(LangID)\build_events.xml;

@@ -15,7 +15,7 @@
     <!-- Path to gcc prebuilt libs -->
     <PrebuiltDir>$(AndroidNdkDir)\toolchains\$(PlatformToolsetVersion)\prebuilt\windows</PrebuiltDir>
     
-    <GccLibPath>$(PrebuiltDir)\lib\gcc\i686-android-linux\4.4.3;$(PrebuiltDir)\i686-android-linux\lib</GccLibPath>
+    <GccLibPath>$(PrebuiltDir)\lib\gcc\i686-android-linux\4.4.3</GccLibPath>
     <GccLibPath_Thumb>$(GccLibPath)</GccLibPath_Thumb>
     <GccLibPath_Arm7>$(GccLibPath)</GccLibPath_Arm7>
     <GccLibPath_Arm7_Thumb>$(GccLibPath)</GccLibPath_Arm7_Thumb>
@@ -23,8 +23,8 @@
     <!-- Path to the GCC compilation tools -->
     <GccToolsPath>$(AndroidNdkDir)\toolchains\$(PlatformToolsetVersion)\prebuilt\windows\bin</GccToolsPath>
 
-	<!-- Path to the toolchain includes. Needed for Intellisense. -->
-	<GccToolchainIncludes>$(PrebuiltDir)\lib\gcc\i686-android-linux\4.4.3\include</GccToolchainIncludes>
+	  <!-- Path to the toolchain includes. Needed for Intellisense. -->
+	  <GccToolchainIncludes>$(PrebuiltDir)\lib\gcc\i686-android-linux\4.4.3\include</GccToolchainIncludes>
 
     <!-- GCC compilation tool filenames -->
     <GccCompiler>i686-android-linux-g++.exe</GccCompiler>
