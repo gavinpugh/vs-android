@@ -75,7 +75,7 @@ See this link for more info about the problem:
 
 Within the 'Android SDK Manager' application, you need to install the API which is missing.
 
-It'll be listed under 'Android x.x ( API x )'. Enable the checkbox on the line "SDK Platform", 
+It'll be listed under 'Android x.x ( API x )'. Enable the checkbox on the line "SDK Platform", and click the "Install Packages..." button.
 
 See this link:
 
