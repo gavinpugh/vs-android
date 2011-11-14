@@ -1,5 +1,5 @@
-vs-android v0.92 - 3rd August 2011
-==================================
+vs-android v0.93 - 13th November 2011
+=====================================
 
 vs-android is intended to provide a collection of scripts and utilities to support integrated development of
 Android NDK C/C++ software under Microsoft Visual Studio.
@@ -40,6 +40,24 @@ Documentation for vs-android can be found here:
 
 Version History
 ===============
+
+v0.93 - 13th November 2011
+
+  * NDK r7 was a breaking change for vs-android. This version now requires r7 or newer to be installed.
+  * Fixed breaking changes to the location of STL libraries. Also fixed new linking issues introduced by STL changes.
+  * Removed support for defunct arm 4.4.0 toolset.
+  * Added support for android-14, Android API v4.0.
+  * Added support for the dynamic (shared) version of the GNU libstdc++ STL.
+  * Tested against newest JDK - jdk-7u1-windows-i586.
+  * Added support for building assembly files. '.s' and '.asm' extensions will be treated as assembly code.
+  * Correct passing of ANT_OPTS to the Ant Build step. Thanks to 'mark.bozeman'.
+  * Corrected expected apk name for release builds.
+  * Added to Ant Build property page; the ability to add extra flags to the calls to adb.
+  * Fixed bug with arm arch preprocessor defines not making it onto the command line.
+  * Fixed bad quote removal on paths, in the C# code. Thanks to 'hoesing@kleinbottling'.
+  * Removed stlport project from Google Code - This was an oversight by Google in the r6 NDK, prebuilt is back again.
+  * Updated sample projects to work with R15 SDK tools.
+
 
 v0.92 - 3rd August 2011
 
@@ -105,6 +123,9 @@ Contributors
 ============
 
 asafhel...@gmail.com - Initial 'clickable errors from compiler' C# code.
+mark.bozeman - Fix for Ant Build to correctly pass ANT_OPTS.
+hoesing@kleinbottling - Fix for the bad quote removal on paths, in the C# code.
+
 
 
 References
