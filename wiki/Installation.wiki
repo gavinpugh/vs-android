@@ -86,3 +86,7 @@ If you don't want to run the 'install.cmd' file, you can copy the files manually
   * If you already had any Visual Studio sessions open, you will need to close and reopen them to make use of the new 'Android' platform.
 
   * Go ahead and download the Sample Projects: [HowTo_Samples Compiling a simple Android app with vs-android]. It's an easy way to get started.
+
+=Problems?=
+
+  * Take a look here: [Troubleshooting]
