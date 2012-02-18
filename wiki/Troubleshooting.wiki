@@ -25,6 +25,10 @@ Various people have reported varying levels of success with off-the-shelf debugg
 
 I'd certainly appreciate anyone contributing such a walk-through. I may get around to looking at writing one myself at some point, but I've said that for many months now. So please don't wait for me. :)
 
+Currently vs-android will deploy and run a built executable by default. This behavior can be changed in the project properties.
+
+"Debug -> Run" in Visual Studio will currently prompt for a local Win32 executable. It just plain "doesn't work" for vs-android right now.
+
 
 
 = Ant Build =
