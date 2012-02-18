@@ -15,6 +15,15 @@ Two things I recommend:
   * Using the Google-approved Eclipse, Cygwin and ndk-build setup. If you're inexperienced with Android programming, this is the place to start. When you're comfortable, switch to vs-android to get your IDE of choice back!
 
 
+= Debugging =
+
+vs-android currently does not support any debugger.
+
+It's left as an 'exercise for the reader'.
+
+Various people have reported varying levels of success with off-the-shelf debuggers like gdb and WinGDB. So far, no-one as written up a walk-through of how to set this up.
+
+I'd certainly appreciate anyone contributing such a walk-through. I may get around to looking at writing one myself at some point, but I've said that for many months now. So please don't wait for me. :)
 
 
 
