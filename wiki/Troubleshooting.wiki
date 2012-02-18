@@ -17,7 +17,7 @@ Two things I recommend:
 
 = Debugging =
 
-vs-android currently does not support any debugger.
+vs-android currently does not officially support any debugger.
 
 It's left as an 'exercise for the reader'.
 
