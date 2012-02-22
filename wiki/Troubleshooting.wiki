@@ -100,6 +100,20 @@ e.g. "android-14"
 
 ----
 
+== Signing ==
+
+=== Debug ===
+
+Debug builds should work without any issue. If you're having problems the most likely cause if that your debug certificate has expired. For more, see here:
+http://stackoverflow.com/questions/2194808/debug-certificate-expired-error-in-eclipse-android-plugins 
+
+=== Release ===
+
+For release builds you need to set up your own key. See this page:
+http://developer.android.com/guide/publishing/app-signing.html#releasemode
+
+----
+
 == adb.exe ==
 
 vs-android issue:
