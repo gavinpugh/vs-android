@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************************************
-// (c) 2011 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
+// (c) 2012 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
 // ***********************************************************************************************
 
 // Misc pathing utils, and some constants.

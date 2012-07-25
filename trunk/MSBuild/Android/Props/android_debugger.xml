@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+***********************************************************************************************
+(c) 2012 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
+***********************************************************************************************
+-->
+
+<!-- Based on script: MSBuild\Microsoft.Cpp\v4.0\1033\debugger_remote_windows.xml -->
+<Rule Name="WindowsRemoteDebugger"
+      DisplayName="Android Debugger"
+      PageTemplate="debugger"
+      Description="Android Debugger options"
+      xmlns="http://schemas.microsoft.com/build/2009/properties">
+  <Rule.DataSource>
+    <DataSource Persistence="UserFile" />
+  </Rule.DataSource>
+  <StringProperty Name="RemoteDebuggerCommand" DisplayName="Remote Command" Visible="false"
+                Description="The debug command to execute." 
+                F1Keyword="VC.Project.IVCRemoteDebugPageObject.RemoteCommand"/>
+  <StringProperty Name="RemoteDebuggerCommandArguments" DisplayName="Remote Command Arguments"
+                Description="The command line arguments to pass to the application."
+                F1Keyword="VC.Project.IVCRemoteDebugPageObject.CommandArguments">
+    <Argument Property="RemoteDebuggerCommand" />
+  </StringProperty>
+  <StringProperty Name="RemoteDebuggerWorkingDirectory" DisplayName="Working Directory" Visible="false"
+                Description="The application's working directory. By default, the directory containing the project file."
+                Subtype="folder" 
+                F1Keyword="VC.Project.IVCRemoteDebugPageObject.WorkingDirectory"/>
+  <StringProperty Name="RemoteDebuggerServerName" DisplayName="Remote Server Name" Visible="false"
+                Description="Specifies a remote server name."
+                F1Keyword="VC.Project.IVCRemoteDebugPageObject.RemoteMachine"/>
+  <EnumProperty Name="RemoteDebuggerConnection" DisplayName="Connection" Visible="false"
+                Description="Specifies the connection type."
+                F1Keyword="VC.Project.IVCRemoteDebugPageObject.Remote">
+    <EnumValue Name="RemoteWithAuthentication" DisplayName="Remote with Windows authentication"
+               Description="Remote with Windows authentication" />
+    <EnumValue Name="RemoteWithoutAuthentication" DisplayName="Remote with no authentication (Native only)"
+               Description="Remote with no authentication (Native only)" />
+  </EnumProperty>
+  <EnumProperty Name="RemoteDebuggerDebuggerType" DisplayName="Debugger Type" Visible="false"
+                Description="Specifies the debugger type to use. When set to Auto, the debugger type will be selected based on contents of the exe file."
+                F1Keyword="VC.Project.IVCRemoteDebugPageObject.DebuggerType">
+    <EnumValue Name="NativeOnly" DisplayName="Native Only" Description="Native Only" />
+    <EnumValue Name="ManagedOnly" DisplayName="Managed Only" Description="Managed Only" />
+    <EnumValue Name="Mixed" DisplayName="Mixed" Description="Mixed" />
+    <EnumValue Name="Auto" DisplayName="Auto" Description="Auto" />
+    <EnumValue Name="Script" DisplayName="Script" Description="Script" />
+  </EnumProperty>
+  <BoolProperty Name="RemoteDebuggerAttach" DisplayName="Attach" Visible="false"
+                Description="Specifies whether the debugger should attempt to attach to an existing process when debugging starts."
+                F1Keyword="VC.Project.IVCRemoteDebugPageObject.Attach"/>
+  <BoolProperty Name="RemoteDebuggerSQLDebugging" DisplayName="SQL Debugging" Visible="false"
+                Description="Attach the SQL debugger."
+                F1Keyword="VC.Project.IVCRemoteDebugPageObject.SQLDebugging"/>
+</Rule>

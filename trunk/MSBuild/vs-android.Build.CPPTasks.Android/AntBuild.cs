@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************************************
-// (c) 2011 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
+// (c) 2012 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
 // ***********************************************************************************************
 
 // Apache Ant, Apk Building Task.
@@ -24,7 +24,7 @@ namespace vs_android.Build.CPPTasks.Android
 {
     public class AntBuild : TrackedVCToolTask
     {
-        private const string BUILD_LIB_PATH = "libs\\armeabi";
+        private const string BUILD_LIB_PATH = "libs";
         private const string BUILD_BIN_PATH = "bin";
 
         private string m_toolFileName;
@@ -32,9 +32,14 @@ namespace vs_android.Build.CPPTasks.Android
         private string m_armEabiSoPath;
         private string m_antOpts;
 
+        private AntBuildParser m_parser = new AntBuildParser();
+
         public bool BuildingInIDE { get; set; }
         public string JVMHeapInitial { get; set; }
-        public string JVMHeapMaximum { get; set; }
+		public string JVMHeapMaximum { get; set; }
+
+		[Required]
+		public bool IgnoreJavaOpts { get; set; }
 
         [Required]
         public string AntBuildPath { get; set; }
@@ -53,6 +58,9 @@ namespace vs_android.Build.CPPTasks.Android
         
         [Required]
         public string GCCToolPath { get; set; }
+
+        [Required]
+        public string ApkLibsPath { get; set; }
         
         [Required]
         public virtual ITaskItem[] Sources { get; set; }
@@ -79,54 +87,15 @@ namespace vs_android.Build.CPPTasks.Android
         {
             m_toolFileName = Path.GetFileNameWithoutExtension(ToolName);
 
-            // Ant build directory check
-            if ( Directory.Exists( AntBuildPath ) == false )
+			if ( !m_parser.Parse( AntBuildPath, AntBuildType, Log, true ) )
             {
-                Log.LogError("Ant Build Path '" + AntBuildPath + "' does not exist");
                 return false;
             }
 
-            // Check that the build.xml exists
-            string buildXml = Path.GetFullPath( AntBuildPath + "\\build.xml" );
-            if (File.Exists(buildXml) == false)
-            {
-                Log.LogError("build.xml '" + buildXml + "' does not exist");
-                return false;
-            }
-
-            // Check that the AndroidManifest.xml exists
-            string manifestXml = Path.GetFullPath( AntBuildPath + "\\AndroidManifest.xml" );            
-            if (File.Exists(manifestXml) == false)
-            {
-                Log.LogError("AndroidManifest.xml '" + manifestXml + "' does not exist");
-                return false;
-            }
-
-            // Parse the xml to grab the finished apk path
-            if ( ParseBuildXml( buildXml ) )
-            {
-                if ( AntBuildType.ToLower() == "debug" )
-                {
-                    OutputFile = Path.GetFullPath(AntBuildPath + "\\" + BUILD_BIN_PATH + "\\" + ApkName + "-debug.apk");
-                }
-                else
-                {
-                    OutputFile = Path.GetFullPath(AntBuildPath + "\\" + BUILD_BIN_PATH + "\\" + ApkName + "-release.apk");
-                }
-            }
-            else
-            {
-                // Parse failed, oh dear.
-                Log.LogError("Failed parsing '" + buildXml + "'");
-                return false;
-            }
-
-            if ( ParseAndroidManifestXml( manifestXml ) == false )
-            {
-                // Parse failed, oh dear.
-                Log.LogError("Failed parsing '" + manifestXml + "'");
-                return false;
-            }
+            ActivityName = m_parser.ActivityName;
+            ApkName = m_parser.ApkName;
+            PackageName = m_parser.PackageName;
+            OutputFile = m_parser.OutputFile;
 
             // Only one .so library should be input to this task
             if ( Sources.Length > 1 )
@@ -138,7 +107,7 @@ namespace vs_android.Build.CPPTasks.Android
             m_inputSoPath = Path.GetFullPath(Sources[0].GetMetadata("FullPath"));
 
             // Copy the .so file into the correct place
-            m_armEabiSoPath = Path.GetFullPath(AntBuildPath + "\\" + BUILD_LIB_PATH + "\\" + AntLibraryName + ".so");
+            m_armEabiSoPath = Path.GetFullPath(AntBuildPath + "\\" + BUILD_LIB_PATH + "\\" + ApkLibsPath + "\\" + AntLibraryName + ".so");
 
             m_antOpts = string.Empty;
             if (JVMHeapInitial != null && JVMHeapInitial.Length > 0)
@@ -160,7 +129,7 @@ namespace vs_android.Build.CPPTasks.Android
         protected override int ExecuteTool(string pathToTool, string responseFileCommands, string commandLineCommands)
         {
             // Copy over the .so file to the correct directory in the build structure
-            Directory.CreateDirectory(AntBuildPath + "\\" + BUILD_LIB_PATH);
+            Directory.CreateDirectory(AntBuildPath + "\\" + BUILD_LIB_PATH + "\\" + ApkLibsPath);
             File.Copy(m_inputSoPath, m_armEabiSoPath, true);
 
             // Create local properties file from Android SDK Path
@@ -170,25 +139,32 @@ namespace vs_android.Build.CPPTasks.Android
             List<String> envList = new List<String>();
 
             // Set JAVA_HOME for the ant build
-			// NOTE: 'envList' code is from 'mark.bozeman', see http://code.google.com/p/vs-android/issues/detail?id=15
-			// NOTE: I kept the original env setting code, since for me, JAVA_HOME was no longer being set correctly, causing
-			// NOTE: the ant build to fail.
-            envList.Add("JAVA_HOME=" + AntJavaHomePath);
-            System.Environment.SetEnvironmentVariable("JAVA_HOME", AntJavaHomePath, EnvironmentVariableTarget.Process);
-            Log.LogMessage(MessageImportance.High, "Building using the JDK located here: '{0}'...", AntJavaHomePath);
+			SetEnvVar( envList, "JAVA_HOME", AntJavaHomePath );
 
-            if (m_antOpts.Length > 0)
-            {
-                Log.LogMessage(MessageImportance.High, "Building using ANT_OPTS: '{0}'...", m_antOpts);
-                envList.Add("ANT_OPTS=" + m_antOpts);
-                System.Environment.SetEnvironmentVariable("ANT_OPTS", m_antOpts, EnvironmentVariableTarget.Process);
-            }
+			// Set ANT_OPTS, if appropriate
+			if ( m_antOpts.Length > 0 )
+			{
+				SetEnvVar( envList, "ANT_OPTS", m_antOpts );
+			}
+
+			// Ignore JAVA_OPTS?
+			if ( IgnoreJavaOpts )
+			{
+				SetEnvVar( envList, "JAVA_OPTS", "" );
+			}
 
             // Set environment variables
             this.EnvironmentVariables = envList.ToArray();
 
             return base.ExecuteTool(pathToTool, responseFileCommands, commandLineCommands);
         }
+
+		private void SetEnvVar( List<String> envList, string var, string setting )
+		{
+			Log.LogMessage( MessageImportance.High, "Envvar: {0} is set to '{1}'", var, setting );
+			envList.Add( var + "=" + setting );
+			System.Environment.SetEnvironmentVariable( var, setting, EnvironmentVariableTarget.Process );
+		}
 
         private void WriteLocalProperties()
         {
@@ -206,67 +182,6 @@ namespace vs_android.Build.CPPTasks.Android
             }
         }
 
-        private bool ParseBuildXml( string xmlPath )
-        {
-            // Parse the Apk Name out of the build.xml file
-            XmlTextReader reader = new XmlTextReader(xmlPath);
-            string currElem = string.Empty;
-
-            while (reader.Read())
-            {
-                switch (reader.NodeType)
-                {
-                    case XmlNodeType.Element:
-                        if (reader.Name == "project")
-                        {
-                            string attrib = reader.GetAttribute("name");
-                            if ( attrib != null )
-                            {
-                                ApkName = attrib;
-                                return true;
-                            }
-                        }
-                        break;
-                }
-            }
-
-            return false;
-        }
-
-        private bool ParseAndroidManifestXml(string xmlPath)
-        {
-            // Parse the Package and Activity name out of the AndroidManifest.xml file
-            XmlTextReader reader = new XmlTextReader(xmlPath);
-            string currElem = string.Empty;
-
-            while (reader.Read())
-            {
-                switch (reader.NodeType)
-                {
-                    case XmlNodeType.Element:
-                        if ( reader.Name == "manifest" )
-                        {
-                            string attrib = reader.GetAttribute("package");
-                            if (attrib != null)
-                            {
-                                PackageName = attrib;
-                            }
-                        }
-                        else if (reader.Name == "activity")
-                        {
-                            string attrib = reader.GetAttribute("android:name");
-                            if (attrib != null)
-                            {
-                                ActivityName = attrib;
-                            }
-                        }
-                        break;
-                }
-            }
-
-            return (PackageName.Length > 0 && ActivityName.Length > 0);
-        }
-
         protected override void RemoveTaskSpecificInputs(CanonicalTrackedInputFiles compactInputs)
         {
             // This is necessary because the VC tracker gets confused by the intermingling of reading and writing by the support apps
@@ -278,10 +193,15 @@ namespace vs_android.Build.CPPTasks.Android
                 foreach (KeyValuePair<string, string> depFile in pair.Value)
                 {
                     // Remove the -unaligned.apk file, it shouldn't be in the input list
-                    if (depFile.Key.ToLowerInvariant().EndsWith("-unaligned.apk"))
+					if ( depFile.Key.ToLowerInvariant().EndsWith( "-unaligned.apk" ) )
                     {
                         delFiles.Add(depFile.Key);
-                    }
+					}
+					// Same deal with build.prop
+					if ( depFile.Key.ToLowerInvariant().EndsWith( "build.prop" ) )
+					{
+						delFiles.Add( depFile.Key );
+					}
                 }
 
                 // Do deletions
@@ -291,8 +211,14 @@ namespace vs_android.Build.CPPTasks.Android
                 }
 
                 // Add the two .so files to the inputs
-                pair.Value.Add(m_inputSoPath.ToUpperInvariant(), null);
-                pair.Value.Add(m_armEabiSoPath.ToUpperInvariant(), null);
+				if ( pair.Value.ContainsKey( m_inputSoPath.ToUpperInvariant() ) == false )
+				{
+					pair.Value.Add( m_inputSoPath.ToUpperInvariant(), null );
+				}
+				if ( pair.Value.ContainsKey( m_armEabiSoPath.ToUpperInvariant() ) == false )
+				{
+					pair.Value.Add( m_armEabiSoPath.ToUpperInvariant(), null );
+				}
             }
         }
 
@@ -312,6 +238,11 @@ namespace vs_android.Build.CPPTasks.Android
                     {
                         delFiles.Add(depFile.Key);
                     }
+                    // But *do* remove the -unaligned.apk from the list.
+					if ( depFile.Key.ToLowerInvariant().EndsWith( "-unaligned.apk" ) )
+					{
+						delFiles.Add( depFile.Key );
+					}
                 }
 
                 // Do deletions
@@ -442,6 +373,8 @@ namespace vs_android.Build.CPPTasks.Android
                     "cmd-java-aapt.*.read.*.tlog",
                     "cmd.read.*.tlog", 
                     "cmd.*.read.*.tlog",
+                    "cmd-java.read.*.tlog", 
+                    "cmd-java.*.read.*.tlog",
                     "java.read.*.tlog", 
                     "java.*.read.*.tlog",
                 };
@@ -459,11 +392,14 @@ namespace vs_android.Build.CPPTasks.Android
                     "cmd-java-aapt.*.write.*.tlog",
                     "cmd.write.*.tlog", 
                     "cmd.*.write.*.tlog",
+                    "cmd-java.write.*.tlog", 
+                    "cmd-java.*.write.*.tlog",
                     "java.write.*.tlog", 
                     "java.*.write.*.tlog",
                 };
             }
         }
+
 
     }
 

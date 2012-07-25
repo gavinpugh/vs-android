@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+***********************************************************************************************
+(c) 2012 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
+***********************************************************************************************
+-->
+<Rule Name="Deploy" DisplayName="Android Deployment" PageTemplate="tool" SwitchPrefix="-" Order="100" xmlns="http://schemas.microsoft.com/build/2009/properties" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+	<Rule.Categories>
+		<Category Name="General" DisplayName="General" />
+	</Rule.Categories>
+
+	<Rule.DataSource>
+		<DataSource Persistence="UserFile" ItemType="Deploy" HasConfigurationCondition="true" />
+	</Rule.DataSource>
+
+	<!-- General -->
+	<EnumProperty Name="DeploymentType" DisplayName="Deployment Type" Category="General">
+		<EnumValue Name="DeployOff" DisplayName="Do Not Deploy" />
+		<EnumValue Name="DeployToAny" DisplayName="Default Deployment" />
+		<EnumValue Name="DeployToDevice" DisplayName="Deploy To The Only Attached USB Device" Switch="d" />
+		<EnumValue Name="DeployToEmulator" DisplayName="Deploy To The Only Running Emulator Instance" Switch="e" />
+		<EnumValue Name="DeployToSpecific" DisplayName="Deploy To A Specific USB Device or Emulator Instance" Switch="s" />
+	</EnumProperty>
+	<StringProperty Name="DeploySpecificTargetName" DisplayName="Specific Deploy Target ID" Category="General">
+	</StringProperty>
+	<EnumProperty Name="DeployUninstall" DisplayName="Uninstall Step" Category="General">
+		<EnumValue Name="None" DisplayName="None" />
+		<EnumValue Name="Uninstall" DisplayName="Uninstall Package Before Install" />
+		<EnumValue Name="UninstallKeep" DisplayName="Uninstall, But Keep Data and Cache Directories" Switch="k" />
+	</EnumProperty>
+	<EnumProperty Name="DeployInstall" DisplayName="Install Step" Category="General">
+		<EnumValue Name="Reinstall" DisplayName="Reinstall, Keep Previous Data" Switch="r" />
+		<EnumValue Name="Install" DisplayName="Straight Install" />
+	</EnumProperty>
+	<BoolProperty Name="ExcludedFromBuild" DisplayName="Excluded From Build" Category="General" Visible="false">
+	</BoolProperty>
+
+</Rule>

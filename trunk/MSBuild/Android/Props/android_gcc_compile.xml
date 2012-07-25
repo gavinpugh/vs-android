@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
 ***********************************************************************************************
-(c) 2011 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
+(c) 2012 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
 ***********************************************************************************************
 -->
 
@@ -51,7 +51,7 @@
     <EnumValue Name="Os" DisplayName="Optimize for size" Switch="Os">
     </EnumValue>
   </EnumProperty>
-  <BoolProperty Name="ThumbMode" DisplayName="Thumb Mode" Category="Optimization" Switch="mthumb" ReverseSwitch="marm">
+  <BoolProperty Name="ThumbMode" DisplayName="Thumb Mode (ARM only)" Category="Optimization" Switch="mthumb" ReverseSwitch="marm">
   </BoolProperty>
   <BoolProperty Name="StrictAliasing" DisplayName="Strict Aliasing" Category="Optimization" Switch="fstrict-aliasing" ReverseSwitch="fno-strict-aliasing">
   </BoolProperty>
@@ -97,6 +97,8 @@
     <EnumValue Name="CompileAsAsm" DisplayName="Compile as Assembly Code" Switch="x assembler">
     </EnumValue>
   </EnumProperty>
+  <StringProperty Subtype="file" Name="ForcedIncludeFiles" DisplayName="Forced Include File" Category="Advanced" Switch="include ">
+  </StringProperty>
 
   <!-- Hidden -->
   <StringListProperty Subtype="folder" Name="SystemIncludeDirectories" Category="General" Visible="false" Switch="I">

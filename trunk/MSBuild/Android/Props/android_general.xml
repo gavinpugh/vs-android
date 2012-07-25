@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
 ***********************************************************************************************
-(c) 2011 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
+(c) 2012 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
 ***********************************************************************************************
 -->
 
@@ -79,7 +79,11 @@
 
   <EnumProperty Name="PlatformToolset" DisplayName="Platform Toolset" Category="General">
     <EnumValue Name="arm-linux-androideabi-4.4.3" DisplayName="ARM 4.4.3 Toolchain (arm-linux-androideabi-4.4.3)" />
+    <EnumValue Name="arm-linux-androideabi-4.6" DisplayName="ARM 4.6 Toolchain (arm-linux-androideabi-4.6)" />
     <EnumValue Name="x86-4.4.3" DisplayName="x86 4.4.3 Toolchain (x86-4.4.3)" />
+    <EnumValue Name="x86-4.6" DisplayName="x86 4.6 Toolchain (x86-4.6)" />
+    <EnumValue Name="mipsel-linux-android-4.4.3" DisplayName="MIPS 4.4.3 Toolchain (mipsel-linux-android-4.4.3)" />
+    <EnumValue Name="mipsel-linux-android-4.6" DisplayName="MIPS 4.6 Toolchain (mipsel-linux-android-4.6)" />
   </EnumProperty>
 
   <!-- Project Defaults -->
@@ -104,6 +108,7 @@
     <EnumValue Name="armv5te" DisplayName="ARM Architecture v5te (armv5te)" />
     <EnumValue Name="armv7-a" DisplayName="ARM Architecture v7-a (armv7-a)" />
     <EnumValue Name="x86" DisplayName="x86 Architecture (x86)" />
+    <EnumValue Name="mips" DisplayName="MIPS Architecture (mips)" />
   </EnumProperty>
   <EnumProperty Name="AndroidStlType" DisplayName="STL Type" Category="ProjectDefaults">
     <EnumValue Name="none" DisplayName="No C++ Support">

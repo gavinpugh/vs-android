@@ -1,6 +1,6 @@
 ﻿<!--
 ***********************************************************************************************
-(c) 2011 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
+(c) 2012 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
 ***********************************************************************************************
 -->
 
@@ -15,7 +15,9 @@
     
   <!-- Debugger. TODO: Implement an Android 'debugger' which simply launches the app on the device -->
   <PropertyGroup>
-    <DebuggerFlavor Condition="'$(DebuggerFlavor)'==''">WindowsLocalDebugger</DebuggerFlavor>
+    <DebuggerFlavor Condition="'$(DebuggerFlavor)'==''">WindowsRemoteDebugger</DebuggerFlavor>
+    <RemoteDebuggerCommand>$(VCTargetsPath)\Platforms\Android\vs-android_launch.exe</RemoteDebuggerCommand>
+    <RemoteDebuggerWorkingDirectory>$(IntDir)</RemoteDebuggerWorkingDirectory>
   </PropertyGroup>
 
   <!-- Bring in correct tool paths -->
@@ -53,6 +55,17 @@
     <TargetExt>.so</TargetExt>
   </PropertyGroup>
 
+  <!-- Deployment defaults -->
+  <ItemDefinitionGroup>
+    <Deploy>
+      <DeploymentType     Condition="'%(Deploy.DeploymentType)'         == ''">DeployToAny</DeploymentType>
+      <DeployUninstall    Condition="'%(Deploy.DeployUninstall)'        == ''">None</DeployUninstall>
+      <DeployInstall      Condition="'%(Deploy.DeployInstall)'          == ''">Reinstall</DeployInstall>
+      <ExcludedFromBuild  Condition="'%(Deploy.ExcludedFromBuild)'      == ''">false</ExcludedFromBuild>
+      <TrackerLogDirectory Condition="'%(Deploy.TrackerLogDirectory)' == ''">$(IntDir)</TrackerLogDirectory>
+    </Deploy>
+  </ItemDefinitionGroup>
+  
   <!-- Bring in default props for each tool -->
   <Import Project="$(VCTargetsPath)\Platforms\Android\vs-android.ToolDefaults.props" />
 

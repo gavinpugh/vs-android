@@ -1,6 +1,6 @@
 <!--
 ***********************************************************************************************
-(c) 2011 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
+(c) 2012 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
 ***********************************************************************************************
 -->
 
@@ -18,15 +18,16 @@
     <ArchStlDirName Condition="'$(AndroidArch)' == 'armv5te'">armeabi</ArchStlDirName>
     <ArchStlDirName Condition="'$(AndroidArch)' == 'armv7-a'">armeabi-v7a</ArchStlDirName>
     <ArchStlDirName Condition="'$(AndroidArch)' == 'x86'">x86</ArchStlDirName>
+    <ArchStlDirName Condition="'$(AndroidArch)' == 'mips'">mips</ArchStlDirName>
 
     <AndroidStlIncludeDir Condition="'$(AndroidStlType)' == 'system'">$(AndroidNdkDir)\sources\cxx-stl\system\include</AndroidStlIncludeDir>
-    <AndroidStlIncludeDir Condition="'$(AndroidStlType)' == 'gnustl_static'">$(AndroidNdkDir)\sources\cxx-stl\gnu-libstdc++\include;$(AndroidNdkDir)\sources\cxx-stl\gnu-libstdc++\libs\$(ArchStlDirName)\include</AndroidStlIncludeDir>
-    <AndroidStlIncludeDir Condition="'$(AndroidStlType)' == 'gnustl_dynamic'">$(AndroidNdkDir)\sources\cxx-stl\gnu-libstdc++\include;$(AndroidNdkDir)\sources\cxx-stl\gnu-libstdc++\libs\$(ArchStlDirName)\include</AndroidStlIncludeDir>
+    <AndroidStlIncludeDir Condition="'$(AndroidStlType)' == 'gnustl_static'">$(AndroidNdkDir)\sources\cxx-stl\gnu-libstdc++\$(GccVersion)\include;$(AndroidNdkDir)\sources\cxx-stl\gnu-libstdc++\$(GccVersion)\libs\$(ArchStlDirName)\include</AndroidStlIncludeDir>
+    <AndroidStlIncludeDir Condition="'$(AndroidStlType)' == 'gnustl_dynamic'">$(AndroidNdkDir)\sources\cxx-stl\gnu-libstdc++\$(GccVersion)\include;$(AndroidNdkDir)\sources\cxx-stl\gnu-libstdc++\$(GccVersion)\libs\$(ArchStlDirName)\include</AndroidStlIncludeDir>
     <AndroidStlIncludeDir Condition="'$(AndroidStlType)' == 'stlport_static'">$(AndroidNdkDir)\sources\cxx-stl\stlport\stlport</AndroidStlIncludeDir>
     <AndroidStlIncludeDir Condition="'$(AndroidStlType)' == 'stlport_dynamic'">$(AndroidNdkDir)\sources\cxx-stl\stlport\stlport</AndroidStlIncludeDir>
 
-    <AndroidStlLibPath Condition="'$(AndroidStlType)' == 'gnustl_static'">$(AndroidNdkDir)\sources\cxx-stl\gnu-libstdc++\libs\$(ArchStlDirName)</AndroidStlLibPath>
-    <AndroidStlLibPath Condition="'$(AndroidStlType)' == 'gnustl_dynamic'">$(AndroidNdkDir)\sources\cxx-stl\gnu-libstdc++\libs\$(ArchStlDirName)</AndroidStlLibPath>
+    <AndroidStlLibPath Condition="'$(AndroidStlType)' == 'gnustl_static'">$(AndroidNdkDir)\sources\cxx-stl\gnu-libstdc++\$(GccVersion)\libs\$(ArchStlDirName)</AndroidStlLibPath>
+    <AndroidStlLibPath Condition="'$(AndroidStlType)' == 'gnustl_dynamic'">$(AndroidNdkDir)\sources\cxx-stl\gnu-libstdc++\$(GccVersion)\libs\$(ArchStlDirName)</AndroidStlLibPath>
     <AndroidStlLibPath Condition="'$(AndroidStlType)' == 'stlport_static'">$(AndroidNdkDir)\sources\cxx-stl\stlport\libs\$(ArchStlDirName)</AndroidStlLibPath>
     <AndroidStlLibPath Condition="'$(AndroidStlType)' == 'stlport_dynamic'">$(AndroidNdkDir)\sources\cxx-stl\stlport\libs\$(ArchStlDirName)</AndroidStlLibPath>
     

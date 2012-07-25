@@ -1,6 +1,6 @@
 <!--
 ***********************************************************************************************
-(c) 2011 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
+(c) 2012 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
 ***********************************************************************************************
 -->
 
@@ -108,12 +108,9 @@
       <AntLibraryName       Condition="'%(AntBuild.AntLibraryName)'       == ''">lib$(TargetName)</AntLibraryName>
       <AntBuildType         Condition="'%(AntBuild.AntBuildType)'         == '' and '$(Configuration)' == 'Debug'">Debug</AntBuildType>
       <AntBuildType         Condition="'%(AntBuild.AntBuildType)'         == '' and '$(Configuration)' != 'Debug'">Release</AntBuildType>
-      <AntDeploy            Condition="'%(AntBuild.AntDeploy)'            == ''">DeployAndRun</AntDeploy>
       <JVMHeapInitial       Condition="'%(AntBuild.JVMHeapInitial)'       == ''"></JVMHeapInitial>
       <JVMHeapMaximum       Condition="'%(AntBuild.JVMHeapMaximum)'       == ''"></JVMHeapMaximum>
-      <AdbDeployAddCmdLine  Condition="'%(AntBuild.AdbDeployAddCmdLine)'  == ''"></AdbDeployAddCmdLine>
-      <AdbRunAddCmdLine     Condition="'%(AntBuild.AdbRunAddCmdLine)'     == ''"></AdbRunAddCmdLine>
-
+      <IgnoreJavaOpts       Condition="'%(AntBuild.IgnoreJavaOpts)'       == ''">true</IgnoreJavaOpts>
       <TrackerLogDirectory  Condition="'%(AntBuild.TrackerLogDirectory)'  == ''">$(IntDir)</TrackerLogDirectory>
 
     </AntBuild>
