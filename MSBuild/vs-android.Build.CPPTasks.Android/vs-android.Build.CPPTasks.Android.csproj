@@ -46,7 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdbDeploy.cs" />
     <Compile Include="AntBuild.cs" />
+    <Compile Include="AntBuildParser.cs" />
     <Compile Include="CustomToolTask.cs" />
     <Compile Include="DepFileParse.cs" />
     <Compile Include="GCCCompile.cs" />

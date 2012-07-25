@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************************************
-// (c) 2011 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
+// (c) 2012 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
 // ***********************************************************************************************
 
 // This file is just a copy of the .NET Reflector code of 'TrackedVCToolTask' from 'Microsoft.Build.CPPTasks.Common'.

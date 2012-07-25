@@ -1,6 +1,6 @@
 <!--
 ***********************************************************************************************
-(c) 2011 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
+(c) 2012 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
 ***********************************************************************************************
 -->
 
@@ -25,7 +25,8 @@
     <!-- Property pages that always apply -->
     <PropertyPageSchema Include="
         $(VCTargetsPath)\Platforms\Android\Props\android_project_items_schema.xml;
-        $(VCTargetsPath)$(LangID)\debugger_*.xml;
+        $(VCTargetsPath)\Platforms\Android\Props\android_debugger.xml;
+        $(VCTargetsPath)$(LangID)\debugger_general.xml;
         $(VCTargetsPath)$(LangID)\midl.xml;
         $(VCTargetsPath)$(LangID)\build_events.xml;
         $(VCTargetsPath)$(LangID)\custom_build_tool.xml;
@@ -38,12 +39,8 @@
          in the alternative locations. To avoid duplicate schemas, we don't include them
          if they already exist in $(VCTargetsPath)$(LangID)\debugger_*.xml -->
     <PropertyPageSchema Condition="!Exists('$(VCTargetsPath)$(LangID)\debugger_general.xml')" Include="$(VCTargetsPath)$(LangID)\debugger_general.xml" />
-    <PropertyPageSchema Condition="!Exists('$(VCTargetsPath)$(LangID)\debugger_local_windows.xml')" Include="$(VCTargetsPath)$(LangID)\debugger_local_windows.xml" />
-    <PropertyPageSchema Condition="!Exists('$(VCTargetsPath)$(LangID)\debugger_mpi_cluster.xml')" Include="$(VCTargetsPath)$(LangID)\debugger_mpi_cluster.xml" />
-    <PropertyPageSchema Condition="!Exists('$(VCTargetsPath)$(LangID)\debugger_remote_windows.xml')" Include="$(VCTargetsPath)$(LangID)\debugger_remote_windows.xml" />
-    <PropertyPageSchema Condition="!Exists('$(VCTargetsPath)$(LangID)\debugger_web_browser.xml')" Include="$(VCTargetsPath)$(LangID)\debugger_web_browser.xml" />
-    <PropertyPageSchema Condition="!Exists('$(VCTargetsPath)$(LangID)\debugger_web_service.xml')" Include="$(VCTargetsPath)$(LangID)\debugger_web_service.xml" />
-
+    <PropertyPageSchema Condition="!Exists('$(VCTargetsPath)\Platforms\Android\Props\android_debugger.xml')" Include="$(VCTargetsPath)\Platforms\Android\Props\android_debugger.xml" />
+    
     <!-- Property sheet specific property pages -->
     <PropertyPageSchema Include="$(VCTargetsPath)$(LangID)\usermacros.xml">
       <Context>PropertySheet</Context>
@@ -59,6 +56,7 @@
     "/>
     <PropertyPageSchema Include="$(VCTargetsPath)\Platforms\Android\Props\android_gcc_link.xml" Condition="'$(ConfigurationType)' == 'Application' or '$(ConfigurationType)' == 'DynamicLibrary'" />
     <PropertyPageSchema Include="$(VCTargetsPath)\Platforms\Android\Props\android_ant_build.xml" Condition="'$(ConfigurationType)' == 'Application'" />
+	<PropertyPageSchema Include="$(VCTargetsPath)\Platforms\Android\Props\android_deploy.xml" Condition="'$(ConfigurationType)' == 'Application'" />
     <PropertyPageSchema Include="$(VCTargetsPath)\Platforms\Android\Props\android_gcc_lib.xml" Condition="'$(ConfigurationType)' == 'StaticLibrary'" />
   </ItemGroup>
 
@@ -79,6 +77,8 @@
 
   <ItemGroup Condition="('$(ConfigurationType)' == 'Application')">
     <ProjectTools Include="AntBuild"/>
+    <ProjectTools Include="PostAntDeploy"/>
+    <ProjectTools Include="Deploy"/>
   </ItemGroup>
   
   <!-- Tools that show up in the IDE property pages for lib project-->

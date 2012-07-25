@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 ***********************************************************************************************
-(c) 2011 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
+(c) 2012 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
 ***********************************************************************************************
 -->
 <Rule Name="AntBuild" PageTemplate="tool" DisplayName="Ant Build" SwitchPrefix="-" Order="50" xmlns="http://schemas.microsoft.com/build/2009/properties" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib">
@@ -22,18 +22,11 @@
     <EnumValue Name="Debug" DisplayName="Debug" />
     <EnumValue Name="Release" DisplayName="Release" />
   </EnumProperty>
-  <EnumProperty Name="AntDeploy" DisplayName="Deploy To Device" Category="General">
-    <EnumValue Name="None" DisplayName="No Deploy" />
-    <EnumValue Name="Deploy" DisplayName="Deploy Only" />
-    <EnumValue Name="DeployAndRun" DisplayName="Deploy and Run" />
-  </EnumProperty>
   <IntProperty Name="JVMHeapInitial" DisplayName="Ant JVM Heap Initial Size (MB)" Category="General">
   </IntProperty>
   <IntProperty Name="JVMHeapMaximum" DisplayName="Ant JVM Heap Maximum Size (MB)" Category="General">
   </IntProperty>
-  <StringProperty Name="AdbDeployAddCmdLine" DisplayName="Add To adb Deploy Command Line" Category="General">
-  </StringProperty>
-  <StringProperty Name="AdbRunAddCmdLine" DisplayName="Add To adb Run Command Line" Category="General">
-  </StringProperty>
+  <BoolProperty Name="IgnoreJavaOpts" DisplayName="Ignore existing JAVA_OPTS envvar" Category="General">
+  </BoolProperty>
     
 </Rule>

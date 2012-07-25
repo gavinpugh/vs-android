@@ -1,5 +1,5 @@
-vs-android v0.93 - 13th November 2011
-=====================================
+vs-android v0.94 - 24th July 2012
+=================================
 
 vs-android is intended to provide a collection of scripts and utilities to support integrated development of
 Android NDK C/C++ software under Microsoft Visual Studio.
@@ -22,7 +22,7 @@ In order to build an apk package to run on an Android device, you'll also requir
 The Android SDK:
 * http://developer.android.com/sdk/index.html
 
-The Java JDK (the x86 version, *not* the x64 one!):
+The Java JDK:
 * http://www.oracle.com/technetwork/java/javase/downloads/index.html
 
 Apache Ant:
@@ -40,6 +40,25 @@ Documentation for vs-android can be found here:
 
 Version History
 ===============
+
+v0.94 - 24th July 2012
+
+  * Completely reworked the deploy and run portions of vs-android.
+  * Deploy has its own configuration pane: "Android Deployment", and saves these settings to the .user file.
+  * The Deployment process in general is much more robust. "Build->Cancel" also now works correctly when deploying.
+  * "Build->Deploy Solution/Deploy Project" now works on Android APK projects, to simply run the deploy step.
+    Enable the "Deploy" checkbox for your project in the Solution "Configuration Manager" to enable this.
+  * You can now run a deployed app by using "Debug->Run" (F5)! It's a bit of a hacky method, but appears to work fine.
+  * NDK r8b was a breaking change for vs-android. This version now requires r8b or newer to be installed.
+  * Fixed breaking changes to the location of libstdc++ STL libraries.
+  * Fix for Google breaking change to x86 paths: "i686-android-linux" -> "i686-linux-android".
+  * Added support for the new GCC 4.6 toolchains.
+  * Added support for the new MIPS toolchains.
+  * Tested and hopefully fixed issues such that vs-android works fully with a 64-bit JDK install.
+  * Fix to make it possible to build projects in paths that contain spaces. Thanks to 'null77'.
+  * Added 'Forced Include File' to "C/C++ -> Advanced" property sheet. Thanks to 'danfilner'.
+  * Fix to make sure ARM5/ARM7 GCC flags are passed correctly to the compiler. Thanks to 'Drew Dunlop'.
+
 
 v0.93 - 13th November 2011
 
@@ -125,7 +144,9 @@ Contributors
 asafhel...@gmail.com - Initial 'clickable errors from compiler' C# code.
 mark.bozeman - Fix for Ant Build to correctly pass ANT_OPTS.
 hoesing@kleinbottling - Fix for the bad quote removal on paths, in the C# code.
-
+null77 - Fix so that projects can be built in paths that contain spaces.
+danfilner - Addition of "Forced Include File" to C/C++ property sheet.
+Drew Dunlop - Fix so that ARM5/ARM7 GCC flags are passed correctly to the compiler.
 
 
 References
@@ -147,7 +168,7 @@ http://en.wikipedia.org/wiki/Zlib_License
 
 
 
-Copyright (c) 2011 Gavin Pugh http://www.gavpugh.com/
+Copyright (c) 2012 Gavin Pugh http://www.gavpugh.com/
 
 This software is provided 'as-is', without any express or implied
 warranty. In no event will the authors be held liable for any damages
