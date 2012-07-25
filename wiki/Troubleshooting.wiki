@@ -64,26 +64,6 @@ Your mileage may vary, potentially you need some different values depending on y
 
 ----
 
-== `[apply]` The system cannot execute the specified program. ==
-
-vs-android issue:
-
-  * http://code.google.com/p/vs-android/issues/detail?id=19
-
-As mentioned in the HowTo_Samples section, your projects unfortunately need to live in a path that doesn't contain spaces:
-
-<code>
- c:\Projects\samples\        < GOOD! :)
- c:\My Projects\samples\     < BAD :(
-</code>
-
-See this link for more info about the problem:
-
-  * http://www.monkeycoder.co.nz/Community/posts.php?topic=1238
-
-
-----
-
 == Unable to resolve target 'android-x' ==
 
 Within the 'Android SDK Manager' application, you need to install the API which is missing.
