@@ -13,12 +13,6 @@
   * Go here and download the sample projects:
 [http://vs-android.googlecode.com/files/vs-android_samples.zip vs-android_samples.zip]
 
-  * Unzip them so they live in a path that doesn't contain spaces. Unfortunately the .apk building step requires a path without spaces.
-<pre>
-c:\Projects\samples\        < GOOD! :)
-c:\My Projects\samples\     < BAD :(
-</pre>
-
   * Let's start with san-angeles. Go into that directory and open up the .sln file inside it.
 
 <img src="http://www.gavpugh.com/img/vs-android/san_angeles_devenv.png" align="center">
