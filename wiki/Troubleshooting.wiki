@@ -135,11 +135,15 @@ After it's dead, cancel the build within Visual Studio, if it's still running.
 
 If your project requires extra .jar libraries, they should be placed in the /libs directory of your "Ant Build->Ant Build Root Path". This path defaults to:
 
+<code>
   * $(ProjectDir)\AndroidApk\
+</code>
 
 So the libs should be placed here:
 
+<code>
   * $(ProjectDir)\AndroidApk\libs
+</code>
 
 
 =Deploy=
