@@ -56,7 +56,7 @@ This error can appear on systems using the x64 version of the Java JDK. It appea
 The easy fix is to install the x86 version of the Java JDK instead. Be sure to set your JAVA_HOME environment variable to the x86 version. The x86 version would end up installed into the "Program Files (x86)" directory (on a x64 PC).
 
 
-== Do you *really* want the x64 JDK? ==
+=== Do you *really* want the x64 JDK? ===
 
 x64 JDK will likely work fine for a majority of users. If you're interested in fixing your setup to work, instead of using the x86 JDK take a look here:
 
