@@ -27,8 +27,14 @@ I'd certainly appreciate anyone contributing such a walk-through. I may get arou
 
 Currently vs-android will deploy and run a built executable by default. This behavior can be changed in the project properties.
 
-"Debug -> Run" in Visual Studio will currently prompt for a local Win32 executable. It just plain "doesn't work" for vs-android right now.
 
+== Third-party debuggers ==
+
+Each of these debuggers has support for vs-android, or otherwise includes a modified version of vs-android which works with their debugger:
+
+- WinGDB: http://www.wingdb.com/wgMobileEdition.htm
+- VisualGDB: http://visualgdb.com/tutorials/android/vs-android/
+- Nvidia NSight Tegra - https://developer.nvidia.com/nvidia-nsight-tegra 
 
 
 = Ant Build =
