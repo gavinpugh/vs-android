@@ -41,6 +41,32 @@ Each of these debuggers has support for vs-android, or otherwise includes a modi
 
 ----
 
+== The system cannot execute the specified program. ==
+
+<code>
+1>AntBuild:
+1>  Envvar: JAVA_HOME is set to 'C:\Program Files\Java\jdk1.7.0_21'
+1>  Envvar: JAVA_OPTS is set to ''
+1>  D:\Android\apache-ant-1.9.0\bin\ant.bat  debug
+1>  The system cannot execute the specified program.
+</code>
+
+This error can appear on systems using the x64 version of the Java JDK. It appears to be an issue with Windows "Side-by-side" assembly system; WinSxS.
+
+The easy fix is to install the x86 version of the Java JDK instead. Be sure to set your JAVA_HOME environment variable to the x86 version. The x86 version would end up installed into the "Program Files (x86)" directory (on a x64 PC).
+
+
+== Do you *really* want the x64 JDK? ==
+
+x64 JDK will likely work fine for a majority of users. If you're interested in fixing your setup to work, instead of using the x86 JDK take a look here:
+
+  * http://blogs.msdn.com/b/nikolad/archive/2005/06/09/427101.aspx
+
+Edit the @echo off line at the top of ant.bat, so you can more easily see what's going on. Java.exe is the culprit.
+
+I'd be interested to hear if someone finds a fix to this.
+
+
 == `[apply]` Could not create the Java virtual machine. ==
 
 vs-android issue:
