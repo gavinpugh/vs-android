@@ -76,7 +76,7 @@ See this link:
 
 An alternative is to edit the 'project.properties' file. Change the target to match the latest API version of the installed SDK.
 
-e.g. "android-14"
+e.g. "android-17"
 
 ----
 
