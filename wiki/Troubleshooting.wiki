@@ -15,6 +15,26 @@ Two things I recommend:
   * Using the Google-approved Eclipse, Cygwin and ndk-build setup. If you're inexperienced with Android programming, this is the place to start. When you're comfortable, switch to vs-android to get your IDE of choice back!
 
 
+= Compiler/Linker =
+
+== 64bit NDK - TRACKER : error TRK0002: Failed to execute command ==
+
+If you're using the 64-bit version of the NDK, you might encounter this error:
+
+{{{
+1>TRACKER : error TRK0002: Failed to execute command:
+"c:\android\android-ndk-r8e\toolchains\arm-linux-androideabi-4.6\prebuilt\windows-x86_64\bin\arm-linux-androideabi-g++.exe @d:\Temp\tmp14b3459b16dd4d418c9c88bd90e1707e.rsp". The handle is invalid.
+}}}
+
+Install the 32-bit one, and point ANDROID_NDK_ROOT at it. You should be fine.
+
+This only occurred on one particular PC I tested with. My main development PC can use the 64-bit NDK without issue.
+
+Further reading:
+
+  * http://connect.microsoft.com/VisualStudio/feedback/details/505682/x64-c-c-projects-cannot-compile
+
+
 = Debugging =
 
 vs-android currently does not officially support any debugger.
