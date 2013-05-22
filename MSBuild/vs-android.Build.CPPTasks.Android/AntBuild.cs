@@ -156,6 +156,8 @@ namespace vs_android.Build.CPPTasks.Android
             // Set environment variables
             this.EnvironmentVariables = envList.ToArray();
 
+			Log.LogMessage( MessageImportance.High, "{0} {1}", pathToTool, commandLineCommands );            
+
             return base.ExecuteTool(pathToTool, responseFileCommands, commandLineCommands);
         }
 
@@ -271,6 +273,13 @@ namespace vs_android.Build.CPPTasks.Android
             // Simply 'debug', or 'release'.
             return AntBuildType.ToLower();
         }
+
+#if !VS2010DLL
+        protected override string GenerateResponseFileCommands(VCToolTask.CommandLineFormat format)
+        {
+            return string.Empty;
+        }
+#endif
 
         protected override string GenerateResponseFileCommands()
         {

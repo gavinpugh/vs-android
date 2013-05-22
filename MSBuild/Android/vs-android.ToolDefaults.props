@@ -36,13 +36,23 @@
       <CompileAs                Condition="'%(ClCompile.CompileAs)'                 == ''">Default</CompileAs>
 
       <IgnoreVaListWarning      Condition="'%(ClCompile.IgnoreVaListWarning)'       == ''">true</IgnoreVaListWarning>
-	  
+
       <SystemIncludeDirectories Condition="'%(ClCompile.SystemIncludeDirectories)'  == ''">$(IncludePath)</SystemIncludeDirectories>
       <SystemPreprocessorDefinitions Condition="'%(ClCompile.SystemPreprocessorDefinitions)' == ''">$(AndroidDefines)</SystemPreprocessorDefinitions>
 
     </ClCompile>
   </ItemDefinitionGroup>
 
+  <!-- Compiler defaults. Additions for Visual Studio 2012 -->
+  <ItemDefinitionGroup Condition="$(VisualStudioVersion) == '11.0'">
+    <ClCompile>
+      
+      <ProgramDataBaseFileName  Condition="'%(ClCompile.ProgramDataBaseFileName)'   == ''">$(IntDir)vs-android.pdb</ProgramDataBaseFileName>
+      <TrackerLogDirectory      Condition="'%(ClCompile.TrackerLogDirectory)'       == ''">$(TLogLocation)</TrackerLogDirectory>
+      
+    </ClCompile>
+  </ItemDefinitionGroup>
+  
   <!-- Compiler defaults - Debug builds -->
   <ItemDefinitionGroup Condition="$(Configuration) == 'Debug'">
     <ClCompile>
@@ -90,6 +100,15 @@
   </Link>
   </ItemDefinitionGroup>
 
+  <!-- Linker defaults. Additions for Visual Studio 2012 -->
+  <ItemDefinitionGroup Condition="$(VisualStudioVersion) == '11.0'">
+    <Link>
+
+      <TrackerLogDirectory        Condition="'%(Link.TrackerLogDirectory)'          == ''">$(TLogLocation)</TrackerLogDirectory>
+
+    </Link>
+  </ItemDefinitionGroup>
+
   <!-- Librarian defaults -->
   <ItemDefinitionGroup>
     <Lib>
@@ -97,6 +116,15 @@
       <OutputFile                 Condition="'%(Lib.OutputFile)'                    == ''">$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <EchoCommandLines           Condition="'%(Lib.EchoCommandLines)'              == ''">false</EchoCommandLines>
       
+    </Lib>
+  </ItemDefinitionGroup>
+
+  <!-- Librarian defaults. Additions for Visual Studio 2012 -->
+  <ItemDefinitionGroup Condition="$(VisualStudioVersion) == '11.0'">
+    <Lib>
+
+      <TrackerLogDirectory        Condition="'%(Lib.TrackerLogDirectory)'           == ''">$(TLogLocation)</TrackerLogDirectory>
+
     </Lib>
   </ItemDefinitionGroup>
 

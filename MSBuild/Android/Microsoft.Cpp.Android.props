@@ -13,11 +13,37 @@
   <!-- Bring in toolset props afterwards, since it's dependent on the envvars -->
   <Import Condition="(exists('$(VCTargetsPath)\Platforms\Android\PlatformToolsets\$(PlatformToolset)\Microsoft.Cpp.Android.$(PlatformToolset).props'))" Project="$(VCTargetsPath)\Platforms\Android\PlatformToolsets\$(PlatformToolset)\Microsoft.Cpp.Android.$(PlatformToolset).props"/>
     
-  <!-- Debugger. TODO: Implement an Android 'debugger' which simply launches the app on the device -->
+  <!-- Debugger. Fake Android 'debugger' which simply launches the app on the device -->
   <PropertyGroup>
     <DebuggerFlavor Condition="'$(DebuggerFlavor)'==''">WindowsRemoteDebugger</DebuggerFlavor>
-    <RemoteDebuggerCommand>$(VCTargetsPath)\Platforms\Android\vs-android_launch.exe</RemoteDebuggerCommand>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(VisualStudioVersion) == '10.0'">
     <RemoteDebuggerWorkingDirectory>$(IntDir)</RemoteDebuggerWorkingDirectory>
+    <RemoteDebuggerCommand>$(VCTargetsPath)\Platforms\Android\vs-android_launch.exe</RemoteDebuggerCommand>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="$(VisualStudioVersion) == '11.0'">
+    <RemoteDebuggerCommand>$(ProjectDir)$(IntDir)vs-android_launch.cmd</RemoteDebuggerCommand>
+  </PropertyGroup>
+
+  <!-- Default debugger properties. Required for VS2012. Copied from "Microsoft.Cpp.Common.props" -->
+  <PropertyGroup Condition="$(VisualStudioVersion) == '11.0'">
+
+    <!-- Remote Windows debugger -->
+    <RemoteDebuggerDebuggerType>Auto</RemoteDebuggerDebuggerType>
+    <RemoteDebuggerWorkingDirectory>$(ProjectDir)</RemoteDebuggerWorkingDirectory>
+    <RemoteDebuggerServerName>$(COMPUTERNAME)</RemoteDebuggerServerName>
+    <RemoteDebuggerConnection>RemoteWithAuthentication</RemoteDebuggerConnection>
+    <RemoteDebuggerAttach>False</RemoteDebuggerAttach>
+    <RemoteDebuggerSQLDebugging>False</RemoteDebuggerSQLDebugging>
+    <RemoteDebuggerDeployDebugCppRuntime Condition="'$(UseDebugLibraries)' == 'true'">true</RemoteDebuggerDeployDebugCppRuntime>
+
+    <DebuggerLaunchApplication>true</DebuggerLaunchApplication>
+    <AllowLocalNetworkLoopback>true</AllowLocalNetworkLoopback>
+    <DebuggerType>NativeOnly</DebuggerType>
+    <DebuggerRequireAuthentication>true</DebuggerRequireAuthentication>
+    
   </PropertyGroup>
 
   <!-- Bring in correct tool paths -->

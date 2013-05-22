@@ -15,18 +15,18 @@
     <GccVersion>4.6</GccVersion>
 
     <!-- Path to gcc prebuilt libs -->
-    <PrebuiltDir>$(AndroidNdkDir)\toolchains\$(PlatformToolsetVersion)\prebuilt\windows</PrebuiltDir>
+    <PrebuiltDir>$(AndroidNdkDir)\toolchains\$(PlatformToolsetVersion)\prebuilt\$(PrebuiltWinDirName)</PrebuiltDir>
     
-    <GccLibPath>$(PrebuiltDir)\lib\gcc\arm-linux-androideabi\4.6.x-google</GccLibPath>
-    <GccLibPath_Thumb>$(PrebuiltDir)\lib\gcc\arm-linux-androideabi\4.6.x-google\thumb</GccLibPath_Thumb>
-    <GccLibPath_Arm7>$(PrebuiltDir)\lib\gcc\arm-linux-androideabi\4.6.x-google\armv7-a</GccLibPath_Arm7>
-    <GccLibPath_Arm7_Thumb>$(PrebuiltDir)\lib\gcc\arm-linux-androideabi\4.6.x-google\armv7-a\thumb</GccLibPath_Arm7_Thumb>
+    <GccLibPath>$(PrebuiltDir)\lib\gcc\arm-linux-androideabi\4.6</GccLibPath>
+    <GccLibPath_Thumb>$(PrebuiltDir)\lib\gcc\arm-linux-androideabi\4.6\thumb</GccLibPath_Thumb>
+    <GccLibPath_Arm7>$(PrebuiltDir)\lib\gcc\arm-linux-androideabi\4.6\armv7-a</GccLibPath_Arm7>
+    <GccLibPath_Arm7_Thumb>$(PrebuiltDir)\lib\gcc\arm-linux-androideabi\4.6\armv7-a\thumb</GccLibPath_Arm7_Thumb>
 
     <!-- Path to the GCC compilation tools -->
-    <GccToolsPath>$(AndroidNdkDir)\toolchains\$(PlatformToolsetVersion)\prebuilt\windows\bin</GccToolsPath>
+    <GccToolsPath>$(AndroidNdkDir)\toolchains\$(PlatformToolsetVersion)\prebuilt\$(PrebuiltWinDirName)\bin</GccToolsPath>
 
     <!-- Path to the toolchain includes. Needed for Intellisense. -->
-    <GccToolchainIncludes>$(PrebuiltDir)\lib\gcc\arm-linux-androideabi\4.6.x-google\include</GccToolchainIncludes>
+    <GccToolchainIncludes>$(PrebuiltDir)\lib\gcc\arm-linux-androideabi\4.6\include</GccToolchainIncludes>
 
     <!-- GCC compilation tool filenames -->
     <GccCompiler>arm-linux-androideabi-g++.exe</GccCompiler>

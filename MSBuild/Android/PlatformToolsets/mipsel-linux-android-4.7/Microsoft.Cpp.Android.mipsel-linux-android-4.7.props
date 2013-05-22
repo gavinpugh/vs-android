@@ -8,16 +8,16 @@
   
   <PropertyGroup>
     
-    <PlatformToolsetVersion>x86-4.4.3</PlatformToolsetVersion>
+    <PlatformToolsetVersion>mipsel-linux-android-4.7</PlatformToolsetVersion>
 
-    <PlatformShortName>x86</PlatformShortName>
+    <PlatformShortName>mips</PlatformShortName>
 
-    <GccVersion>4.4.3</GccVersion>
+    <GccVersion>4.7</GccVersion>
 
     <!-- Path to gcc prebuilt libs -->
     <PrebuiltDir>$(AndroidNdkDir)\toolchains\$(PlatformToolsetVersion)\prebuilt\$(PrebuiltWinDirName)</PrebuiltDir>
     
-    <GccLibPath>$(PrebuiltDir)\lib\gcc\i686-linux-android\4.4.3</GccLibPath>
+    <GccLibPath>$(PrebuiltDir)\lib\gcc\mipsel-linux-android\4.7</GccLibPath>
     <GccLibPath_Thumb>$(GccLibPath)</GccLibPath_Thumb>
     <GccLibPath_Arm7>$(GccLibPath)</GccLibPath_Arm7>
     <GccLibPath_Arm7_Thumb>$(GccLibPath)</GccLibPath_Arm7_Thumb>
@@ -26,12 +26,12 @@
     <GccToolsPath>$(AndroidNdkDir)\toolchains\$(PlatformToolsetVersion)\prebuilt\$(PrebuiltWinDirName)\bin</GccToolsPath>
 
     <!-- Path to the toolchain includes. Needed for Intellisense. -->
-    <GccToolchainIncludes>$(PrebuiltDir)\lib\gcc\i686-linux-android\4.4.3\include</GccToolchainIncludes>
+    <GccToolchainIncludes>$(PrebuiltDir)\lib\gcc\mipsel-linux-android\4.7\include</GccToolchainIncludes>
 
     <!-- GCC compilation tool filenames -->
-    <GccCompiler>i686-linux-android-g++.exe</GccCompiler>
-    <GccLinker>i686-linux-android-g++.exe</GccLinker>
-    <GccLibrarian>i686-linux-android-ar.exe</GccLibrarian>
+    <GccCompiler>mipsel-linux-android-g++.exe</GccCompiler>
+    <GccLinker>mipsel-linux-android-g++.exe</GccLinker>
+    <GccLibrarian>mipsel-linux-android-ar.exe</GccLibrarian>
     
   </PropertyGroup>
 

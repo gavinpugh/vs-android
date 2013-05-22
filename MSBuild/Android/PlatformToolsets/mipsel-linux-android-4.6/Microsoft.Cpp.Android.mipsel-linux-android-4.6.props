@@ -15,18 +15,18 @@
     <GccVersion>4.6</GccVersion>
 
     <!-- Path to gcc prebuilt libs -->
-    <PrebuiltDir>$(AndroidNdkDir)\toolchains\$(PlatformToolsetVersion)\prebuilt\windows</PrebuiltDir>
+    <PrebuiltDir>$(AndroidNdkDir)\toolchains\$(PlatformToolsetVersion)\prebuilt\$(PrebuiltWinDirName)</PrebuiltDir>
     
-    <GccLibPath>$(PrebuiltDir)\lib\gcc\mipsel-linux-android\4.6.x-google</GccLibPath>
+    <GccLibPath>$(PrebuiltDir)\lib\gcc\mipsel-linux-android\4.6</GccLibPath>
     <GccLibPath_Thumb>$(GccLibPath)</GccLibPath_Thumb>
     <GccLibPath_Arm7>$(GccLibPath)</GccLibPath_Arm7>
     <GccLibPath_Arm7_Thumb>$(GccLibPath)</GccLibPath_Arm7_Thumb>
 
     <!-- Path to the GCC compilation tools -->
-    <GccToolsPath>$(AndroidNdkDir)\toolchains\$(PlatformToolsetVersion)\prebuilt\windows\bin</GccToolsPath>
+    <GccToolsPath>$(AndroidNdkDir)\toolchains\$(PlatformToolsetVersion)\prebuilt\$(PrebuiltWinDirName)\bin</GccToolsPath>
 
     <!-- Path to the toolchain includes. Needed for Intellisense. -->
-    <GccToolchainIncludes>$(PrebuiltDir)\lib\gcc\mipsel-linux-android\4.6.x-google\include</GccToolchainIncludes>
+    <GccToolchainIncludes>$(PrebuiltDir)\lib\gcc\mipsel-linux-android\4.6\include</GccToolchainIncludes>
 
     <!-- GCC compilation tool filenames -->
     <GccCompiler>mipsel-linux-android-g++.exe</GccCompiler>
