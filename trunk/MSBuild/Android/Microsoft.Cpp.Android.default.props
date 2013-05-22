@@ -11,7 +11,7 @@
 
     <PlatformShortName>Android</PlatformShortName>
     <PlatformArchitecture>32</PlatformArchitecture>
-    <PlatformToolset    Condition="'$(PlatformToolset)' == ''">arm-linux-androideabi-4.4.3</PlatformToolset>
+    <PlatformToolset    Condition="'$(PlatformToolset)' == ''">arm-linux-androideabi-4.6</PlatformToolset>
     <AndroidAPILevel    Condition="'$(AndroidAPILevel)' == ''">android-9</AndroidAPILevel>
     <AndroidArch        Condition="'$(AndroidArch)'     == ''">armv5te</AndroidArch>
     <AndroidStlType     Condition="'$(AndroidStlType)'  == ''">gnustl_static</AndroidStlType>
@@ -22,5 +22,13 @@
     <OutDir Condition="'$(OutDir)'=='' AND '$(SolutionDir)' == ''">$(IntDir)</OutDir>
     
   </PropertyGroup>
-	
+
+  <!-- VS2012 additions to the defaults. -->
+  <PropertyGroup Condition="$(VisualStudioVersion) == '11.0'">
+
+    <TargetName         Condition="'$(TargetName)'      == ''">$(ProjectName)</TargetName>
+    <WindowsAppContainer>false</WindowsAppContainer>
+
+  </PropertyGroup>
+
 </Project>

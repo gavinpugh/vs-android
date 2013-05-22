@@ -1,4 +1,4 @@
-vs-android v0.94 - 24th July 2012
+vs-android v0.95 - 22nd May 2013
 =================================
 
 vs-android is intended to provide a collection of scripts and utilities to support integrated development of
@@ -40,6 +40,21 @@ Documentation for vs-android can be found here:
 
 Version History
 ===============
+
+v0.95 - 22nd May 2013
+
+  * Visual Studio 2012 is now fully supported.
+  * There are separate installers for vs2010 and vs2012. Scripts are identical between version, via use of
+    conditionals in MSBuild. However both use different supporting DLL files.
+  * .vcxproj and .sln files are cross-compatible between vs2012 and vs2010. Support for vs2010 will continue
+    for vs-android in the foreseeable future.
+  * The x64 version of the NDK is now supported.
+  * Fix for Google breaking change to paths: "4.6.x-google" -> "4.6".
+  * The default GCC toolchain version has been changed from 4.4.3 to 4.6.
+  * The build scripts are now compliant with NDK r8e. Previous NDK versions are no longer supported.
+  * GCC 4.7 is now an available toolchain choice. However, it is not currently usable with the STL. Google state 
+    that 4.7 is still experimental. I'd welcome any suggested fix, if it does indeed work in ndk-build.
+
 
 v0.94 - 24th July 2012
 
@@ -168,7 +183,7 @@ http://en.wikipedia.org/wiki/Zlib_License
 
 
 
-Copyright (c) 2012 Gavin Pugh http://www.gavpugh.com/
+Copyright (c) 2013 Gavin Pugh http://www.gavpugh.com/
 
 This software is provided 'as-is', without any express or implied
 warranty. In no event will the authors be held liable for any damages

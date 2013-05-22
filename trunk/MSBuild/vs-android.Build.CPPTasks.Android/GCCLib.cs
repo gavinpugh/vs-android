@@ -56,6 +56,13 @@ namespace vs_android.Build.CPPTasks.Android
             return base.ValidateParameters();
         }
 
+#if !VS2010DLL
+        protected override string GenerateResponseFileCommands(VCToolTask.CommandLineFormat format)
+        {
+            return GenerateResponseFileCommands();
+        }
+#endif
+
         protected override string GenerateResponseFileCommands()
         {
             StringBuilder builder = new StringBuilder(Utils.EST_MAX_CMDLINE_LEN);

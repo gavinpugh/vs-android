@@ -34,8 +34,8 @@
     <AndroidStlLibs Condition="'$(AndroidStlType)' == 'system'">-lstdc++</AndroidStlLibs>
     <AndroidStlLibs Condition="'$(AndroidStlType)' == 'gnustl_static'">-lstdc++;-lsupc++;-lgnustl_static;-lgcc</AndroidStlLibs>
     <AndroidStlLibs Condition="'$(AndroidStlType)' == 'gnustl_dynamic'">-lstdc++;-lsupc++;$(AndroidStlLibPath)\libgnustl_shared.so;-lgcc</AndroidStlLibs>
-    <AndroidStlLibs Condition="'$(AndroidStlType)' == 'stlport_static'">-lstdc++;-lstlport_static;-lgcc</AndroidStlLibs>
-    <AndroidStlLibs Condition="'$(AndroidStlType)' == 'stlport_dynamic'">-lstdc++;$(AndroidStlLibPath)\libstlport_shared.so;-lgcc</AndroidStlLibs>
+    <AndroidStlLibs Condition="'$(AndroidStlType)' == 'stlport_static'">-lstdc++;-lstlport_static;-lgcc;-ldl</AndroidStlLibs>
+    <AndroidStlLibs Condition="'$(AndroidStlType)' == 'stlport_dynamic'">-lstdc++;$(AndroidStlLibPath)\libstlport_shared.so;-lgcc;-ldl</AndroidStlLibs>
 
     <GccLibPath       Condition="'$(AndroidArch)' == 'armv5te'" >$(GccLibPath)</GccLibPath>
     <GccLibPath_Thumb Condition="'$(AndroidArch)' == 'armv5te'" >$(GccLibPath_Thumb)</GccLibPath_Thumb>
