@@ -117,13 +117,13 @@ Your mileage may vary, potentially you need some different values depending on y
 === Alternative ===
 
 Others have had success with this, where the above fails. Set up a new environment variable:
-
-   * _JAVA_OPTIONS 
-
+{{{
+ _JAVA_OPTIONS 
+}}}
 Set it to:
-
-   * -Xms256m -Xmx512m 
-
+{{{
+-Xms256m -Xmx512m 
+}}}
 
 ----
 
@@ -156,43 +156,6 @@ For release builds you need to set up your own key. See this page:
 http://developer.android.com/guide/publishing/app-signing.html#releasemode
 
 ----
-
-== adb.exe ==
-
-vs-android issue:
-  * http://code.google.com/p/vs-android/issues/detail?id=17
-
-adb.exe is prone to locking up.
-
-This is a known issue, and something that affects its use both stand-alone and with vs-android. 
-
-Interestingly it also affects the Mac version too:
-  * http://code.google.com/p/android/issues/detail?id=10255
-
-If you notice the build output hang due to adb.exe, it'll be after the 'BUILD SUCCESSFUL' message from Ant:
-
-<pre>
-1>  BUILD SUCCESSFUL
-1>  Total time: 3 seconds
-1>  Deploying C:\Projects\vs-android\vs-android_samples\san-angeles\AndroidApk\bin\DemoActivity-debug.apk...
-</pre>
-
-If the build hangs here for a long time, here's some things to try:
-
-  * At a command prompt, type:
-<pre>adb usb</pre>
-This will reboot the USB driver, which is a common problem. 
-
-adb.exe should live in the \platform-tools directory of the Android SDK.
-
-  * Kill 'adb.exe' in Task Manager.
-
-Ctrl-Shift-Esc will bring up Task Manager. 
-
-After it's dead, cancel the build within Visual Studio, if it's still running.
-
-  * Try building again.
-
 
 == External .jar libraries ==
 
