@@ -114,6 +114,17 @@ Those that have these problems have been setting both values to '512'. (no quote
 Your mileage may vary, potentially you need some different values depending on your machine setup and the amount of Java code you're working with.
 
 
+=== Alternative ===
+
+Others have had success with this, where the above fails. Set up a new environment variable:
+
+   * _JAVA_OPTIONS 
+
+Set it to:
+
+   * -Xms256m -Xmx512m 
+
+
 ----
 
 == Unable to resolve target 'android-x' ==
