@@ -49,6 +49,9 @@
     <AntDir Condition="'$(AntDir)' == ''">$(ANT_ROOT)</AntDir>
     <AntDir Condition="'$(AntDir)' == ''">&lt;unset&gt;</AntDir>
 
+    <!-- Visual Studio version. A lone install of VS2010 doesn't provide this variable. -->
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+
   </PropertyGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-vs-android v0.95 - 22nd May 2013
+vs-android v0.951 - 22nd May 2013
 =================================
 
 vs-android is intended to provide a collection of scripts and utilities to support integrated development of
@@ -40,6 +40,12 @@ Documentation for vs-android can be found here:
 
 Version History
 ===============
+
+v0.951 - 22nd May 2013
+
+  * Fix for running on machines with a lone install of vs2010. I was doing all my testing on machines which have
+    a dual vs2010 and vs2012 install. Apologies.
+
 
 v0.95 - 22nd May 2013
 
