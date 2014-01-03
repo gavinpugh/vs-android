@@ -9,7 +9,7 @@
 
   * Go into the `MsBuild` directory of what you just unzipped.
 
-  * For Windows 2000 or XP, just double click on 'install_vs2010.cmd' or 'install_vs2012.cmd', depending on which Visual Studio you use. You can install both, if you use both.
+  * For Windows 2000 or XP, just double click on 'install_vs2010.cmd', 'install_vs2012.cmd', or 'install_vs2013.cmd'. Depending on which Visual Studio you use. You can install for more than one, if you have multiple versions installed. They co-exist fine.
 
   * For Vista or Windows 7 you will need to right click 'install_vs20XX.cmd', and choose to 'Run as Administrator". Don't worry, you can view the install batch file in notepad if you wish. All it does is copy files to the correct place in your Visual Studio install.
 
@@ -29,7 +29,7 @@ If you don't want to run the 'install_vx20XX.cmd' file, you can copy the files m
 
 `C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Platforms`
 
-  * For VS2012:
+  * For VS2012/VS2013:
 
 `C:\Program Files\MSBuild\Microsoft.Cpp\v4.0\V110\Platforms`
 
