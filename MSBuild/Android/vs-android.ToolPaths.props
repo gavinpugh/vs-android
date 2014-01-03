@@ -47,8 +47,8 @@
     <AndroidAdbPath>$(AndroidSdkDir)\platform-tools\adb.exe</AndroidAdbPath>
     <JavaCompilerPath>$(JavaHomeDir)\bin\javac.exe</JavaCompilerPath>
 
-    
-    
+
+
     <VCInstallDir>$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VisualStudio\10.0\Setup\VC@ProductDir)</VCInstallDir>
     <VCInstallDir Condition="'$(VCInstallDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\10.0\Setup\VC@ProductDir)</VCInstallDir>
     <VCInstallDir Condition="'$(VCInstallDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VCExpress\10.0\Setup\VC@ProductDir)</VCInstallDir>
@@ -74,5 +74,5 @@
     <LibraryPath Condition="'$(LibraryPath)' == ''">$(AndroidLibDir);$(AndroidStlLibPath);</LibraryPath>
 
   </PropertyGroup>
-  
+
 </Project>

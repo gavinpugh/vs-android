@@ -7,7 +7,7 @@
 <!-- Based on script: MSBuild\Microsoft.Cpp\v4.0\Microsoft.Cl.Common.props -->
 
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  
+
   <!-- Compiler defaults -->
   <ItemDefinitionGroup>
     <ClCompile>
@@ -46,37 +46,37 @@
   <!-- Compiler defaults. Additions for Visual Studio 2012 -->
   <ItemDefinitionGroup Condition="$(VisualStudioVersion) == '11.0'">
     <ClCompile>
-      
+
       <ProgramDataBaseFileName  Condition="'%(ClCompile.ProgramDataBaseFileName)'   == ''">$(IntDir)vs-android.pdb</ProgramDataBaseFileName>
       <TrackerLogDirectory      Condition="'%(ClCompile.TrackerLogDirectory)'       == ''">$(TLogLocation)</TrackerLogDirectory>
-      
+
     </ClCompile>
   </ItemDefinitionGroup>
-  
+
   <!-- Compiler defaults - Debug builds -->
   <ItemDefinitionGroup Condition="$(Configuration) == 'Debug'">
     <ClCompile>
-      
+
       <OptimizationLevel        Condition="'%(ClCompile.OptimizationLevel)'         == ''">O0</OptimizationLevel>
       <GenerateDebugInformation Condition="'%(ClCompile.GenerateDebugInformation)'  == ''">true</GenerateDebugInformation>
-      
+
     </ClCompile>
   </ItemDefinitionGroup>
 
   <!-- Compiler defaults - Non-debug builds -->
   <ItemDefinitionGroup Condition="$(Configuration) != 'Debug'">
     <ClCompile>
-      
+
       <OptimizationLevel        Condition="'%(ClCompile.OptimizationLevel)'         == ''">O3</OptimizationLevel>
       <GenerateDebugInformation Condition="'%(ClCompile.GenerateDebugInformation)'  == ''">false</GenerateDebugInformation>
-      
+
     </ClCompile>
   </ItemDefinitionGroup>
 
   <!-- Linker defaults -->
   <ItemDefinitionGroup>
     <Link>
-      
+
       <OutputFile                 Condition="'%(Link.OutputFile)'                   == ''">$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalLibraryDirectories Condition="'%(Link.AdditionalLibraryDirectories)' == ''"></AdditionalLibraryDirectories>
       <EchoCommandLines           Condition="'%(Link.EchoCommandLines)'             == ''">false</EchoCommandLines>
@@ -94,9 +94,9 @@
       <RPathLink                  Condition="'%(Link.RPathLink)'                    == ''">$(AndroidLibDir)</RPathLink>
       <SysRootDir                 Condition="'%(Link.SysRootDir)'                   == ''">$(AndroidLibDir)\..\..</SysRootDir>
       <StlLibs                    Condition="'%(Link.StlLibs)'                      == ''">$(AndroidStlLibs)</StlLibs>
-    
+
       <SystemLibraryDirectories	  Condition="'%(Link.SystemLibraryDirectories)'     == ''">$(LibraryPath)</SystemLibraryDirectories>
-      
+
   </Link>
   </ItemDefinitionGroup>
 
@@ -112,10 +112,10 @@
   <!-- Librarian defaults -->
   <ItemDefinitionGroup>
     <Lib>
-      
+
       <OutputFile                 Condition="'%(Lib.OutputFile)'                    == ''">$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <EchoCommandLines           Condition="'%(Lib.EchoCommandLines)'              == ''">false</EchoCommandLines>
-      
+
     </Lib>
   </ItemDefinitionGroup>
 
@@ -131,7 +131,7 @@
   <!-- Ant Build defaults -->
   <ItemDefinitionGroup>
     <AntBuild>
-      
+
       <AntBuildPath         Condition="'%(AntBuild.AntBuildPath)'         == ''">$(ProjectDir)</AntBuildPath>
       <AntLibraryName       Condition="'%(AntBuild.AntLibraryName)'       == ''">lib$(TargetName)</AntLibraryName>
       <AntBuildType         Condition="'%(AntBuild.AntBuildType)'         == '' and '$(Configuration)' == 'Debug'">Debug</AntBuildType>

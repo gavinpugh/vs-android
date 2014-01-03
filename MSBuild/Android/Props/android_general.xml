@@ -145,5 +145,5 @@
     <EnumValue Name="OldSyntax" DisplayName="Common Language Runtime Support, Old Syntax (/clr:oldSyntax)"
                Description="Common Language Runtime Support, Old Syntax (/clr:oldSyntax)" />
   </EnumProperty>
-  
+
 </Rule>
