@@ -28,5 +28,5 @@
   </IntProperty>
   <BoolProperty Name="IgnoreJavaOpts" DisplayName="Ignore existing JAVA_OPTS envvar" Category="General">
   </BoolProperty>
-    
+
 </Rule>

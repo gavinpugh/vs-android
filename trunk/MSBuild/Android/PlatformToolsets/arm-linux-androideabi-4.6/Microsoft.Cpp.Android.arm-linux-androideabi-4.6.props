@@ -5,9 +5,9 @@
 -->
 
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  
+
   <PropertyGroup>
-    
+
     <PlatformToolsetVersion>arm-linux-androideabi-4.6</PlatformToolsetVersion>
 
     <PlatformShortName>arm</PlatformShortName>
@@ -16,7 +16,7 @@
 
     <!-- Path to gcc prebuilt libs -->
     <PrebuiltDir>$(AndroidNdkDir)\toolchains\$(PlatformToolsetVersion)\prebuilt\$(PrebuiltWinDirName)</PrebuiltDir>
-    
+
     <GccLibPath>$(PrebuiltDir)\lib\gcc\arm-linux-androideabi\4.6</GccLibPath>
     <GccLibPath_Thumb>$(PrebuiltDir)\lib\gcc\arm-linux-androideabi\4.6\thumb</GccLibPath_Thumb>
     <GccLibPath_Arm7>$(PrebuiltDir)\lib\gcc\arm-linux-androideabi\4.6\armv7-a</GccLibPath_Arm7>
@@ -32,7 +32,7 @@
     <GccCompiler>arm-linux-androideabi-g++.exe</GccCompiler>
     <GccLinker>arm-linux-androideabi-g++.exe</GccLinker>
     <GccLibrarian>arm-linux-androideabi-ar.exe</GccLibrarian>
-    
+
   </PropertyGroup>
 
 </Project>

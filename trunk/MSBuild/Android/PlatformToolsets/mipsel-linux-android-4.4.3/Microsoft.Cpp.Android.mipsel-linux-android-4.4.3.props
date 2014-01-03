@@ -5,9 +5,9 @@
 -->
 
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  
+
   <PropertyGroup>
-    
+
     <PlatformToolsetVersion>mipsel-linux-android-4.4.3</PlatformToolsetVersion>
 
     <PlatformShortName>mips</PlatformShortName>
@@ -16,7 +16,7 @@
 
     <!-- Path to gcc prebuilt libs -->
     <PrebuiltDir>$(AndroidNdkDir)\toolchains\$(PlatformToolsetVersion)\prebuilt\$(PrebuiltWinDirName)</PrebuiltDir>
-    
+
     <GccLibPath>$(PrebuiltDir)\lib\gcc\mipsel-linux-android\4.4.3</GccLibPath>
     <GccLibPath_Thumb>$(GccLibPath)</GccLibPath_Thumb>
     <GccLibPath_Arm7>$(GccLibPath)</GccLibPath_Arm7>
@@ -32,7 +32,7 @@
     <GccCompiler>mipsel-linux-android-g++.exe</GccCompiler>
     <GccLinker>mipsel-linux-android-g++.exe</GccLinker>
     <GccLibrarian>mipsel-linux-android-ar.exe</GccLibrarian>
-    
+
   </PropertyGroup>
 
 </Project>

@@ -64,24 +64,24 @@ namespace vs_android.Build.CPPTasks.Android
 			}
 		}
 
-        public string ProcessProperties(ITaskItem taskItem)
-        {
-            StringBuilder returnStr = new StringBuilder(Utils.EST_MAX_CMDLINE_LEN);
+		public string ProcessProperties(ITaskItem taskItem)
+		{
+			StringBuilder returnStr = new StringBuilder(Utils.EST_MAX_CMDLINE_LEN);
 
-            foreach ( string metaName in taskItem.MetadataNames )
-            {
-                string propValue = taskItem.GetMetadata(metaName);                                
-                string processed = ProcessProperty(metaName, propValue).Trim();
+			foreach ( string metaName in taskItem.MetadataNames )
+			{
+				string propValue = taskItem.GetMetadata(metaName);                                
+				string processed = ProcessProperty(metaName, propValue).Trim();
 
-                if (( processed != null ) && ( processed.Length > 0 ))
-                {
-                    returnStr.Append(processed);
-                    returnStr.Append(" ");
-                }
-            }
+				if (( processed != null ) && ( processed.Length > 0 ))
+				{
+					returnStr.Append(processed);
+					returnStr.Append(" ");
+				}
+			}
 
-            return returnStr.ToString().Trim();
-        }
+			return returnStr.ToString().Trim();
+		}
 
 		private string ProcessProperty( string propName, string propVal )
 		{
@@ -98,9 +98,9 @@ namespace vs_android.Build.CPPTasks.Android
 			string name = xml.GetAttribute( "Name" );
 			string switchPrefixOverride = xml.GetAttribute( "SwitchPrefix" );
 			string separator = xml.GetAttribute( "Separator" );
-            string includeInCmdLine = xml.GetAttribute( "IncludeInCommandLine" );
-            string subType = xml.GetAttribute( "Subtype" );
-			
+			string includeInCmdLine = xml.GetAttribute( "IncludeInCommandLine" );
+			string subType = xml.GetAttribute( "Subtype" );
+
 			// Just need at least a valid name
 			if ( name != null )
 			{
@@ -121,26 +121,26 @@ namespace vs_android.Build.CPPTasks.Android
 					separator = string.Empty;
 				}
 
-                if ( includeInCmdLine != null )
-                {
-                    if ( includeInCmdLine.ToLower() == "false" )
-                    {
-                        // Ignore the ones that aren't meant to be in the cmdline
-                        return;
-                    }
-                }
+				if ( includeInCmdLine != null )
+				{
+					if ( includeInCmdLine.ToLower() == "false" )
+					{
+						// Ignore the ones that aren't meant to be in the cmdline
+						return;
+					}
+				}
 
-                // Will quote fix for files or folder params
-                bool shouldQuoteFix = false;
-                if (subType != null)
-                {
-                    if ((subType.ToLower() == "file") || (subType.ToLower() == "folder"))
-                    {
-                        shouldQuoteFix = true;
-                    }
-                }
+				// Will quote fix for files or folder params
+				bool shouldQuoteFix = false;
+				if (subType != null)
+				{
+					if ((subType.ToLower() == "file") || (subType.ToLower() == "folder"))
+					{
+						shouldQuoteFix = true;
+					}
+				}
 
-                prop.Setup(xml, prefix, separator, shouldQuoteFix );
+				prop.Setup(xml, prefix, separator, shouldQuoteFix );
 
 				m_properties.Add( name, prop );
 			}
@@ -154,35 +154,35 @@ namespace vs_android.Build.CPPTasks.Android
 			{
 				m_switchPrefix = switchPrefix;
 				m_separator = separator;
-                m_quoteFix = quoteFix;
+				m_quoteFix = quoteFix;
 
 				Debug.Assert( m_switchPrefix != null ); 
 				Debug.Assert( m_separator != null );
 
 				SetupProperty( xml );
 			}
-            
-            protected string FixString( string str )
-            {
-                if ( m_quoteFix == false )
-                {
-                    // Just fix the slashes, no quoting
-                    return Utils.PathFixSlashes(str);
-                }
-                else
-                {
-                    // Slash fixing AND possible quoting
-                    return Utils.PathSanitize(str);
-                }
-            }
+
+			protected string FixString( string str )
+			{
+				if ( m_quoteFix == false )
+				{
+					// Just fix the slashes, no quoting
+					return Utils.PathFixSlashes(str);
+				}
+				else
+				{
+					// Slash fixing AND possible quoting
+					return Utils.PathSanitize(str);
+				}
+			}
 
 			abstract protected void SetupProperty( XmlTextReader xml );
 
 			protected string m_switchPrefix;
-            protected string m_separator;
-            protected bool m_quoteFix;
+			protected string m_separator;
+			protected bool m_quoteFix;
 		}
-		
+
 		public class EnumProperty : Property
 		{
 			override public string Process( string propVal )
@@ -260,13 +260,13 @@ namespace vs_android.Build.CPPTasks.Android
 						return m_switchPrefix + m_trueSwitch;
 					}
 				}
-                else if ( propVal.ToLower() != "ignore" )
-                {
-				    if ( m_falseSwitch != null )
-				    {
-					    return m_switchPrefix + m_falseSwitch;
-				    }
-                }
+				else if ( propVal.ToLower() != "ignore" )
+				{
+					if ( m_falseSwitch != null )
+					{
+						return m_switchPrefix + m_falseSwitch;
+					}
+				}
 				return string.Empty;
 			}
 
@@ -283,26 +283,26 @@ namespace vs_android.Build.CPPTasks.Android
 		public class StringProperty : Property
 		{
 			override public string Process( string propVal )
-            {
-                if (m_switch == null)
-                {
-                    return FixString(propVal);
-                }
+			{
+				if (m_switch == null)
+				{
+					return FixString(propVal);
+				}
 
-                if (propVal.Length > 0)
-                {
-                    // Ignore switches entirely if we don't have one
-                    if (m_switch != null)
-                    {
-                        return m_switchPrefix + m_switch + m_separator + FixString(propVal);
-                    }
-                    else
-                    {
-                        return FixString(propVal);
-                    }
-                }
+				if (propVal.Length > 0)
+				{
+					// Ignore switches entirely if we don't have one
+					if (m_switch != null)
+					{
+						return m_switchPrefix + m_switch + m_separator + FixString(propVal);
+					}
+					else
+					{
+						return FixString(propVal);
+					}
+				}
 
-                return string.Empty;
+				return string.Empty;
 			}
 
 			override protected void SetupProperty( XmlTextReader xml )
@@ -316,25 +316,25 @@ namespace vs_android.Build.CPPTasks.Android
 		public class StringListProperty : Property
 		{
 			override public string Process( string propVal )
-            {
+			{
 				StringBuilder sBuilder = new StringBuilder(1024);
 				string [] strings = propVal.Split( ';' );
 
 				foreach ( string str in strings )
 				{
-                    if (str.Length > 0)
-                    {
-                        // Ignore switches entirely if we don't have one
-                        if (m_switch != null)
-                        {
-                            sBuilder.Append(m_switchPrefix);
-                            sBuilder.Append(m_switch);
-                            sBuilder.Append(m_separator);
-                        }
+					if (str.Length > 0)
+					{
+						// Ignore switches entirely if we don't have one
+						if (m_switch != null)
+						{
+							sBuilder.Append(m_switchPrefix);
+							sBuilder.Append(m_switch);
+							sBuilder.Append(m_separator);
+						}
 
-                        sBuilder.Append(FixString(str));
-                        sBuilder.Append(" ");
-                    }
+						sBuilder.Append(FixString(str));
+						sBuilder.Append(" ");
+					}
 				}
 
 				return sBuilder.ToString();
@@ -348,4 +348,5 @@ namespace vs_android.Build.CPPTasks.Android
 			private string m_switch;
 		}
 	}
+
 }

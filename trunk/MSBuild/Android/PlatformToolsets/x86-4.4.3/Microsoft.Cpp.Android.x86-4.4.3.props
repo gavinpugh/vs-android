@@ -5,9 +5,9 @@
 -->
 
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  
+
   <PropertyGroup>
-    
+
     <PlatformToolsetVersion>x86-4.4.3</PlatformToolsetVersion>
 
     <PlatformShortName>x86</PlatformShortName>
@@ -16,7 +16,7 @@
 
     <!-- Path to gcc prebuilt libs -->
     <PrebuiltDir>$(AndroidNdkDir)\toolchains\$(PlatformToolsetVersion)\prebuilt\$(PrebuiltWinDirName)</PrebuiltDir>
-    
+
     <GccLibPath>$(PrebuiltDir)\lib\gcc\i686-linux-android\4.4.3</GccLibPath>
     <GccLibPath_Thumb>$(GccLibPath)</GccLibPath_Thumb>
     <GccLibPath_Arm7>$(GccLibPath)</GccLibPath_Arm7>
@@ -32,7 +32,7 @@
     <GccCompiler>i686-linux-android-g++.exe</GccCompiler>
     <GccLinker>i686-linux-android-g++.exe</GccLinker>
     <GccLibrarian>i686-linux-android-ar.exe</GccLibrarian>
-    
+
   </PropertyGroup>
 
 </Project>

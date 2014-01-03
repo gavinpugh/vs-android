@@ -9,10 +9,10 @@
 
   <!-- Bring in defaults for envvars we need -->
   <Import Project="$(VCTargetsPath)\Platforms\Android\vs-android.EnvVars.props" />
-  
+
   <!-- Bring in toolset props afterwards, since it's dependent on the envvars -->
   <Import Condition="(exists('$(VCTargetsPath)\Platforms\Android\PlatformToolsets\$(PlatformToolset)\Microsoft.Cpp.Android.$(PlatformToolset).props'))" Project="$(VCTargetsPath)\Platforms\Android\PlatformToolsets\$(PlatformToolset)\Microsoft.Cpp.Android.$(PlatformToolset).props"/>
-    
+
   <!-- Debugger. Fake Android 'debugger' which simply launches the app on the device -->
   <PropertyGroup>
     <DebuggerFlavor Condition="'$(DebuggerFlavor)'==''">WindowsRemoteDebugger</DebuggerFlavor>
@@ -22,7 +22,7 @@
     <RemoteDebuggerWorkingDirectory>$(IntDir)</RemoteDebuggerWorkingDirectory>
     <RemoteDebuggerCommand>$(VCTargetsPath)\Platforms\Android\vs-android_launch.exe</RemoteDebuggerCommand>
   </PropertyGroup>
-  
+
   <PropertyGroup Condition="$(VisualStudioVersion) == '11.0'">
     <RemoteDebuggerCommand>$(ProjectDir)$(IntDir)vs-android_launch.cmd</RemoteDebuggerCommand>
   </PropertyGroup>
@@ -43,7 +43,7 @@
     <AllowLocalNetworkLoopback>true</AllowLocalNetworkLoopback>
     <DebuggerType>NativeOnly</DebuggerType>
     <DebuggerRequireAuthentication>true</DebuggerRequireAuthentication>
-    
+
   </PropertyGroup>
 
   <!-- Bring in correct tool paths -->
@@ -58,7 +58,7 @@
 
     <AndroidDefines>ANDROID_NDK;ANDROID;__ANDROID__;$(ArchDefines);</AndroidDefines>
   </PropertyGroup>
-  
+
   <!-- Couple of things to disable that we don't need for Android -->
   <PropertyGroup>
     <IgnoreImportLibrary>true</IgnoreImportLibrary>
@@ -91,7 +91,7 @@
       <TrackerLogDirectory Condition="'%(Deploy.TrackerLogDirectory)' == ''">$(IntDir)</TrackerLogDirectory>
     </Deploy>
   </ItemDefinitionGroup>
-  
+
   <!-- Bring in default props for each tool -->
   <Import Project="$(VCTargetsPath)\Platforms\Android\vs-android.ToolDefaults.props" />
 
