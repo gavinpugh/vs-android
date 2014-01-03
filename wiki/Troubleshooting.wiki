@@ -143,6 +143,18 @@ e.g. "android-17"
 
 ----
 
+== UNEXPECTED TOP-LEVEL EXCEPTION: ==
+
+vs-android issue:
+
+  * http://code.google.com/p/vs-android/issues/detail?id=107
+
+Solution, thanks to "JoeCHamm":
+
+"I found the problem here. Nothing to do with vs-android. Apparently with Build Tools 19.0.0, all API levels must match which I hadn't been paying attention to since this never affected any of my Eclipse projects (not entirely sure why that is)."
+
+----
+
 == Signing ==
 
 === Debug ===
