@@ -45,7 +45,7 @@
     </ItemGroup>
 
     <!-- Enable MinimalRebuildFromTracking for VS2012. VS2010 didn't require this for some reason. -->
-    <ItemGroup Condition="$(VisualStudioVersion) == '11.0'">
+    <ItemGroup Condition="$(VisualStudioVersion) != '10.0'">
       <ClCompile>
         <MinimalRebuildFromTracking   Condition="'%(ClCompile.MinimalRebuildFromTracking)' == '' and '$(BuildType)' == 'Build' and '$(ForceRebuild)' != 'true'">true</MinimalRebuildFromTracking>
       </ClCompile>
@@ -146,8 +146,8 @@
         <SystemLibraryDirectories Condition="'%(Link.LinkGccLibThumb)' == 'true'">%(Link.SystemLibraryDirectories);$(GccLibPath_Thumb)</SystemLibraryDirectories>
         <SystemLibraryDirectories Condition="'%(Link.LinkGccLibThumb)' != 'true'">%(Link.SystemLibraryDirectories);$(GccLibPath)</SystemLibraryDirectories>
 
-        <StlLibs Condition="'%(Link.LinkGccLibThumb)' == 'true' and '$(GccVersion)' != '4.7'">$(GccLibPath_Thumb)\crtbeginS.o;%(Link.StlLibs)</StlLibs>
-        <StlLibs Condition="'%(Link.LinkGccLibThumb)' != 'true' and '$(GccVersion)' != '4.7'">$(GccLibPath)\crtbeginS.o;%(Link.StlLibs)</StlLibs>
+        <StlLibs Condition="'%(Link.LinkGccLibThumb)' == 'true' and '$(GccVersion)' != '4.8'">$(GccLibPath_Thumb)\crtbeginS.o;%(Link.StlLibs)</StlLibs>
+        <StlLibs Condition="'%(Link.LinkGccLibThumb)' != 'true' and '$(GccVersion)' != '4.8'">$(GccLibPath)\crtbeginS.o;%(Link.StlLibs)</StlLibs>
       </Link>
     </ItemGroup>
 
@@ -271,7 +271,7 @@
   <!-- *******************************************************************************************
         PostAntDeploy
        ******************************************************************************************* -->
-  
+
   <Target Name="PostAntDeploy"
       AfterTargets="AntBuild"
       DependsOnTargets="_AddAntBuild;_AddAdbDeploy"
@@ -416,7 +416,7 @@
   <Target Name="PlatformPrepareForBuild" DependsOnTargets="$(PlatformPrepareForBuildDependsOn)">
 
     <!-- For VS2012. $(TargetName) doesn't seem to be defined where TargetPath is setup in the MS scripts. Crude fix for it. -->
-    <PropertyGroup Condition="$(VisualStudioVersion) == '11.0'">
+    <PropertyGroup Condition="$(VisualStudioVersion) != '10.0'">
       <TargetPath>$([System.IO.Path]::Combine($(ProjectDir),$(OutDir)$(TargetName)$(TargetExt)))</TargetPath>
     </PropertyGroup>
 
@@ -425,13 +425,13 @@
       <NDKMissing>Could not find the Android NDK, check that your ANDROID_NDK_ROOT path is correct!$(CRLF)It's currently: '$(AndroidNdkDir)'</NDKMissing>
       <NDKDownload>The NDK can be downloaded at this URL:$(CRLF)http://developer.android.com/sdk/ndk/index.html</NDKDownload>
       <NDKMissingToolchain>Possibly the toolchain '$(PlatformToolset)' does not exist in this version of the NDK.</NDKMissingToolchain>
-      <NDKWrongVersion>vs-android requires at least the r8e version of the NDK installed.$(CRLF)Also, check that your ANDROID_NDK_ROOT path is correct!$(CRLF)It's currently: '$(AndroidNdkDir)'</NDKWrongVersion>
+      <NDKWrongVersion>vs-android requires at least the r9c version of the NDK installed.$(CRLF)Also, check that your ANDROID_NDK_ROOT path is correct!$(CRLF)It's currently: '$(AndroidNdkDir)'</NDKWrongVersion>
     </PropertyGroup>
 
     <!-- Error out if the project references a missing platform toolset -->
     <VCMessage Code="MSB8008" Type="Error" Arguments="$(PlatformToolset)" Condition="!(exists('$(VCTargetsPath)\Platforms\Android\PlatformToolsets\$(PlatformToolset)\Microsoft.Cpp.Android.$(PlatformToolset).targets'))"/>
 
-    <Error Condition="$(VisualStudioVersion) != '10.0' and $(VisualStudioVersion) != '11.0'" 
+    <Error Condition="$(VisualStudioVersion) != '10.0' and $(VisualStudioVersion) != '11.0' and $(VisualStudioVersion) != '12.0'" 
            Text="Unknown version of Visual Studio: $(VisualStudioVersion)" ></Error>
 
     <!-- Android NDK Checks -->
@@ -453,7 +453,7 @@
            Text="Architecture must be set to mips for the mips toolchain!"></Error>
 
     <!-- NDK min version check -->
-    <Error Condition="!exists('$(AndroidNdkDir)\toolchains\arm-linux-androideabi-clang3.2\config.mk')"
+    <Error Condition="!exists('$(AndroidNdkDir)\toolchains\arm-linux-androideabi-clang3.3\config.mk')"
            Text="$(NDKWrongVersion)"></Error>
 
     <Warning Condition="'$(AndroidArch)' == 'x86'"

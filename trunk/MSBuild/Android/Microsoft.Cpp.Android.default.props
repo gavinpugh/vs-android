@@ -24,7 +24,7 @@
   </PropertyGroup>
 
   <!-- VS2012 additions to the defaults. -->
-  <PropertyGroup Condition="$(VisualStudioVersion) == '11.0'">
+  <PropertyGroup Condition="$(VisualStudioVersion) != '10.0'">
 
     <TargetName         Condition="'$(TargetName)'      == ''">$(ProjectName)</TargetName>
     <WindowsAppContainer>false</WindowsAppContainer>

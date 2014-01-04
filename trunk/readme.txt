@@ -1,5 +1,5 @@
-vs-android v0.951 - 22nd May 2013
-=================================
+vs-android v0.96 - 4th January 2014
+===================================
 
 vs-android is intended to provide a collection of scripts and utilities to support integrated development of
 Android NDK C/C++ software under Microsoft Visual Studio.
@@ -40,6 +40,18 @@ Documentation for vs-android can be found here:
 
 Version History
 ===============
+
+v0.96 - 4th January 2014
+
+  * Visual Studio 2013 has preliminary support now. It requires VS2012 to be installed alongside it. Unfortunately
+    Microsoft have radically changed how MSBuild scripts implement new platforms. VS2012 express is probably fine.
+  * Fix for running on the r9 NDKs. The minimum requirement is now NDK r9c.
+  * New NDK sees 4.3.3 and 4.7 GCC toolchains removed, and 4.8 added. vs-android now reflects these changes.
+  * GCC 4.8 however still seems to have issues when using the STL. It appears fine if you don't use STL.
+    Suggestions welcome on how to address it, my Google-fu has failed me when looking up the link errors.
+    Stick with GCC 4.6 if you need STL support.
+  * Added support for missing Android API targets: 12, 13, and 15 through 19. Goes up to Android 4.4 API now.
+
 
 v0.951 - 22nd May 2013
 

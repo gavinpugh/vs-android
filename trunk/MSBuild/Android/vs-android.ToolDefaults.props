@@ -44,7 +44,7 @@
   </ItemDefinitionGroup>
 
   <!-- Compiler defaults. Additions for Visual Studio 2012 -->
-  <ItemDefinitionGroup Condition="$(VisualStudioVersion) == '11.0'">
+  <ItemDefinitionGroup Condition="$(VisualStudioVersion) != '10.0'">
     <ClCompile>
 
       <ProgramDataBaseFileName  Condition="'%(ClCompile.ProgramDataBaseFileName)'   == ''">$(IntDir)vs-android.pdb</ProgramDataBaseFileName>
@@ -101,7 +101,7 @@
   </ItemDefinitionGroup>
 
   <!-- Linker defaults. Additions for Visual Studio 2012 -->
-  <ItemDefinitionGroup Condition="$(VisualStudioVersion) == '11.0'">
+  <ItemDefinitionGroup Condition="$(VisualStudioVersion) != '10.0'">
     <Link>
 
       <TrackerLogDirectory        Condition="'%(Link.TrackerLogDirectory)'          == ''">$(TLogLocation)</TrackerLogDirectory>
@@ -120,7 +120,7 @@
   </ItemDefinitionGroup>
 
   <!-- Librarian defaults. Additions for Visual Studio 2012 -->
-  <ItemDefinitionGroup Condition="$(VisualStudioVersion) == '11.0'">
+  <ItemDefinitionGroup Condition="$(VisualStudioVersion) != '10.0'">
     <Lib>
 
       <TrackerLogDirectory        Condition="'%(Lib.TrackerLogDirectory)'           == ''">$(TLogLocation)</TrackerLogDirectory>
