@@ -78,15 +78,12 @@
   </StringProperty>
 
   <EnumProperty Name="PlatformToolset" DisplayName="Platform Toolset" Category="General">
-    <EnumValue Name="arm-linux-androideabi-4.4.3" DisplayName="ARM 4.4.3 Toolchain (arm-linux-androideabi-4.4.3)" />
     <EnumValue Name="arm-linux-androideabi-4.6" DisplayName="ARM 4.6 Toolchain (arm-linux-androideabi-4.6)" />
-    <EnumValue Name="arm-linux-androideabi-4.7" DisplayName="ARM 4.7 Toolchain (arm-linux-androideabi-4.7)" />
-    <EnumValue Name="x86-4.4.3" DisplayName="x86 4.4.3 Toolchain (x86-4.4.3)" />
+    <EnumValue Name="arm-linux-androideabi-4.8" DisplayName="ARM 4.8 Toolchain (arm-linux-androideabi-4.8)" />
     <EnumValue Name="x86-4.6" DisplayName="x86 4.6 Toolchain (x86-4.6)" />
-    <EnumValue Name="x86-4.7" DisplayName="x86 4.7 Toolchain (x86-4.7)" />
-    <EnumValue Name="mipsel-linux-android-4.4.3" DisplayName="MIPS 4.4.3 Toolchain (mipsel-linux-android-4.4.3)" />
+    <EnumValue Name="x86-4.8" DisplayName="x86 4.8 Toolchain (x86-4.8)" />
     <EnumValue Name="mipsel-linux-android-4.6" DisplayName="MIPS 4.6 Toolchain (mipsel-linux-android-4.6)" />
-    <EnumValue Name="mipsel-linux-android-4.7" DisplayName="MIPS 4.7 Toolchain (mipsel-linux-android-4.7)" />
+    <EnumValue Name="mipsel-linux-android-4.8" DisplayName="MIPS 4.8 Toolchain (mipsel-linux-android-4.8)" />
   </EnumProperty>
 
   <!-- Project Defaults -->
@@ -105,7 +102,14 @@
     <EnumValue Name="android-5" DisplayName="Android 2.0 (android-5)" />
     <EnumValue Name="android-8" DisplayName="Android 2.2 (android-8)" />
     <EnumValue Name="android-9" DisplayName="Android 2.3 (android-9)" />
+    <EnumValue Name="android-12" DisplayName="Android 3.1 (android-12)" />
+    <EnumValue Name="android-13" DisplayName="Android 3.2 (android-13)" />
     <EnumValue Name="android-14" DisplayName="Android 4.0 (android-14)" />
+    <EnumValue Name="android-15" DisplayName="Android 4.0.3 (android-15)" />
+    <EnumValue Name="android-16" DisplayName="Android 4.1 (android-16)" />
+    <EnumValue Name="android-17" DisplayName="Android 4.2 (android-17)" />
+    <EnumValue Name="android-18" DisplayName="Android 4.3 (android-18)" />
+    <EnumValue Name="android-19" DisplayName="Android 4.4 (android-19)" />
   </EnumProperty>
   <EnumProperty Name="AndroidArch" DisplayName="Target Architecture" Category="ProjectDefaults">
     <EnumValue Name="armv5te" DisplayName="ARM Architecture v5te (armv5te)" />

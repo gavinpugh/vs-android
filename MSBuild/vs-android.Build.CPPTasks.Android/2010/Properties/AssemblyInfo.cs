@@ -14,7 +14,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration( "" )]
 [assembly: AssemblyCompany("Gavin Pugh")]
 [assembly: AssemblyProduct("vs-android.Build.CppTasks.Android (vs2010)")]
-[assembly: AssemblyCopyright( "Copyright © Gavin Pugh 2013" )]
+[assembly: AssemblyCopyright( "Copyright © Gavin Pugh 2014" )]
 [assembly: AssemblyTrademark( "" )]
 [assembly: AssemblyCulture( "" )]
 
@@ -36,5 +36,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion( "0.9.5.0" )]
-[assembly: AssemblyFileVersion( "0.9.5.0" )]
+[assembly: AssemblyVersion( "0.9.6.0" )]
+[assembly: AssemblyFileVersion( "0.9.6.0" )]

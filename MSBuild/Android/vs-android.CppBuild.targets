@@ -16,7 +16,7 @@
   </PropertyGroup>
 
   <!-- VS2012 fix - Proper 'general' properties page for vs-android -->
-  <PropertyGroup Condition="$(VisualStudioVersion) == '11.0'">
+  <PropertyGroup Condition="$(VisualStudioVersion) != '10.0'">
     <ToolsetTargetsFound>true</ToolsetTargetsFound>
   </PropertyGroup>
 
@@ -41,7 +41,7 @@
     "/>
 
     <!-- VS2012 fix - Singular C/C++ files can now have their properties edited -->
-    <PropertyPageSchema Condition="$(VisualStudioVersion) == '11.0'" Include="$(VCTargetsPath)$(LangID)\general_file.xml">
+    <PropertyPageSchema Condition="$(VisualStudioVersion) != '10.0'" Include="$(VCTargetsPath)$(LangID)\general_file.xml">
       <Context>File</Context>
     </PropertyPageSchema>
 

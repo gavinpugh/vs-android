@@ -23,12 +23,12 @@
     <RemoteDebuggerCommand>$(VCTargetsPath)\Platforms\Android\vs-android_launch.exe</RemoteDebuggerCommand>
   </PropertyGroup>
 
-  <PropertyGroup Condition="$(VisualStudioVersion) == '11.0'">
+  <PropertyGroup Condition="$(VisualStudioVersion) != '10.0'">
     <RemoteDebuggerCommand>$(ProjectDir)$(IntDir)vs-android_launch.cmd</RemoteDebuggerCommand>
   </PropertyGroup>
 
   <!-- Default debugger properties. Required for VS2012. Copied from "Microsoft.Cpp.Common.props" -->
-  <PropertyGroup Condition="$(VisualStudioVersion) == '11.0'">
+  <PropertyGroup Condition="$(VisualStudioVersion) != '10.0'">
 
     <!-- Remote Windows debugger -->
     <RemoteDebuggerDebuggerType>Auto</RemoteDebuggerDebuggerType>
