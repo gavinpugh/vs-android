@@ -1,4 +1,4 @@
-﻿<!--
+<!--
 ***********************************************************************************************
 (c) 2012 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
 ***********************************************************************************************
@@ -41,6 +41,17 @@
         <MinimalRebuildFromTracking   Condition="'$(BuildType)' != 'Build' or '$(ForceRebuild)' == 'true'">false</MinimalRebuildFromTracking>
         <Architecture                 Condition="'$(AndroidArch)' == 'armv5te'">armv5te</Architecture>
         <Architecture                 Condition="'$(AndroidArch)' == 'armv7-a'">armv7-a</Architecture>
+		<BrowseInformation			  >false</BrowseInformation>
+      </ClCompile>
+    </ItemGroup>
+    
+    <!-- PCH handling -->
+    <ItemGroup>
+      <ClCompile>
+        <ObjectFileName               Condition="'%(ClCompile.PrecompiledHeader)' == 'Create'">%(ClCompile.PrecompiledHeaderOutputFile).gch</ObjectFileName>
+        <CompileAs                    Condition="('%(ClCompile.PrecompiledHeader)' == 'Create' and '%(ClCompile.CompileAs)' == 'CompileAsC')">CompileAsCHeader</CompileAs>
+        <CompileAs                    Condition="('%(ClCompile.PrecompiledHeader)' == 'Create' and '%(ClCompile.CompileAs)' != 'CompileAsC')">CompileAsCppHeader</CompileAs>
+        <LinkCompiled                 Condition="'%(ClCompile.PrecompiledHeader)' == 'Create'">false</LinkCompiled>
       </ClCompile>
     </ItemGroup>
 
@@ -58,7 +69,30 @@
       </ClCompile>
     </ItemGroup>
 
-    <GCCCompile Condition="'%(ClCompile.ExcludedFromBuild)'!='true'"
+    <!-- Invoke GCCCompile to build C/C++ PCH files in a separate pass prior to all other files -->
+    <GCCCompile Condition="'%(ClCompile.ExcludedFromBuild)'!='true' and '%(ClCompile.PrecompiledHeader)' == 'Create'"
+        BuildingInIDE                      ="$(BuildingInsideVisualStudio)"
+        Sources                            ="@(ClCompile)"
+
+        TrackerLogDirectory                ="%(ClCompile.TrackerLogDirectory)"
+
+        TLogReadFiles                      ="@(CLTLogReadFiles)"
+        TLogWriteFiles                     ="@(CLTLogWriteFiles)"
+        ToolExe                            ="$(CLToolExe)"
+        ToolPath                           ="$(CLToolPath)"
+        TrackFileAccess                    ="$(TrackFileAccess)"
+        MinimalRebuildFromTracking         ="%(ClCompile.MinimalRebuildFromTracking)"
+
+        AcceptableNonZeroExitCodes         ="%(ClCompile.AcceptableNonZeroExitCodes)"
+
+        EchoCommandLines                   ="%(ClCompile.EchoCommandLines)"
+        GCCToolPath                        ="$(GccCompiler)"
+        PropertyXmlFile                    ="$(VCTargetsPath)\Platforms\Android\Props\android_gcc_compile.xml"
+    >
+    </GCCCompile>
+
+    <!-- Invoke GCCCompile to build everything that may depend on C/C++ PCH outputs -->
+    <GCCCompile Condition="'%(ClCompile.ExcludedFromBuild)'!='true' and '%(ClCompile.PrecompiledHeader)' != 'Create'"
         BuildingInIDE                      ="$(BuildingInsideVisualStudio)"
         Sources                            ="@(ClCompile)"
 
@@ -119,7 +153,7 @@
         GCCToolPath                    ="$(GccLibrarian)"
         PropertyXmlFile                ="$(VCTargetsPath)\Platforms\Android\Props\android_gcc_lib.xml"
       >
-      	<Output TaskParameter="SkippedExecution" PropertyName="LibSkippedExecution" />
+        <Output TaskParameter="SkippedExecution" PropertyName="LibSkippedExecution" />
     </GCCLib>
 
     <Message Condition="'$(LibSkippedExecution)' == 'false'" Text="$(MSBuildProjectFile) -&gt; $(TargetPath)" Importance="High" />
@@ -226,7 +260,8 @@
     </PropertyGroup>
 
     <PropertyGroup>
-      <ApkLibsPath Condition="'$(PlatformShortName)' == 'arm'">armeabi</ApkLibsPath>
+      <ApkLibsPath Condition="'$(PlatformShortName)' == 'arm' and '$(AndroidArch)' == 'armv5te'">armeabi</ApkLibsPath>
+      <ApkLibsPath Condition="'$(PlatformShortName)' == 'arm' and '$(AndroidArch)' == 'armv7-a'">armeabi-v7a</ApkLibsPath>
       <ApkLibsPath Condition="'$(PlatformShortName)' == 'x86'">x86</ApkLibsPath>
       <ApkLibsPath Condition="'$(PlatformShortName)' == 'mips'">mips</ApkLibsPath>
     </PropertyGroup>

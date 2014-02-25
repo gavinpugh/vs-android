@@ -210,6 +210,18 @@ namespace vs_android.Build.CPPTasks.Android
 						Log.LogMessageFromText(logString, MessageImportance.High);
 					}
 
+					// Create dummy .h file for precompiled headers. Units with the "use" setting can forcefully include it, which
+					// in turn makes GCC load up the .gch
+					string pchSetting = sourceFile.GetMetadata("PrecompiledHeader").ToLowerInvariant();
+					string pchOutputH = Path.GetFullPath(sourceFile.GetMetadata("PrecompiledHeaderOutputFile"));
+					if (pchSetting == "create")
+					{
+						using (StreamWriter writer = new StreamWriter(pchOutputH, false, Encoding.ASCII))
+						{
+							writer.WriteLine("#error \"Problem with precompiled headers. It's likely that the .gch file is not present, or you're using a combination of C and CPP files.\"");
+						}
+					}
+
 					// Execute the tool, on this source file, with the given commandline.
 					retCode = base.ExecuteTool(pathToTool, responseFileCommands, string.Empty);
 
@@ -246,6 +258,24 @@ namespace vs_android.Build.CPPTasks.Android
 			StringBuilder templateStr = new StringBuilder( Utils.EST_MAX_CMDLINE_LEN );
 			if ( m_currentSourceItem != null )
 			{
+				string objectFile = Path.GetFullPath(m_currentSourceItem.GetMetadata("ObjectFileName"));
+				if (Path.GetFileName(objectFile) == string.Empty)
+				{
+					Log.LogError("The ObjectFileName setting in the Visual Studio C/C++ - Output Files sheet is set to a directory:");
+					Log.LogError(objectFile);
+					Log.LogError("^ This should be set to a filename instead. Consider using the default of: $(IntDir)%(FileName).o" );
+					return string.Empty;
+				}
+
+				string pchSetting = m_currentSourceItem.GetMetadata("PrecompiledHeader").ToLowerInvariant();
+				string pchOutputH = Path.GetFullPath(m_currentSourceItem.GetMetadata("PrecompiledHeaderOutputFile"));
+				if ( pchSetting == "use" )
+				{
+					templateStr.Append( " -include " );
+					templateStr.Append( Utils.PathSanitize( pchOutputH ) );
+					templateStr.Append( " " );
+				}
+
 				string sourcePath = Utils.PathSanitize( m_currentSourceItem.ToString() );
 
 				// -c = Compile the C/C++ file
@@ -308,6 +338,9 @@ namespace vs_android.Build.CPPTasks.Android
 					string sourcePath = Path.GetFullPath( sourceItem.ItemSpec ).ToUpperInvariant();
 					string objectFile = Path.GetFullPath( sourceItem.GetMetadata( "ObjectFileName" ) );
 					string dotDFile = Path.GetFullPath( Path.GetDirectoryName( objectFile ) + "\\" + Path.GetFileNameWithoutExtension( objectFile ) + ".d" );
+					string pchOutputH = Path.GetFullPath( sourceItem.GetMetadata( "PrecompiledHeaderOutputFile" ) );
+					string pchOutputGCH = pchOutputH + ".gch";
+					string pchSetting = sourceItem.GetMetadata( "PrecompiledHeader" ).ToLowerInvariant();
 
 					try
 					{
@@ -327,6 +360,12 @@ namespace vs_android.Build.CPPTasks.Android
 
 									writer.WriteLine(dependentFile);
 								}
+							}
+
+							if ( pchSetting == "use" )
+							{
+								writer.WriteLine( pchOutputH.ToUpperInvariant() );
+								writer.WriteLine( pchOutputGCH.ToUpperInvariant() );
 							}
 
 							// Done with this .d file. So delete it
@@ -395,7 +434,7 @@ namespace vs_android.Build.CPPTasks.Android
 				{
 					string fullSourceFile = m_currentSourceItem.GetMetadata("FullPath");
 
-					// Reformat in a way VS know how to handle
+					// Reformat in a way VS knows how to handle
 					return String.Format("{0}({1}): {2}: {3}", fullSourceFile, parts[1], parts[errorIndex - 1],
 						string.Join(":", parts, errorIndex, parts.Length - errorIndex));
 				}

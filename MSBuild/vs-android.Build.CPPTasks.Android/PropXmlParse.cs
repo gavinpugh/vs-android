@@ -70,7 +70,7 @@ namespace vs_android.Build.CPPTasks.Android
 
 			foreach ( string metaName in taskItem.MetadataNames )
 			{
-				string propValue = taskItem.GetMetadata(metaName);                                
+				string propValue = taskItem.GetMetadata(metaName);
 				string processed = ProcessProperty(metaName, propValue).Trim();
 
 				if (( processed != null ) && ( processed.Length > 0 ))
@@ -88,6 +88,11 @@ namespace vs_android.Build.CPPTasks.Android
 			Property prop;
 			if ( m_properties.TryGetValue( propName, out prop ) )
 			{
+				if ( prop.Ignored )
+				{
+					return string.Empty;
+				}
+
 				return prop.Process( propVal );
 			}
 			return string.Empty;
@@ -150,6 +155,11 @@ namespace vs_android.Build.CPPTasks.Android
 		{
 			abstract public string Process( string propVal );
 
+			public bool Ignored
+			{
+				get { return m_ignored; }
+			}
+
 			public void Setup( XmlTextReader xml, string switchPrefix, string separator, bool quoteFix )
 			{
 				m_switchPrefix = switchPrefix;
@@ -158,6 +168,9 @@ namespace vs_android.Build.CPPTasks.Android
 
 				Debug.Assert( m_switchPrefix != null ); 
 				Debug.Assert( m_separator != null );
+
+				string switchValue = xml.GetAttribute( "Switch" );
+				m_ignored = (switchValue == "ignore");
 
 				SetupProperty( xml );
 			}
@@ -181,6 +194,7 @@ namespace vs_android.Build.CPPTasks.Android
 			protected string m_switchPrefix;
 			protected string m_separator;
 			protected bool m_quoteFix;
+			protected bool m_ignored;
 		}
 
 		public class EnumProperty : Property
@@ -219,7 +233,7 @@ namespace vs_android.Build.CPPTasks.Android
 
 									if ( nameStr != null )
 									{
-										if ( switchVal != null )
+										if ((switchVal != null) && (switchVal != String.Empty))
 										{
 											m_switches.Add( nameStr, m_switchPrefix + switchVal );
 										}

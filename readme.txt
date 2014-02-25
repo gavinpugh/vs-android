@@ -1,5 +1,5 @@
-vs-android v0.96 - 4th January 2014
-===================================
+vs-android v0.961 - 24th February 2014
+======================================
 
 vs-android is intended to provide a collection of scripts and utilities to support integrated development of
 Android NDK C/C++ software under Microsoft Visual Studio.
@@ -40,6 +40,19 @@ Documentation for vs-android can be found here:
 
 Version History
 ===============
+
+v0.961 - 24th February 2014
+
+  * Added Precompiled Header support. Thanks to help from Richard Forster.
+  * PCH support works similarly to the Win32/x64 compilers. You can enable "Create" for the compilation unit which
+    should create the PCH, and "Use" for the project so have all files use that PCH.
+  * Projects mistakenly setting the ObjectFileName to a directory, will now have an explanatory error.
+  * /libs/armeabi-v7a is now used when the architecture is set to "armeabi-v7a". This addresses an issue when
+    submitting apk's to the Play Store. Thanks to Ilja Plutschouw.
+  * The default "PlatformToolset" for newly added configurations is now correctly set. Thanks to Chuck Evans.
+  * The BrowseInformation flag is now ignored for ClCompile. Oft-imported setting when creating an Android platform
+    on a Win32 project. Compilation fails if it was enabled. Thanks to C.Aragones for the headsup.
+
 
 v0.96 - 4th January 2014
 
@@ -180,6 +193,9 @@ hoesing@kleinbottling - Fix for the bad quote removal on paths, in the C# code.
 null77 - Fix so that projects can be built in paths that contain spaces.
 danfilner - Addition of "Forced Include File" to C/C++ property sheet.
 Drew Dunlop - Fix so that ARM5/ARM7 GCC flags are passed correctly to the compiler.
+Richard Forster - Assistance with Precompiled Header support.
+Ilja Plutschouw - /libs/armeabi-v7a/ fix.
+C.Aragones - Highlighted BrowseInformation issue.
 
 
 References

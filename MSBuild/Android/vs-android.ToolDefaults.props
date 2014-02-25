@@ -29,6 +29,9 @@
       <SoftFloat                Condition="'%(ClCompile.SoftFloat)'                 == ''">false</SoftFloat>
       <PositionIndependentCode  Condition="'%(ClCompile.PositionIndependentCode)'   == ''">true</PositionIndependentCode>
       <StackProtector           Condition="'%(ClCompile.StackProtector)'            == ''">true</StackProtector>
+      
+      <PrecompiledHeader        Condition="'%(ClCompile.PrecompiledHeader)'         == ''">NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderOutputFile Condition="'%(ClCompile.PrecompiledHeaderOutputFile)' == ''">$(IntDir)$(TargetName).pch.h</PrecompiledHeaderOutputFile>
 
       <RuntimeTypeInfo          Condition="'%(ClCompile.RuntimeTypeInfo)'           == ''">false</RuntimeTypeInfo>
       <ShortEnums               Condition="'%(ClCompile.ShortEnums)'                == ''">false</ShortEnums>
