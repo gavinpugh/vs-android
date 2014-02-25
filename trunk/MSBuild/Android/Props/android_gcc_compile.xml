@@ -15,6 +15,7 @@
     <Category Name="Preprocessor" DisplayName="Preprocessor" />
     <Category Name="Code Generation" DisplayName="Code Generation" />
     <Category Name="Language" DisplayName="Language" />
+    <Category Name="Precompiled Headers" DisplayName="Precompiled Headers" />
     <Category Name="Output Files" DisplayName="Output Files" />
     <Category Name="Advanced" DisplayName="Advanced" />
     <Category Name="Command Line" DisplayName="Command Line" Subtype="CommandLine" />
@@ -25,6 +26,8 @@
 
   <!-- General -->
   <StringListProperty Subtype="folder" Name="AdditionalIncludeDirectories" DisplayName="Additional Include Directories" Category="General" Switch="I">
+  </StringListProperty>
+  <StringListProperty Subtype="folder" Name="AdditionalUserIncludeDirectories" DisplayName="Additional User Include Directories" Category="General" Switch="iquote">
   </StringListProperty>
   <BoolProperty Name="GenerateDebugInformation" DisplayName="Generate Debug Info" Category="General" Switch="g">
   </BoolProperty>  
@@ -44,9 +47,9 @@
     </EnumValue>
     <EnumValue Name="O1" DisplayName="Optimization Flag -O1" Switch="O1">
     </EnumValue>
-    <EnumValue Name="O2" DisplayName="Optimization Flag -O2" Switch="O2">      
+    <EnumValue Name="O2" DisplayName="Optimization Flag -O2" Switch="O2">
     </EnumValue>
-    <EnumValue Name="O3" DisplayName="Optimization Flag -O3" Switch="O3">      
+    <EnumValue Name="O3" DisplayName="Optimization Flag -O3" Switch="O3">
     </EnumValue>
     <EnumValue Name="Os" DisplayName="Optimize for size" Switch="Os">
     </EnumValue>
@@ -81,6 +84,19 @@
   </BoolProperty>
   <BoolProperty Name="ShortEnums" DisplayName="Short Enums" Category="Language" Switch="fshort-enums" ReverseSwitch="fno-short-enums">
   </BoolProperty>
+
+
+  <!-- Precompiled Headers -->
+  <EnumProperty Name="PrecompiledHeader" DisplayName="Precompiled Header" Category="Precompiled Headers">
+    <EnumValue Name="Create" DisplayName="Create" Switch="">
+    </EnumValue>
+    <EnumValue Name="Use" DisplayName="Use" Switch="">
+    </EnumValue>
+    <EnumValue Name="NotUsing" DisplayName="Not Using Precompiled Headers" Switch="">
+    </EnumValue>
+  </EnumProperty>
+  <StringProperty Subtype="file" Name="PrecompiledHeaderOutputFile" DisplayName="Precompiled Header Output File" Category="Precompiled Headers" Switch="ignore">
+  </StringProperty>
   
   <!-- Output Files -->
   <StringProperty Subtype="file" Name="ObjectFileName" DisplayName="Object File Name" Category="Output Files" Switch="o ">
@@ -95,6 +111,10 @@
     <EnumValue Name="CompileAsCpp" DisplayName="Compile as C++ Code" Switch="x c++">
     </EnumValue>
     <EnumValue Name="CompileAsAsm" DisplayName="Compile as Assembly Code" Switch="x assembler">
+    </EnumValue>
+    <EnumValue Name="CompileAsCHeader" DisplayName="Compile as C Compiled Header" Switch="x c-header">
+    </EnumValue>
+    <EnumValue Name="CompileAsCppHeader" DisplayName="Compile as C++ Compiled Header" Switch="x c++-header">
     </EnumValue>
   </EnumProperty>
   <StringProperty Subtype="file" Name="ForcedIncludeFiles" DisplayName="Forced Include File" Category="Advanced" Switch="include ">
