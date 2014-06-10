@@ -1,6 +1,6 @@
 ﻿<!--
 ***********************************************************************************************
-(c) 2012 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
+(c) 2014 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
 ***********************************************************************************************
 -->
 
@@ -30,6 +30,13 @@
     <TargetName         Condition="'$(TargetName)'      == ''">$(ProjectName)</TargetName>
     <WindowsAppContainer>false</WindowsAppContainer>
 
+  </PropertyGroup>
+
+  <!-- Allow Pre/post build steps -->
+  <PropertyGroup>
+    <PreBuildEventUseInBuild Condition="'$(PreBuildEventUseInBuild)' == ''">true</PreBuildEventUseInBuild>
+    <PreLinkEventUseInBuild Condition="'$(PreLinkEventUseInBuild)' == ''">true</PreLinkEventUseInBuild>
+    <PostBuildEventUseInBuild Condition="'$(PostBuildEventUseInBuild)' == ''">true</PostBuildEventUseInBuild>
   </PropertyGroup>
 
 </Project>

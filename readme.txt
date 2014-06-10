@@ -1,5 +1,5 @@
-vs-android v0.961 - 24th February 2014
-======================================
+vs-android v0.962 - 9th June 2014
+=================================
 
 vs-android is intended to provide a collection of scripts and utilities to support integrated development of
 Android NDK C/C++ software under Microsoft Visual Studio.
@@ -40,6 +40,16 @@ Documentation for vs-android can be found here:
 
 Version History
 ===============
+
+v0.962 - 9th June 2014
+
+  * Added support for lone-installs of Visual Studio 2013.
+  ** Thanks to ted@lindenlab, and "mellean". I simplified the approach in the end, using project imports rather
+     than duplicating code.
+  * Fixed pre/post-build steps not functioning correctly.
+  ** Thanks to "mellean" for the fix.
+  * Tested against new "r9d" NDK. Appears to work fine, please let me know on the "Issues" page if I am mistaken.
+
 
 v0.961 - 24th February 2014
 
@@ -196,6 +206,8 @@ Drew Dunlop - Fix so that ARM5/ARM7 GCC flags are passed correctly to the compil
 Richard Forster - Assistance with Precompiled Header support.
 Ilja Plutschouw - /libs/armeabi-v7a/ fix.
 C.Aragones - Highlighted BrowseInformation issue.
+ted@lindenlab - VS2013 lone installs.
+"mellean" - VS2013 lone installs, and pre/post-build step fixes.
 
 
 References

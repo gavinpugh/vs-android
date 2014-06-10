@@ -1,15 +1,13 @@
 @echo off
 
-rem This batch file is currently a duplicate of the 2012 one. Remove this comment if this no longer becomes the case.
-
 set MsBuildCppDir=
 
 echo.
 
-rem On 64-bit machines, Visual Studio 2012 and MsBuild is in the (x86) directory. So try that last.
+rem On 64-bit machines, Visual Studio 2013 and MsBuild is in the (x86) directory. So try that last.
 
-if exist "%ProgramFiles%" set MsBuildCppDir=%ProgramFiles%\MSBuild\Microsoft.Cpp\v4.0\V110\Platforms
-if exist "%ProgramFiles(x86)%" set MsBuildCppDir=%ProgramFiles(x86)%\MSBuild\Microsoft.Cpp\v4.0\V110\Platforms
+if exist "%ProgramFiles%" set MsBuildCppDir=%ProgramFiles%\MSBuild\Microsoft.Cpp\v4.0\V120\Platforms
+if exist "%ProgramFiles(x86)%" set MsBuildCppDir=%ProgramFiles(x86)%\MSBuild\Microsoft.Cpp\v4.0\V120\Platforms
 
 
 
@@ -28,7 +26,7 @@ IF ERRORLEVEL 1 (
 
 	if not exist "%MsBuildCppDir%" (
 
-		Echo.Failed to find the MsBuild directories that should have been installed with 'Visual Studio 2012'.
+		Echo.Failed to find the MsBuild directories that should have been installed with 'Visual Studio 2013'.
 		Echo."%MsBuildCppDir%"
 		Pause
 		goto cleanup
@@ -54,7 +52,7 @@ IF ERRORLEVEL 1 (
 	echo.Installing Android MSBuild files:
 	cd /d %~dp0
 	xcopy "Android\*.*" "%MsBuildCppDir%\Android" /E
-	xcopy "2012 DLL\*.dll" "%MsBuildCppDir%\Android" /E
+	xcopy "2013 DLL\*.dll" "%MsBuildCppDir%\Android" /E
 
 	if errorlevel 1 (
 	

@@ -1,0 +1,11 @@
+﻿<!--
+***********************************************************************************************
+(c) 2014 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
+***********************************************************************************************
+-->
+
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <Import Project="$(VCTargetsPath)\Platforms\Android\Microsoft.Cpp.Android.default.props" />
+
+</Project>

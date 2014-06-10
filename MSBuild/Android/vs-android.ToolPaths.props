@@ -1,6 +1,6 @@
 <!--
 ***********************************************************************************************
-(c) 2012 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
+(c) 2014 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
 ***********************************************************************************************
 -->
 
@@ -30,7 +30,7 @@
     <AndroidStlLibPath Condition="'$(AndroidStlType)' == 'gnustl_dynamic'">$(AndroidNdkDir)\sources\cxx-stl\gnu-libstdc++\$(GccVersion)\libs\$(ArchStlDirName)</AndroidStlLibPath>
     <AndroidStlLibPath Condition="'$(AndroidStlType)' == 'stlport_static'">$(AndroidNdkDir)\sources\cxx-stl\stlport\libs\$(ArchStlDirName)</AndroidStlLibPath>
     <AndroidStlLibPath Condition="'$(AndroidStlType)' == 'stlport_dynamic'">$(AndroidNdkDir)\sources\cxx-stl\stlport\libs\$(ArchStlDirName)</AndroidStlLibPath>
-    
+
     <AndroidStlLibs Condition="'$(AndroidStlType)' == 'system'">-lstdc++</AndroidStlLibs>
     <AndroidStlLibs Condition="'$(AndroidStlType)' == 'gnustl_static'">-lstdc++;-lsupc++;-lgnustl_static;-lgcc</AndroidStlLibs>
     <AndroidStlLibs Condition="'$(AndroidStlType)' == 'gnustl_dynamic'">-lstdc++;-lsupc++;$(AndroidStlLibPath)\libgnustl_shared.so;-lgcc</AndroidStlLibs>
@@ -47,7 +47,38 @@
     <AndroidAdbPath>$(AndroidSdkDir)\platform-tools\adb.exe</AndroidAdbPath>
     <JavaCompilerPath>$(JavaHomeDir)\bin\javac.exe</JavaCompilerPath>
 
+    <!-- Default system pathing -->
+    <ExecutablePath Condition="'$(ExecutablePath)' == ''">$(GccToolsPath);$(PATH);</ExecutablePath>
+    <IncludePath Condition="'$(IncludePath)' == ''">$(AndroidIncludeDir);$(AndroidStlIncludeDir);</IncludePath>
+    <LibraryPath Condition="'$(LibraryPath)' == ''">$(AndroidLibDir);$(AndroidStlLibPath);</LibraryPath>
 
+  </PropertyGroup>
+
+  
+  <PropertyGroup Condition="$(VisualStudioVersion) == '12.0'">
+
+    <VSInstallDir>$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VisualStudio\12.0\Setup\VS@ProductDir)</VSInstallDir>
+    <VSInstallDir Condition="'$(VSInstallDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\12.0\Setup\VS@ProductDir)</VSInstallDir>
+    <VSInstallDir Condition="'$(VSInstallDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VCExpress\12.0\Setup\VS@ProductDir)</VSInstallDir>
+    <VSInstallDir Condition="'$(VSInstallDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\VCExpress\12.0\Setup\VS@ProductDir)</VSInstallDir>
+
+    <VCInstallDir>$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VisualStudio\12.0\Setup\VC@ProductDir)</VCInstallDir>
+    <VCInstallDir Condition="'$(VCInstallDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\12.0\Setup\VC@ProductDir)</VCInstallDir>
+    <VCInstallDir Condition="'$(VCInstallDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VCExpress\12.0\Setup\VC@ProductDir)</VCInstallDir>
+    <VCInstallDir Condition="'$(VCInstallDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\VCExpress\12.0\Setup\VC@ProductDir)</VCInstallDir>
+
+    <WindowsSdkDir Condition="'$(UseEnv)' != 'true'">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Microsoft SDKs\Windows\v8.1A@InstallationFolder)</WindowsSdkDir>
+    <WindowsSdkDir Condition="'$(WindowsSdkDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Microsoft SDKs\Windows\v8.1A@InstallationFolder)</WindowsSdkDir>
+
+    <FrameworkDir Condition="'$(UseEnv)' != 'true'">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework@InstallRoot)</FrameworkDir>
+    <FrameworkDir Condition="'$(FrameworkDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\.NETFramework@InstallRoot)</FrameworkDir>
+
+    <FrameworkSdkDir Condition="'$(UseEnv)' != 'true'">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Microsoft SDKs\Windows\v8.1A@InstallationFolder)</FrameworkSdkDir>
+    <FrameworkSdkDir Condition="'$(FrameworkSdkDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Microsoft SDKs\Windows\v8.1A@InstallationFolder)</FrameworkSdkDir>
+
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(VisualStudioVersion) != '12.0'">
 
     <VCInstallDir>$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VisualStudio\10.0\Setup\VC@ProductDir)</VCInstallDir>
     <VCInstallDir Condition="'$(VCInstallDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\10.0\Setup\VC@ProductDir)</VCInstallDir>
@@ -67,11 +98,6 @@
 
     <FrameworkSdkDir Condition="'$(UseEnv)' != 'true'">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Microsoft SDKs\Windows\v7.0A@InstallationFolder)</FrameworkSdkDir>
     <FrameworkSdkDir Condition="'$(FrameworkSdkDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Microsoft SDKs\Windows\v7.0A@InstallationFolder)</FrameworkSdkDir>
-
-    <!-- Default system pathing -->
-    <ExecutablePath Condition="'$(ExecutablePath)' == ''">$(GccToolsPath);$(PATH);</ExecutablePath>
-    <IncludePath Condition="'$(IncludePath)' == ''">$(AndroidIncludeDir);$(AndroidStlIncludeDir);</IncludePath>
-    <LibraryPath Condition="'$(LibraryPath)' == ''">$(AndroidLibDir);$(AndroidStlLibPath);</LibraryPath>
 
   </PropertyGroup>
 

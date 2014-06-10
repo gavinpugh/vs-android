@@ -1,6 +1,6 @@
 ﻿<!--
 ***********************************************************************************************
-(c) 2012 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
+(c) 2014 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
 ***********************************************************************************************
 -->
 
@@ -94,6 +94,14 @@
 
   <!-- Bring in default props for each tool -->
   <Import Project="$(VCTargetsPath)\Platforms\Android\vs-android.ToolDefaults.props" />
+
+  <ItemGroup>
+    <!-- Allow Pre/post build steps -->
+    <CustomBuildStep Include="$(ProjectName)" />
+    <PreBuildEvent Include="$(ProjectName)" />
+    <PreLinkEvent Include="$(ProjectName)" />
+    <PostBuildEvent Include="$(ProjectName)" />
+  </ItemGroup>
 
   <Import Project="$(VCTargetsPath)\Platforms\Android\ImportAfter\*.props" Condition="Exists('$(VCTargetsPath)\Platforms\Android\ImportAfter')" />
 </Project>

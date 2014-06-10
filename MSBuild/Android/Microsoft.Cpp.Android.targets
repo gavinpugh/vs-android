@@ -1,6 +1,6 @@
 <!--
 ***********************************************************************************************
-(c) 2012 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
+(c) 2014 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
 ***********************************************************************************************
 -->
 
@@ -41,7 +41,7 @@
         <MinimalRebuildFromTracking   Condition="'$(BuildType)' != 'Build' or '$(ForceRebuild)' == 'true'">false</MinimalRebuildFromTracking>
         <Architecture                 Condition="'$(AndroidArch)' == 'armv5te'">armv5te</Architecture>
         <Architecture                 Condition="'$(AndroidArch)' == 'armv7-a'">armv7-a</Architecture>
-		<BrowseInformation			  >false</BrowseInformation>
+        <BrowseInformation			  >false</BrowseInformation>
       </ClCompile>
     </ItemGroup>
     
@@ -271,7 +271,7 @@
         Sources                        ="@(AntBuild)"
 
         ApkLibsPath                    ="$(ApkLibsPath)"
-        
+
         AntBuildPath                   ="%(AntBuild.AntBuildPath)"
         AntAndroidSdkPath              ="$(AndroidSdkDir)"
         AntJavaHomePath                ="$(JavaHomeDir)"
@@ -280,7 +280,7 @@
         JVMHeapInitial                 ="%(AntBuild.JVMHeapInitial)"
         JVMHeapMaximum                 ="%(AntBuild.JVMHeapMaximum)"
         IgnoreJavaOpts                 ="%(AntBuild.IgnoreJavaOpts)"
-        
+
         TrackerLogDirectory            ="%(AntBuild.TrackerLogDirectory)"
 
         TLogReadFiles                  ="@(AntBuildTLogReadFiles)"
