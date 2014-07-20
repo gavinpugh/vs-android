@@ -19,6 +19,8 @@ Two things I recommend:
 
 == 64bit NDK - TRACKER : error TRK0002: Failed to execute command ==
 
+'''This should be fixed in v0.963 - Please report it on the issues page if this isn't the case.'''
+
 If you're using the 64-bit version of the NDK, you might encounter this error:
 
 {{{
