@@ -49,6 +49,8 @@ If you don't want to run the 'install_vx20XX.cmd' file, you can copy the files m
 
   * Download the NDK from here: [http://developer.android.com/sdk/ndk/index.html]
 
+  * Get the NDK listed under "(32-bit target)". You can use either the "Windows 32-bit" or "Windows 64-bit" version, but make sure the *target* version is 32-bit.
+
   * Unzip it somewhere, and note the root directory.
 
   * You need to set an environment variable named *ANDROID_NDK_ROOT* which points to this directory. This can be done from the command line:
