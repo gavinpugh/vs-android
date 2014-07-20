@@ -29,11 +29,17 @@ If you don't want to run the 'install_vx20XX.cmd' file, you can copy the files m
 
 `C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Platforms`
 
-  * For VS2012/VS2013:
+  * For VS2012:
 
 `C:\Program Files\MSBuild\Microsoft.Cpp\v4.0\V110\Platforms`
 
 `C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V110\Platforms`
+
+  * For VS2013:
+
+`C:\Program Files\MSBuild\Microsoft.Cpp\v4.0\V120\Platforms`
+
+`C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Platforms`
 
   * In this directory will already be a 'Win32' subdirectory. Possibly an 'Itanium' and 'x64' directories too. You want that 'Android' directory to sit alongside them.
 
