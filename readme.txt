@@ -1,5 +1,5 @@
-vs-android v0.962 - 9th June 2014
-=================================
+vs-android v0.963 - 19th July 2014
+==================================
 
 vs-android is intended to provide a collection of scripts and utilities to support integrated development of
 Android NDK C/C++ software under Microsoft Visual Studio.
@@ -15,6 +15,8 @@ Cygwin is not required at all to use vs-android, thankfully!
 
 At a bare minimum the Android NDK needs to be installed. This will allow compilation of C/C++ code:
 * http://developer.android.com/sdk/ndk/index.html
+
+Get the NDK listed under "(32-bit target)". You can use either the "Windows 32-bit" or "Windows 64-bit" version, but make sure the *target* version is 32-bit.
 
 
 In order to build an apk package to run on an Android device, you'll also require:
@@ -36,10 +38,26 @@ Documentation
 Documentation for vs-android can be found here:
   * http://code.google.com/p/vs-android/
 
+Installation:
+  * http://code.google.com/p/vs-android/wiki/Installation
+
+Troubleshooting:
+  * http://code.google.com/p/vs-android/wiki/Troubleshooting
+
 
 
 Version History
 ===============
+
+v0.963 - 19th July 2014
+
+  * Fix for issue with the "Windows 64-bit" NDK. The "TRACKER : error TRK0002: Failed to execute command" error.
+  ** Thanks to Ilya Konstantinov for the fix.
+  * Added warning message for using the new "(64-bit Target)" NDK.
+  ** Confusingly there are 32-bit and 64-bit Windows flavors of the "(32-bit Target)" and "(64-bit Target)" NDKs.
+  ** vs-android only supports the "(32-bit Target)" NDK currently.
+  * Also tested vs-android against the new r10 NDK. All toolchains and platforms are current.
+
 
 v0.962 - 9th June 2014
 
@@ -208,6 +226,7 @@ Ilja Plutschouw - /libs/armeabi-v7a/ fix.
 C.Aragones - Highlighted BrowseInformation issue.
 ted@lindenlab - VS2013 lone installs.
 "mellean" - VS2013 lone installs, and pre/post-build step fixes.
+Ilya Konstantinov - "TRACKER : error TRK0002: Failed to execute command" 64-bit NDK fix.
 
 
 References
@@ -229,7 +248,7 @@ http://en.wikipedia.org/wiki/Zlib_License
 
 
 
-Copyright (c) 2013 Gavin Pugh http://www.gavpugh.com/
+Copyright (c) 2014 Gavin Pugh http://www.gavpugh.com/
 
 This software is provided 'as-is', without any express or implied
 warranty. In no event will the authors be held liable for any damages
