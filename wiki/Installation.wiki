@@ -37,7 +37,7 @@ If you don't want to run the 'install_vx20XX.cmd' file, you can copy the files m
 
   * In this directory will already be a 'Win32' subdirectory. Possibly an 'Itanium' and 'x64' directories too. You want that 'Android' directory to sit alongside them.
 
-  * You should also copy the DLL from the "2010 DLL" or "2012 DLL" directory into the "Android" directory in the destination folder, too.
+  * You should also copy the DLL from the "2010 DLL", "2012 DLL", or "2013 DLL" directory into the "Android" directory in the destination folder, too.
 
 =NDK Setup=
 
@@ -47,7 +47,7 @@ If you don't want to run the 'install_vx20XX.cmd' file, you can copy the files m
 
   * You need to set an environment variable named *ANDROID_NDK_ROOT* which points to this directory. This can be done from the command line:
 <pre>
-`setx ANDROID_NDK_ROOT c:\android-ndk-r6`
+`setx ANDROID_NDK_ROOT c:\android-ndk-r10`
 </pre>
 
 
