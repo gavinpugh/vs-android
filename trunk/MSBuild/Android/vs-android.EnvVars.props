@@ -21,8 +21,12 @@
     <AndroidNdkDir Condition="'$(AndroidNdkDir)' == ''">&lt;unset&gt;</AndroidNdkDir>
 
     <!-- Android NDK is 64-bit or 32-bit? -->
-    <PrebuiltWinDirName Condition="exists('$(AndroidNdkDir)\prebuilt\windows-x86_64')">windows-x86_64</PrebuiltWinDirName>
-    <PrebuiltWinDirName Condition="'$(PrebuiltWinDirName)' == ''">windows</PrebuiltWinDirName>
+    <AndroidNdk64 Condition="exists('$(AndroidNdkDir)\prebuilt\windows-x86_64')">true</AndroidNdk64>
+    <AndroidNdk64 Condition="'$(AndroidNdk64)' == ''">false</AndroidNdk64>
+
+    <!-- Prebuilt directory name -->
+    <PrebuiltWinDirName Condition="'$(AndroidNdk64)' == 'true'">windows-x86_64</PrebuiltWinDirName>
+    <PrebuiltWinDirName Condition="'$(AndroidNdk64)' == 'false'">windows</PrebuiltWinDirName>
 
     <!-- Crude 64-bit detection -->
     <SixtyFourBit Condition="'$(ProgramW6432)' != ''">true</SixtyFourBit>
