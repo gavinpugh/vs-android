@@ -103,6 +103,12 @@ The full error:
 1>      [apply] Could not reserve enough space for object heap
 </code>
 
+And other similar errors:
+<code>
+1>         [dx] Error occurred during initialization of VM
+1>         [dx] Could not reserve enough space for 1048576KB object heap
+</code>
+
 You likely need to change the Java VM size.
 
 As of vs-android v0.91 or later, it's possible to do this from within the Visual Studio IDE.
