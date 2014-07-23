@@ -90,6 +90,7 @@ I'd be interested to hear if someone finds a fix to this.
 
 
 == `[apply]` Could not create the Java virtual machine. ==
+== `[dx]` Error occurred during initialization of VM ==
 
 vs-android issue:
 
