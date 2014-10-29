@@ -3,7 +3,7 @@
 
 =Installing vs-android=
 
-  * Download the latest release of vs-android from [http://code.google.com/p/vs-android/downloads/list here].
+  * Download the latest release of vs-android from [http://www.gavpugh.com/vs-android/ here].
 
   * Unzip it anywhere you want. The install process copies files out of it, so you can safely delete it when you're done.
 
