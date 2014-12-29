@@ -186,8 +186,8 @@
         <SystemLibraryDirectories Condition="'%(Link.LinkGccLibThumb)' == 'true'">%(Link.SystemLibraryDirectories);$(GccLibPath_Thumb)</SystemLibraryDirectories>
         <SystemLibraryDirectories Condition="'%(Link.LinkGccLibThumb)' != 'true'">%(Link.SystemLibraryDirectories);$(GccLibPath)</SystemLibraryDirectories>
 
-        <StlLibs Condition="'%(Link.LinkGccLibThumb)' == 'true' and '$(GccVersion)' != '4.8'">$(GccLibPath_Thumb)\crtbeginS.o;%(Link.StlLibs)</StlLibs>
-        <StlLibs Condition="'%(Link.LinkGccLibThumb)' != 'true' and '$(GccVersion)' != '4.8'">$(GccLibPath)\crtbeginS.o;%(Link.StlLibs)</StlLibs>
+        <StlLibs Condition="'%(Link.LinkGccLibThumb)' == 'true' and '$(GccVersion)' != '4.8' and '$(GccVersion)' != '4.9'">$(GccLibPath_Thumb)\crtbeginS.o;%(Link.StlLibs)</StlLibs>
+        <StlLibs Condition="'%(Link.LinkGccLibThumb)' != 'true' and '$(GccVersion)' != '4.8' and '$(GccVersion)' != '4.9'">$(GccLibPath)\crtbeginS.o;%(Link.StlLibs)</StlLibs>
       </Link>
     </ItemGroup>
 
@@ -464,11 +464,10 @@
 
     <PropertyGroup>
       <CRLF>%0D%0A</CRLF>
-      <NDK64Warning>You seem to be using the (64-bit Target) version of the NDK. vs-android only currently supports the (32-bit Target) NDK.$(CRLF)Your ANDROID_NDK_ROOT: '$(AndroidNdkDir)'</NDK64Warning>
       <NDKMissing>Could not find the Android NDK, check that your ANDROID_NDK_ROOT path is correct!$(CRLF)It's currently: '$(AndroidNdkDir)'</NDKMissing>
       <NDKDownload>The NDK can be downloaded at this URL:$(CRLF)http://developer.android.com/sdk/ndk/index.html</NDKDownload>
       <NDKMissingToolchain>Possibly the toolchain '$(PlatformToolset)' does not exist in this version of the NDK.</NDKMissingToolchain>
-      <NDKWrongVersion>vs-android requires at least the r9c version of the NDK installed.$(CRLF)Also, check that your ANDROID_NDK_ROOT path is correct!$(CRLF)It's currently: '$(AndroidNdkDir)'</NDKWrongVersion>
+      <NDKWrongVersion>vs-android requires at least the r10d version of the NDK installed.$(CRLF)Also, check that your ANDROID_NDK_ROOT path is correct!$(CRLF)It's currently: '$(AndroidNdkDir)'</NDKWrongVersion>
     </PropertyGroup>
 
     <!-- Error out if the project references a missing platform toolset -->
@@ -478,8 +477,6 @@
            Text="Unknown version of Visual Studio: $(VisualStudioVersion)" ></Error>
 
     <!-- Android NDK Checks -->
-    <Error Condition="exists('$(AndroidNdkDir)\prebuilt\android-arm64\gdbserver\gdbserver') and !exists('$(GccToolsPath)\$(GccCompiler)')"
-           Text="$(NDK64Warning)"></Error>
     <Error Condition="!exists('$(AndroidNdkDir)')"
            Text="$(NDKMissing)$(CRLF)$(NDKDownload)"></Error>
     <Error Condition="!exists('$(GccToolsPath)\$(GccCompiler)')"
@@ -498,7 +495,7 @@
            Text="Architecture must be set to mips for the mips toolchain!"></Error>
 
     <!-- NDK min version check -->
-    <Error Condition="!exists('$(AndroidNdkDir)\toolchains\arm-linux-androideabi-clang3.3\config.mk')"
+    <Error Condition="!exists('$(AndroidNdkDir)\toolchains\arm-linux-androideabi-clang3.5\config.mk')"
            Text="$(NDKWrongVersion)"></Error>
 
     <Warning Condition="'$(AndroidArch)' == 'x86'"

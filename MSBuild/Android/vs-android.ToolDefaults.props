@@ -85,7 +85,8 @@
       <EchoCommandLines           Condition="'%(Link.EchoCommandLines)'             == ''">false</EchoCommandLines>
 
       <AdditionalDependencies     Condition="'%(Link.AdditionalDependencies)'       == ''"></AdditionalDependencies>
-      <IgnoreAllDefaultLibraries  Condition="'%(Link.IgnoreAllDefaultLibraries)'    == ''">true</IgnoreAllDefaultLibraries>
+      <IgnoreAllDefaultLibraries  Condition="'%(Link.IgnoreAllDefaultLibraries)'    == '' and '$(GccVersion)' == '4.6'">true</IgnoreAllDefaultLibraries>
+      <IgnoreAllDefaultLibraries  Condition="'%(Link.IgnoreAllDefaultLibraries)'    == '' and '$(GccVersion)' != '4.6'">false</IgnoreAllDefaultLibraries>
       <AndroidSystemLibs          Condition="'%(Link.AndroidSystemLibs)'            == ''">c;m;log;gcc</AndroidSystemLibs>
       <LinkGccLibThumb            Condition="'%(Link.LinkGccLibThumb)'              == ''">false</LinkGccLibThumb>
 

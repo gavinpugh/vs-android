@@ -1,5 +1,5 @@
-vs-android v0.963 - 19th July 2014
-==================================
+vs-android v0.964 - 28th December 2014
+======================================
 
 vs-android is intended to provide a collection of scripts and utilities to support integrated development of
 Android NDK C/C++ software under Microsoft Visual Studio.
@@ -15,8 +15,6 @@ Cygwin is not required at all to use vs-android, thankfully!
 
 At a bare minimum the Android NDK needs to be installed. This will allow compilation of C/C++ code:
 * http://developer.android.com/sdk/ndk/index.html
-
-Get the NDK listed under "(32-bit target)". You can use either the "Windows 32-bit" or "Windows 64-bit" version, but make sure the *target* version is 32-bit.
 
 
 In order to build an apk package to run on an Android device, you'll also require:
@@ -48,6 +46,18 @@ Troubleshooting:
 
 Version History
 ===============
+
+v0.964 - 28th December 2014
+
+  * Updated to support the r10d NDK.
+  * GCC 4.6 has been deprecated by Google. It is still supported, but the default GCC version vs-android uses,
+    is now GCC 4.8.
+  * Added support for GCC 4.9.
+  * Added support for the "android-21" target (aka "Android 5.0", "Lollipop").
+  * Integrated "tlog" generation fix, thanks to "drew@thedunlops".
+  * NOTE: This version has "Ignore All Default Libraries" defaulting to "No" for GCC 4.8 and 4.9. Linker errors occur 
+    otherwise, when using any C++ features. GCC 4.6 still defaults this to "Yes", as it doesn't exhibit issues.
+
 
 v0.963 - 19th July 2014
 
@@ -227,6 +237,7 @@ C.Aragones - Highlighted BrowseInformation issue.
 ted@lindenlab - VS2013 lone installs.
 "mellean" - VS2013 lone installs, and pre/post-build step fixes.
 Ilya Konstantinov - "TRACKER : error TRK0002: Failed to execute command" 64-bit NDK fix.
+drew@thedunlops - "Incorrect read.1.tlog file generated" fix.
 
 
 References

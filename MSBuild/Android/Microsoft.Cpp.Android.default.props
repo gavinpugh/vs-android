@@ -11,8 +11,8 @@
 
     <PlatformShortName>Android</PlatformShortName>
     <PlatformArchitecture>32</PlatformArchitecture>
-    <DefaultPlatformToolset Condition="'$(DefaultPlatformToolset)' == ''">arm-linux-androideabi-4.6</DefaultPlatformToolset>
-    <PlatformToolset    Condition="'$(PlatformToolset)' == ''">arm-linux-androideabi-4.6</PlatformToolset>
+    <DefaultPlatformToolset Condition="'$(DefaultPlatformToolset)' == ''">arm-linux-androideabi-4.8</DefaultPlatformToolset>
+    <PlatformToolset    Condition="'$(PlatformToolset)' == ''">arm-linux-androideabi-4.8</PlatformToolset>
     <AndroidAPILevel    Condition="'$(AndroidAPILevel)' == ''">android-9</AndroidAPILevel>
     <AndroidArch        Condition="'$(AndroidArch)'     == ''">armv5te</AndroidArch>
     <AndroidStlType     Condition="'$(AndroidStlType)'  == ''">gnustl_static</AndroidStlType>

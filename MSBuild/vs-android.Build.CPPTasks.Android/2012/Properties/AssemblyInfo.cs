@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************************************
-// (c) 2012 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
+// (c) 2014 Gavin Pugh http://www.gavpugh.com/ - Released under the open-source zlib license
 // ***********************************************************************************************
 
 using System.Reflection;
@@ -36,5 +36,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion( "0.9.6.1" )]
-[assembly: AssemblyFileVersion( "0.9.6.1" )]
+[assembly: AssemblyVersion( "0.9.6.4" )]
+[assembly: AssemblyFileVersion( "0.9.6.4" )]
