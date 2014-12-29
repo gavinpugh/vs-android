@@ -80,10 +80,13 @@
   <EnumProperty Name="PlatformToolset" DisplayName="Platform Toolset" Category="General">
     <EnumValue Name="arm-linux-androideabi-4.6" DisplayName="ARM 4.6 Toolchain (arm-linux-androideabi-4.6)" />
     <EnumValue Name="arm-linux-androideabi-4.8" DisplayName="ARM 4.8 Toolchain (arm-linux-androideabi-4.8)" />
+    <EnumValue Name="arm-linux-androideabi-4.9" DisplayName="ARM 4.9 Toolchain (arm-linux-androideabi-4.9)" />
     <EnumValue Name="x86-4.6" DisplayName="x86 4.6 Toolchain (x86-4.6)" />
     <EnumValue Name="x86-4.8" DisplayName="x86 4.8 Toolchain (x86-4.8)" />
+    <EnumValue Name="x86-4.9" DisplayName="x86 4.9 Toolchain (x86-4.9)" />
     <EnumValue Name="mipsel-linux-android-4.6" DisplayName="MIPS 4.6 Toolchain (mipsel-linux-android-4.6)" />
     <EnumValue Name="mipsel-linux-android-4.8" DisplayName="MIPS 4.8 Toolchain (mipsel-linux-android-4.8)" />
+    <EnumValue Name="mipsel-linux-android-4.9" DisplayName="MIPS 4.9 Toolchain (mipsel-linux-android-4.9)" />
   </EnumProperty>
 
   <!-- Project Defaults -->
@@ -110,6 +113,7 @@
     <EnumValue Name="android-17" DisplayName="Android 4.2 (android-17)" />
     <EnumValue Name="android-18" DisplayName="Android 4.3 (android-18)" />
     <EnumValue Name="android-19" DisplayName="Android 4.4 (android-19)" />
+    <EnumValue Name="android-21" DisplayName="Android 5.0 (android-21)" />
   </EnumProperty>
   <EnumProperty Name="AndroidArch" DisplayName="Target Architecture" Category="ProjectDefaults">
     <EnumValue Name="armv5te" DisplayName="ARM Architecture v5te (armv5te)" />

@@ -344,43 +344,54 @@ namespace vs_android.Build.CPPTasks.Android
 
 					try
 					{
-						writer.WriteLine("^" + sourcePath);
-						if (File.Exists(dotDFile))
+						List<string> dependencies = new List<string>();
+
+						dependencies.Add( "^" + sourcePath );
+
+						// don't add an entry if the object file wasn't built
+						if (!File.Exists(objectFile))
+							continue;
+
+						if (!File.Exists(dotDFile))
 						{
-							DepFileParse depFileParse = new DepFileParse(dotDFile);
+							throw new Exception( "File " + sourcePath + " is missing it's .d file: " + dotDFile );
+						}
 
-							foreach (string dependentFile in depFileParse.DependentFiles)
+						DepFileParse depFileParse = new DepFileParse(dotDFile);
+
+						foreach (string dependentFile in depFileParse.DependentFiles)
+						{
+							if (dependentFile != sourcePath)
 							{
-								if (dependentFile != sourcePath)
+								if (File.Exists(dependentFile) == false)
 								{
-									if (File.Exists(dependentFile) == false)
-									{
-										Log.LogMessage(MessageImportance.High, "File " + sourcePath + " is missing dependent file: " + dependentFile);
-									}
-
-									writer.WriteLine(dependentFile);
+									throw new Exception( "File " + sourcePath + " is missing dependent file: " + dependentFile );
 								}
-							}
 
-							if ( pchSetting == "use" )
-							{
-								writer.WriteLine( pchOutputH.ToUpperInvariant() );
-								writer.WriteLine( pchOutputGCH.ToUpperInvariant() );
-							}
-
-							// Done with this .d file. So delete it
-							try
-							{
-								File.Delete(dotDFile);
-							}
-							finally
-							{
-
+								dependencies.Add( dependentFile );
 							}
 						}
-						else if (File.Exists(objectFile))
+
+						if ( pchSetting == "use" )
 						{
-							Log.LogMessage(MessageImportance.High, "File " + sourcePath + " is missing it's .d file: " + dotDFile);
+							dependencies.Add( pchOutputH.ToUpperInvariant() );
+							dependencies.Add( pchOutputGCH.ToUpperInvariant() );
+						}
+
+						// Done with this .d file. So delete it
+						try
+						{
+							File.Delete(dotDFile);
+						}
+						finally
+						{
+
+						}
+
+						// Finally write out the file and its dependencies, must ensure success before doing this
+						foreach( var dep in dependencies )
+						{
+							writer.WriteLine( dep );
 						}
 					}
 					catch ( Exception )
