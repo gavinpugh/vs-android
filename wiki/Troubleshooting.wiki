@@ -17,26 +17,6 @@ Two things I recommend:
 
 = Compiler/Linker =
 
-== 64bit NDK - TRACKER : error TRK0002: Failed to execute command ==
-
-*This should be fixed in v0.963 - Please report it on the issues page if this isn't the case.*
-
-If you're using the 64-bit version of the NDK, you might encounter this error:
-
-{{{
-1>TRACKER : error TRK0002: Failed to execute command:
-"c:\android\android-ndk-r8e\toolchains\arm-linux-androideabi-4.6\prebuilt\windows-x86_64\bin\arm-linux-androideabi-g++.exe @d:\Temp\tmp14b3459b16dd4d418c9c88bd90e1707e.rsp". The handle is invalid.
-}}}
-
-Install the 32-bit one, and point ANDROID_NDK_ROOT at it. You should be fine.
-
-This only occurred on one particular PC I tested with. My main development PC can use the 64-bit NDK without issue.
-
-Further reading:
-
-  * http://connect.microsoft.com/VisualStudio/feedback/details/505682/x64-c-c-projects-cannot-compile
-
-
 = Debugging =
 
 vs-android currently does not officially support any debugger.
@@ -67,9 +47,9 @@ Each of these debuggers has support for vs-android, or otherwise includes a modi
 
 <code>
 1>AntBuild:
-1>  Envvar: JAVA_HOME is set to 'C:\Program Files\Java\jdk1.7.0_21'
+1>  Envvar: JAVA_HOME is set to 'C:\Program Files\Java\jdk1.8.0_05'
 1>  Envvar: JAVA_OPTS is set to ''
-1>  D:\Android\apache-ant-1.9.0\bin\ant.bat  debug
+1>  D:\Android\apache-ant-1.9.4\bin\ant.bat  debug
 1>  The system cannot execute the specified program.
 </code>
 
