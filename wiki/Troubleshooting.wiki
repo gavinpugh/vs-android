@@ -37,7 +37,7 @@ Each of these debuggers has support for vs-android, or otherwise includes a modi
   * WinGDB: http://www.wingdb.com/wgMobileEdition.htm
   * VisualGDB: http://visualgdb.com/tutorials/android/vs-android/
   * Nvidia NSight Tegra: https://developer.nvidia.com/nvidia-nsight-tegra 
-
+  * Intel INDE debugger plugin for Visual Studio: https://software.intel.com/en-us/articles/inde-getting-started-debugger-extension-for-vs-android
 
 = Ant Build =
 
