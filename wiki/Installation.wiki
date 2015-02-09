@@ -81,14 +81,8 @@ If you don't want to run the 'install_vx20XX.cmd' file, you can copy the files m
 
   * Set an environment variable named *ANT_HOME* to point to where you unzipped it. For example:
 <pre>
-`setx ANT_HOME c:\apache-ant-1.8.2`
+`setx ANT_HOME c:\apache-ant-1.9.4`
 </pre>
-
-
-=Spaces=
-
- * Starting with vs-android v0.9, all of the above SDK installations can be made to directories which contain spaces. Even the NDK!
-
 
 
 =Finished=
