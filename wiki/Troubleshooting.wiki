@@ -67,7 +67,7 @@ Set it to the path of the javaw.exe that the 32-bit SDK uses. e.g.:
 C:\Program Files (x86)\Java\jdk1.8.0_31\bin\javaw.exe
 }}}
 
-For the inquisitive, the batchfile where this issue lies, is in the Android SDK under /tools/lib.
+For the inquisitive, the batchfile where this issue lies, is in the Android SDK under /tools/lib/find_java.bat
 
 I will gladly accept a patch for this if someone wants to modify vs-android to automatically set these variables. None of the machines I have access to exhibit this behaviour.
 
