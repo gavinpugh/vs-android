@@ -43,6 +43,35 @@ Each of these debuggers has support for vs-android, or otherwise includes a modi
 
 ----
 
+== ERROR: No suitable Java found. ==
+
+The find_java batchfile and exe tools in the Android SDK have been updated by Google, and can fail on certain Windows 7 machines now. Windows 8 has been reported to be okay.
+
+A workaround for this is to set these two environment variables manually:
+
+{{{
+java_exe
+}}}
+Set it to the path of the java.exe that the 32-bit SDK uses. e.g.:
+{{{
+C:\Program Files (x86)\Java\jdk1.8.0_31\bin\java.exe
+}}}
+
+And also similarly for javaw.exe:
+
+{{{
+javaw_exe
+}}}
+Set it to the path of the java.exe that the 32-bit SDK uses. e.g.:
+{{{
+C:\Program Files (x86)\Java\jdk1.8.0_31\bin\javaw.exe
+}}}
+
+For the inquisitive, the batchfile where this issue lies, is in the Android SDK under /tools/lib.
+
+I will gladly accept a patch for this if someone wants to modify vs-android to automatically set these variables. None of the machines I have access to exhibit this behaviour.
+
+
 == The system cannot execute the specified program. ==
 
 <code>
