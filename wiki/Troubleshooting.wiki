@@ -62,7 +62,7 @@ And also similarly for javaw.exe:
 {{{
 javaw_exe
 }}}
-Set it to the path of the java.exe that the 32-bit SDK uses. e.g.:
+Set it to the path of the javaw.exe that the 32-bit SDK uses. e.g.:
 {{{
 C:\Program Files (x86)\Java\jdk1.8.0_31\bin\javaw.exe
 }}}
