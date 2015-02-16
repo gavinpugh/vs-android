@@ -47,29 +47,21 @@ Each of these debuggers has support for vs-android, or otherwise includes a modi
 
 The find_java batchfile and exe tools in the Android SDK have been updated by Google, and can fail on certain Windows 7 machines now. Windows 8 has been reported to be okay.
 
-A workaround for this is to set these two environment variables manually:
-
+A workaround for this is to edit the find_java.bat file. It can be located here under where you installed the Android SDK:
 {{{
-java_exe
-}}}
-Set it to the path of the java.exe that the 32-bit SDK uses. e.g.:
-{{{
-C:\Program Files (x86)\Java\jdk1.8.0_31\bin\java.exe
+/tools/lib/find_java.bat
 }}}
 
-And also similarly for javaw.exe:
-
+Find this line:
 {{{
-javaw_exe
+rem Check we have a valid Java.exe in the path. The return code will
 }}}
-Set it to the path of the javaw.exe that the 32-bit SDK uses. e.g.:
+and paste this line just before it:
 {{{
-C:\Program Files (x86)\Java\jdk1.8.0_31\bin\javaw.exe
+set arch_ext=32
 }}}
 
-For the inquisitive, the batchfile where this issue lies, is in the Android SDK under /tools/lib/find_java.bat
-
-I will gladly accept a patch for this if someone wants to modify vs-android to automatically set these variables. None of the machines I have access to exhibit this behaviour.
+This will force it to use the 32-bit Java checking tool, which will run properly from Visual Studio.
 
 
 == The system cannot execute the specified program. ==
