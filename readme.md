@@ -120,7 +120,7 @@ v0.94 - 24th July 2012
   * Fix to make sure ARM5/ARM7 GCC flags are passed correctly to the compiler. Thanks to 'Drew Dunlop'.
 
 v0.93 - 13th November 2011
-  * NDK `r7` was a breaking change for vs-android. This version now requires `r7` or newer to be installed.
+  * NDK 'r7' was a breaking change for vs-android. This version now requires 'r7' or newer to be installed.
   * Fixed breaking changes to the location of STL libraries. Also fixed new linking issues introduced by STL changes.
   * Removed support for defunct arm 4.4.0 toolset.
   * Added support for android-14, Android API v4.0.
