@@ -1,3 +1,9 @@
+# Installation Download
+
+  * Latest version: [vs-android-0.964.zip](http://www.gavpugh.com/downloads/vs-android-0.964.zip)
+  * Samples: [vs-android_samples.zip](http://www.gavpugh.com/downloads/vs-android_samples.zip) - Set of sample projects<br>(last updated for v0.94 - 24th July 2012 - Still works with latest)
+
+
 # Introduction
 
 <img src="http://www.gavpugh.com/img/vs-android/paneicon.png" align="right">
@@ -7,7 +13,6 @@ _vs-android_ is intended to provide a collection of scripts and utilities to sup
 vs-android supports only Visual Studio 2010, 2012 and 2013. Earlier versions lack the MSBuild integration with the C/C++ compilation systems.
 
 Also, the free "Express" editions of Visual Studio are not supported. If you wish to use a free version of Visual Studio, use the new "Community Edition" of Visual Studio 2013. That works fine with external plugins, like vs-android.
-
 
 
 # Features
@@ -23,11 +28,6 @@ Also, the free "Express" editions of Visual Studio are not supported. If you wis
   * Applications build to .apk package files, and can be deployed and ran using vs-android.
   * Supports selection of STL types, Arm Architecture, and API versions.
   * Support for the ARM, MIPS and x86 toolchains.
-
-# Download
-
-  * Latest version: [vs-android-0.964.zip](http://www.gavpugh.com/downloads/vs-android-0.964.zip)
-  * Samples: [vs-android_samples.zip](http://www.gavpugh.com/downloads/vs-android_samples.zip) - Set of sample projects<br>(last updated for v0.94 - 24th July 2012 - Still works with latest)
 
 # Installation
 
