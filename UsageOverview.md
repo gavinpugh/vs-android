@@ -1,9 +1,0 @@
-# TODO #
-
-I've decided against fleshing out this wiki page until I've finished the property pages completely.
-
-Take a look here:
-
-  * [Tech notes, and future plans](TechNotesFuturePlans.md)
-
-For a good overview of the facilities these scripts provide. In particular the property pages, and what does/doesn't function.
