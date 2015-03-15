@@ -31,16 +31,16 @@ Also, the free "Express" editions of Visual Studio are not supported. If you wis
 
 # Installation
 
-  * [Installation A guide to installing vs-android]
+  * [A guide to installing vs-android](https://github.com/gavinpugh/vs-android/blob/wiki/Installation.md)
 
 # Usage
 
-  * [HowTo_Samples Compiling a simple Android app with vs-android]
-  * [Troubleshooting Troubleshooting]
+  * [Compiling a simple Android app with vs-android](https://github.com/gavinpugh/vs-android/blob/wiki/HowTo_Samples.md)
+  * [Troubleshooting](https://github.com/gavinpugh/vs-android/blob/wiki/Troubleshooting.md)
 
 # Tech Notes / Future Plans
 
-  * [TechNotesFuturePlans Technical notes about implementation, and future plans for vs-android]
+  * [Technical notes about implementation, and future plans for vs-android] (https://github.com/gavinpugh/vs-android/blob/wiki/TechNotesFuturePlans.md)
 
 # Version History
 
