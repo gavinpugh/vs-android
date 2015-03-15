@@ -60,7 +60,7 @@ v0.963 - 19th July 2014
   * Added warning message for using the new "(64-bit Target)" NDK.
   ** Confusingly there are 32-bit and 64-bit Windows flavors of the "(32-bit Target)" and "(64-bit Target)" NDKs.
   ** vs-android only supports the "(32-bit Target)" NDK currently.
-  * Also tested vs-android against the new `r10` NDK. All toolchains and platforms are current.
+  * Also tested vs-android against the new 'r10' NDK. All toolchains and platforms are current.
 
 v0.962 - 9th June 2014
 
@@ -74,10 +74,10 @@ v0.961 - 24th February 2014
 
   * Added Precompiled Header support. Thanks to help from Richard Forster.
   * PCH support works similarly to the Win32/x64 compilers. You can enable "Create" for the compilation unit which should create the PCH, and "Use" for the project so have all files use that PCH.
-  * Projects mistakenly setting the `ObjectFileName` to a directory, will now have an explanatory error.
+  * Projects mistakenly setting the 'ObjectFileName' to a directory, will now have an explanatory error.
   * /libs/armeabi-v7a is now used when the architecture is set to "armeabi-v7a". This addresses an issue when submitting apk's to the Play Store. Thanks to Ilja Plutschouw.
-  * The default `PlatformToolset` for newly added configurations is now correctly set. Thanks to Chuck Evans.
-  * The `BrowseInformation` flag is now ignored for `ClCompile`. Oft-imported setting when creating an Android platform on a Win32 project. Compilation fails if it was enabled. Thanks to C.Aragones for the headsup.
+  * The default 'PlatformToolset' for newly added configurations is now correctly set. Thanks to Chuck Evans.
+  * The 'BrowseInformation' flag is now ignored for 'ClCompile'. Oft-imported setting when creating an Android platform on a Win32 project. Compilation fails if it was enabled. Thanks to C.Aragones for the headsup.
 
 v0.96 - 4th January 2014
 
@@ -133,7 +133,7 @@ v0.93 - 13th November 2011
   * Fixed bug with arm arch preprocessor defines not making it onto the command line.
   * Fixed bad quote removal on paths, in the C# code. Thanks to 'hoesing@kleinbottling'.
   * Removed stlport project from Google Code - This was an oversight by Google in the `r6` NDK, prebuilt is back again.
-  * Updated sample projects to work with `R15` SDK tools.
+  * Updated sample projects to work with 'R15' SDK tools.
 
 v0.92 - 3rd August 2011
   * Fixed jump-to-line clickable errors. Reworked code to use regular expressions instead. Tried a number of different compiler/linker warnings and errors and all seems to be good
@@ -150,14 +150,14 @@ v0.91 - 2nd August 2011
 
 v0.9 - 20th July 2011
   * Major update, hence the skip in numbers. Closing in on a v1.0 release.
-  * Verified working with Android NDK r5b, r5c, and `r6`.
+  * Verified working with Android NDK r5b, r5c, and 'r6'.
   * Much of vs-android functionality moved from MSBuild script to C# tasks. Similar approach now to Microsoft's existing Win32 setup.
   * Dependency checking rewritten to use tracking log files.
   * Dependency issues fixed, dependency checking also now far quicker.
   * Android Property sheets now completely replace the Microsoft ones, no more rafts of unused sheets.
   * Property sheets populated with many options. Switches are no longer hard-coded within vs-android script.
   * STL support added. Choice between 'None', 'Minimal', 'libstdc++', and 'stlport'.
-  * Support for x86 compilation with `r6` NDK.
+  * Support for x86 compilation with 'r6' NDK.
   * Full support for v7-a arm architecture, as well as the existing v5.
   * Support for Android API directories other than just 'android-9'.
   * Separated support for 'dynamic libraries' and 'applications'. Applications build to apk files.
