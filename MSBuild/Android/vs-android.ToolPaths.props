@@ -19,6 +19,7 @@
     <ArchStlDirName Condition="'$(AndroidArch)' == 'armv7-a'">armeabi-v7a</ArchStlDirName>
     <ArchStlDirName Condition="'$(AndroidArch)' == 'x86'">x86</ArchStlDirName>
     <ArchStlDirName Condition="'$(AndroidArch)' == 'mips'">mips</ArchStlDirName>
+    <ArchStlDirName Condition="'$(AndroidArch)' == 'arm64v8-a'">arm64-v8a</ArchStlDirName>
 
     <AndroidStlIncludeDir Condition="'$(AndroidStlType)' == 'system'">$(AndroidNdkDir)\sources\cxx-stl\system\include</AndroidStlIncludeDir>
     <AndroidStlIncludeDir Condition="'$(AndroidStlType)' == 'gnustl_static'">$(AndroidNdkDir)\sources\cxx-stl\gnu-libstdc++\$(GccVersion)\include;$(AndroidNdkDir)\sources\cxx-stl\gnu-libstdc++\$(GccVersion)\libs\$(ArchStlDirName)\include</AndroidStlIncludeDir>
