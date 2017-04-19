@@ -81,6 +81,7 @@
     <EnumValue Name="arm-linux-androideabi-4.6" DisplayName="ARM 4.6 Toolchain (arm-linux-androideabi-4.6)" />
     <EnumValue Name="arm-linux-androideabi-4.8" DisplayName="ARM 4.8 Toolchain (arm-linux-androideabi-4.8)" />
     <EnumValue Name="arm-linux-androideabi-4.9" DisplayName="ARM 4.9 Toolchain (arm-linux-androideabi-4.9)" />
+    <EnumValue Name="aarch64-linux-android-4.9" DisplayName="ARM64 4.9 Toolchain (aarch64-linux-android-4.9)" />
     <EnumValue Name="x86-4.6" DisplayName="x86 4.6 Toolchain (x86-4.6)" />
     <EnumValue Name="x86-4.8" DisplayName="x86 4.8 Toolchain (x86-4.8)" />
     <EnumValue Name="x86-4.9" DisplayName="x86 4.9 Toolchain (x86-4.9)" />
@@ -118,6 +119,7 @@
   <EnumProperty Name="AndroidArch" DisplayName="Target Architecture" Category="ProjectDefaults">
     <EnumValue Name="armv5te" DisplayName="ARM Architecture v5te (armv5te)" />
     <EnumValue Name="armv7-a" DisplayName="ARM Architecture v7-a (armv7-a)" />
+    <EnumValue Name="arm64v8-a" DisplayName="ARM64 Architecture v8-a (arm64v8-a)" />
     <EnumValue Name="x86" DisplayName="x86 Architecture (x86)" />
     <EnumValue Name="mips" DisplayName="MIPS Architecture (mips)" />
   </EnumProperty>
