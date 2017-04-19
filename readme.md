@@ -179,7 +179,7 @@ v0.1 - 30th Jan 2011
   * Initial version.
   * All major functionality present, barring header dependency checking.
 
-#License
+# License
 
 (c) 2015 <a href="https://plus.google.com/116894316812948433768?rel=author" rel="author">Gavin Pugh</a>
 
